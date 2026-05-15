@@ -1,0 +1,158 @@
+Crea una tienda online premium llamada ROWGOLD especializada en joyería y accesorios de lujo.
+
+TECNOLOGÍAS:
+- Next.js 14
+- React
+- TailwindCSS
+- Framer Motion
+- Three.js
+- React Three Fiber
+- TypeScript
+
+DISEÑO:
+- Estética ultra premium negra y dorada
+- Inspiración visual en Rolex, Cartier, Lamborghini y tiendas de lujo modernas
+- Fondo negro elegante con partículas doradas suaves
+- Brillos metálicos realistas
+- Diseño minimalista y cinematográfico
+- Totalmente responsive para móvil y PC
+
+LOGO:
+- Usar el logo ROWGOLD exactamente como fue proporcionado
+- NO modificar el diseño
+- Mantener caballo/corona, diamante y tipografía original
+- Agregar animación 3D premium:
+  - rotación suave
+  - efecto flotante
+  - reflejos dorados
+  - glow elegante
+  - movimiento con el mouse
+
+INTRO ANIMADA:
+- Crear una intro cinematográfica al abrir la página
+- Mostrar el logo ROWGOLD entrando con profundidad 3D
+- Fondo negro con iluminación dorada
+- Partículas doradas moviéndose
+- Sonido opcional elegante
+- Desaparecer automáticamente después de 3 segundos
+
+ESTRUCTURA DE LA TIENDA:
+
+1. Navbar premium
+- Logo ROWGOLD
+- Inicio
+- Catálogo
+- Colecciones
+- Joyas
+- Relojes
+- Accesorios
+- Sobre Nosotros
+- Contacto
+- Carrito
+- Login/Register
+
+2. Hero section
+- Video o fondo animado premium
+- Texto:
+  “Luxury Without Limits”
+- Botón:
+  “Explorar Colección”
+
+3. Catálogo premium
+- Cards modernas con hover 3D
+- Imagen grande del producto
+- Precio elegante
+- Botón comprar
+- Botón añadir al carrito
+- Animaciones smooth
+
+4. Página de producto
+- Galería de imágenes
+- Zoom premium
+- Selector de talla/color
+- Descripción elegante
+- Opiniones
+- Productos relacionados
+
+5. Carrito de compras
+- Agregar/eliminar productos
+- Cantidad dinámica
+- Resumen de compra
+- Subtotal
+- Envío
+- Total final
+
+6. Checkout profesional
+Integrar:
+- MercadoPago
+- PayPal
+- Stripe
+- Transferencia bancaria
+- Pago contra entrega opcional
+
+7. Panel de administración
+- Agregar productos
+- Editar productos
+- Eliminar productos
+- Ver órdenes
+- Ver clientes
+- Dashboard moderno
+
+8. Autenticación
+- Login
+- Registro
+- Google Auth
+- Protección de rutas
+
+9. Base de datos
+Usar:
+- Supabase o Firebase
+
+10. SEO
+- Optimización completa
+- Meta tags
+- Open Graph
+- Performance optimizada
+
+11. Animaciones avanzadas
+- Transiciones suaves
+- Scroll animations
+- Glow effects
+- Shine effects
+- Floating animations
+- Motion premium
+
+12. Footer premium
+- Redes sociales
+- WhatsApp
+- Instagram
+- TikTok
+- Soporte
+- Políticas
+- Copyright
+
+COLORES:
+- Negro profundo
+- Dorado metálico
+- Blanco elegante
+
+TIPOGRAFÍA:
+- Moderna y lujosa
+- Espaciado premium
+
+EFECTOS:
+- Glassmorphism
+- Reflejos metálicos
+- Cinematic UI
+- Hover 3D
+- Luces suaves
+
+OBJETIVO:
+La tienda debe verse como una marca multimillonaria de lujo real.
+
+Genera:
+- Código completo
+- Componentes organizados
+- Estructura profesional
+- Responsive
+- Listo para producción
