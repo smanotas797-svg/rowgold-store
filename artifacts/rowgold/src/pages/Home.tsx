@@ -2,11 +2,14 @@ import { useRef } from "react";
 import { Link } from "wouter";
 import { motion, useInView } from "framer-motion";
 import { ArrowRight, Star, Shield, Truck, Award } from "lucide-react";
-import { useGetFeaturedProducts, useListCategories, useGetCatalogStats } from "@workspace/api-client-react";
+import { useGetFeaturedProducts, useListCategories, useGetCatalogStats, useListProducts } from "@workspace/api-client-react";
 
 const GOLD = "#d4af37";
 
 function HeroSection() {
+  const { data: jewelryProducts } = useListProducts({ category: "joyas", featured: true });
+  const hero = jewelryProducts?.[0] ?? null;
+
   return (
     <section
       className="relative min-h-screen flex items-center justify-center overflow-hidden"
@@ -48,95 +51,210 @@ function HeroSection() {
         />
       ))}
 
-      {/* Content */}
-      <div className="relative z-10 text-center px-6 max-w-4xl mx-auto">
-        <motion.p
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.2 }}
-          className="text-xs tracking-[0.4em] uppercase mb-8"
-          style={{ color: "rgba(212,175,55,0.6)" }}
-        >
-          Coleccion 2024
-        </motion.p>
+      {/* Content — two column on large screens */}
+      <div className="relative z-10 w-full max-w-6xl mx-auto px-6 flex flex-col lg:flex-row items-center gap-16 lg:gap-24">
 
-        <motion.h1
-          initial={{ opacity: 0, y: 40 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 1.2, delay: 0.4, ease: [0.16, 1, 0.3, 1] }}
-          style={{
-            fontFamily: "'Cormorant Garamond', Georgia, serif",
-            fontSize: "clamp(3rem, 8vw, 6.5rem)",
-            fontWeight: 300,
-            lineHeight: 1.05,
-            letterSpacing: "0.04em",
-            color: "rgba(255,255,255,0.95)",
-          }}
-        >
-          Luxury{" "}
-          <span className="gold-shimmer" style={{ display: "inline-block" }}>
-            Without
-          </span>
-          <br />
-          Limits
-        </motion.h1>
+        {/* Left: text */}
+        <div className="flex-1 text-center lg:text-left">
+          <motion.p
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 0.2 }}
+            className="text-xs tracking-[0.4em] uppercase mb-8"
+            style={{ color: "rgba(212,175,55,0.6)" }}
+          >
+            Coleccion 2024
+          </motion.p>
 
-        <motion.div
-          initial={{ scaleX: 0 }}
-          animate={{ scaleX: 1 }}
-          transition={{ duration: 1, delay: 0.9 }}
-          className="gold-line w-24 mx-auto my-8"
-        />
+          <motion.h1
+            initial={{ opacity: 0, y: 40 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 1.2, delay: 0.4, ease: [0.16, 1, 0.3, 1] }}
+            style={{
+              fontFamily: "'Cormorant Garamond', Georgia, serif",
+              fontSize: "clamp(3rem, 7vw, 5.5rem)",
+              fontWeight: 300,
+              lineHeight: 1.05,
+              letterSpacing: "0.04em",
+              color: "rgba(255,255,255,0.95)",
+            }}
+          >
+            Luxury{" "}
+            <span className="gold-shimmer" style={{ display: "inline-block" }}>
+              Without
+            </span>
+            <br />
+            Limits
+          </motion.h1>
 
-        <motion.p
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: 0.8, delay: 1 }}
-          className="text-sm tracking-widest mb-12"
-          style={{ color: "rgba(255,255,255,0.4)", letterSpacing: "0.15em" }}
-        >
-          Joyeria fina &bull; Relojes &bull; Accesorios de lujo
-        </motion.p>
+          <motion.div
+            initial={{ scaleX: 0 }}
+            animate={{ scaleX: 1 }}
+            transition={{ duration: 1, delay: 0.9 }}
+            className="gold-line w-24 my-8 lg:mx-0 mx-auto"
+          />
 
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 1.1 }}
-          className="flex flex-col sm:flex-row gap-4 justify-center"
-        >
-          <Link href="/catalog" data-testid="button-explore-collection">
-            <motion.button
-              whileHover={{ scale: 1.04 }}
-              whileTap={{ scale: 0.97 }}
-              className="flex items-center gap-3 px-10 py-4 text-sm tracking-[0.2em] uppercase font-medium transition-all"
-              style={{
-                background: "linear-gradient(135deg, #b8960c, #d4af37, #b8960c)",
-                color: "#080808",
-                letterSpacing: "0.2em",
-                fontSize: "0.7rem",
-              }}
-            >
-              Explorar Coleccion
-              <ArrowRight size={14} />
-            </motion.button>
-          </Link>
-          <Link href="/catalog?featured=true" data-testid="button-view-featured">
-            <motion.button
-              whileHover={{ scale: 1.04, borderColor: GOLD }}
-              whileTap={{ scale: 0.97 }}
-              className="flex items-center gap-3 px-10 py-4 text-sm tracking-[0.2em] uppercase transition-all"
-              style={{
-                border: "1px solid rgba(212,175,55,0.3)",
-                color: "rgba(212,175,55,0.8)",
-                letterSpacing: "0.2em",
-                fontSize: "0.7rem",
-                background: "transparent",
-              }}
-            >
-              Piezas Destacadas
-            </motion.button>
-          </Link>
-        </motion.div>
+          <motion.p
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 0.8, delay: 1 }}
+            className="text-sm mb-10"
+            style={{ color: "rgba(255,255,255,0.35)", letterSpacing: "0.12em" }}
+          >
+            Joyeria fina &bull; Relojes &bull; Accesorios de lujo
+          </motion.p>
+
+          <motion.div
+            initial={{ opacity: 0, y: 16 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.7, delay: 1.1 }}
+          >
+            <Link href="/catalog" data-testid="button-explore-collection">
+              <motion.button
+                whileHover={{ scale: 1.04 }}
+                whileTap={{ scale: 0.97 }}
+                className="flex items-center gap-3 px-10 py-4 uppercase font-medium transition-all lg:inline-flex"
+                style={{
+                  background: "linear-gradient(135deg, #b8960c, #d4af37, #b8960c)",
+                  color: "#080808",
+                  letterSpacing: "0.2em",
+                  fontSize: "0.7rem",
+                }}
+              >
+                Explorar Coleccion
+                <ArrowRight size={14} />
+              </motion.button>
+            </Link>
+          </motion.div>
+        </div>
+
+        {/* Right: best jewelry card */}
+        {hero && (
+          <motion.div
+            initial={{ opacity: 0, x: 40, scale: 0.96 }}
+            animate={{ opacity: 1, x: 0, scale: 1 }}
+            transition={{ duration: 1, delay: 0.6, ease: [0.16, 1, 0.3, 1] }}
+            className="w-full lg:w-auto shrink-0"
+            style={{ maxWidth: 340 }}
+          >
+            <Link href={`/product/${hero.id}`} data-testid="hero-featured-product">
+              <motion.div
+                whileHover={{ y: -6, scale: 1.01 }}
+                transition={{ duration: 0.3 }}
+                className="group cursor-pointer relative"
+              >
+                {/* Glow behind card */}
+                <div
+                  className="absolute -inset-4 rounded-sm opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none"
+                  style={{
+                    background: "radial-gradient(ellipse at center, rgba(212,175,55,0.12) 0%, transparent 70%)",
+                    filter: "blur(16px)",
+                  }}
+                />
+
+                <div
+                  className="relative overflow-hidden"
+                  style={{
+                    border: "1px solid rgba(212,175,55,0.22)",
+                    background: "rgba(255,255,255,0.02)",
+                    backdropFilter: "blur(8px)",
+                  }}
+                >
+                  {/* Image */}
+                  <div className="relative overflow-hidden" style={{ aspectRatio: "3/4" }}>
+                    {hero.imageUrl ? (
+                      <motion.img
+                        src={hero.imageUrl}
+                        alt={hero.name}
+                        className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+                        style={{ filter: "brightness(0.88) contrast(1.08)" }}
+                      />
+                    ) : (
+                      <div className="w-full h-full flex items-center justify-center" style={{ background: "#111" }}>
+                        <span style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: "4rem", color: "rgba(212,175,55,0.1)" }}>RG</span>
+                      </div>
+                    )}
+
+                    {/* Top badge */}
+                    <div
+                      className="absolute top-4 left-4 px-3 py-1 text-[9px] tracking-[0.25em] uppercase"
+                      style={{
+                        background: "rgba(212,175,55,0.12)",
+                        border: "1px solid rgba(212,175,55,0.4)",
+                        color: GOLD,
+                        backdropFilter: "blur(6px)",
+                      }}
+                    >
+                      Mejor Joya
+                    </div>
+
+                    {/* Hover overlay */}
+                    <div
+                      className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-400 flex items-center justify-center"
+                      style={{ background: "rgba(0,0,0,0.35)" }}
+                    >
+                      <span
+                        className="text-[10px] tracking-[0.3em] uppercase px-6 py-3"
+                        style={{ border: "1px solid rgba(212,175,55,0.7)", color: GOLD }}
+                      >
+                        Ver Pieza
+                      </span>
+                    </div>
+                  </div>
+
+                  {/* Info strip */}
+                  <div className="px-5 py-5" style={{ background: "rgba(0,0,0,0.6)" }}>
+                    {hero.collection && (
+                      <p className="text-[9px] tracking-[0.3em] uppercase mb-1.5" style={{ color: "rgba(212,175,55,0.45)" }}>
+                        {hero.collection}
+                      </p>
+                    )}
+                    <p
+                      className="mb-3 leading-snug"
+                      style={{
+                        fontFamily: "'Cormorant Garamond', serif",
+                        fontSize: "1.15rem",
+                        color: "rgba(255,255,255,0.92)",
+                        letterSpacing: "0.04em",
+                      }}
+                    >
+                      {hero.name}
+                    </p>
+
+                    <div className="flex items-center justify-between">
+                      <span
+                        style={{
+                          fontFamily: "'Cormorant Garamond', serif",
+                          fontSize: "1.35rem",
+                          fontWeight: 500,
+                          color: GOLD,
+                        }}
+                      >
+                        ${hero.price.toLocaleString()}
+                      </span>
+
+                      {hero.rating != null && (
+                        <div className="flex items-center gap-1.5">
+                          {Array.from({ length: 5 }).map((_, i) => (
+                            <Star
+                              key={i}
+                              size={11}
+                              fill={i < Math.round(hero.rating!) ? GOLD : "transparent"}
+                              color={GOLD}
+                            />
+                          ))}
+                          <span className="text-xs ml-1" style={{ color: "rgba(212,175,55,0.55)" }}>
+                            {Number(hero.rating).toFixed(1)}
+                          </span>
+                        </div>
+                      )}
+                    </div>
+                  </div>
+                </div>
+              </motion.div>
+            </Link>
+          </motion.div>
+        )}
       </div>
 
       {/* Scroll indicator */}
