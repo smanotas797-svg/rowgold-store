@@ -1,0 +1,136 @@
+Convierte ROWGOLD en una tienda online profesional completa tipo Shopify/AliExpress.
+
+FUNCIONES IMPORTANTES:
+
+1. SISTEMA DE PRODUCTOS
+   Cada producto debe permitir:
+
+* imágenes
+* nombre
+* descripción
+* precio
+* descuento
+* stock disponible
+* categoría:
+
+  * cadenas
+  * pulseras
+  * aretes
+  * anillos
+  * relojes
+
+2. PANEL ADMINISTRADOR PRIVADO
+   Solo el administrador puede:
+
+* agregar productos
+* subir imágenes
+* editar precios
+* editar stock
+* eliminar productos
+* ver pedidos
+* cambiar estados de envío
+
+3. CARRITO DE COMPRAS
+   Funciones:
+
+* añadir al carrito
+* eliminar productos
+* cambiar cantidades
+* subtotal
+* total
+* resumen de compra
+
+Guardar carrito automáticamente.
+
+4. PASARELAS DE PAGO
+   Integrar:
+
+* MercadoPago Colombia
+* PayPal
+* Stripe
+
+Agregar:
+
+* pagos seguros
+* confirmación automática
+* estados de pago
+* checkout elegante premium
+
+5. SISTEMA DE PEDIDOS TIPO ALIEXPRESS
+   Crear sistema visual de seguimiento de pedidos.
+
+Estados:
+
+* Pedido recibido
+* Pago confirmado
+* Preparando pedido
+* Enviado
+* En camino
+* Entregado
+
+Mostrar:
+
+* barra de progreso elegante
+* timeline visual
+* animaciones suaves
+* estado actualizado
+
+6. PERFIL DE CLIENTE
+   Los usuarios pueden:
+
+* crear cuenta
+* iniciar sesión
+* ver pedidos
+* ver estado del envío
+* ver historial de compras
+
+7. NOTIFICACIONES
+   Enviar:
+
+* confirmación de pedido
+* pedido enviado
+* pedido entregado
+
+Opcional:
+
+* email
+* WhatsApp
+
+8. DISEÑO PREMIUM
+   Mantener diseño:
+
+* negro premium
+* dorado elegante
+* animaciones suaves
+* glow dorado
+* estilo lujo real
+
+9. RESPONSIVE
+   Optimizar:
+
+* móvil
+* tablet
+* PC
+
+10. BASE DE DATOS
+    Usar:
+
+* Supabase o Firebase
+
+11. SEGURIDAD
+
+* login seguro
+* protección admin
+* validaciones
+* manejo de pagos seguro
+
+12. OBJETIVO
+    La tienda debe verse como una marca multimillonaria de lujo con funciones profesionales reales tipo AliExpress o Shopify.
+
+Generar:
+
+* código completo
+* componentes organizados
+* estructura profesional
+* listo para producción
+* sin errores

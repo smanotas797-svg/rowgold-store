@@ -11,7 +11,12 @@ const INSTAGRAM_URL = "https://www.instagram.com/rowgold.accesorios?igsh=MTl4bDF
 const WHATSAPP_URL = "https://wa.me/573213195879";
 const GOLD = "#d4af37";
 
-const navLinks = [
+type NavChild = { href: string; label: string };
+type NavLink =
+  | { href: string; label: string; children?: undefined }
+  | { href?: undefined; label: string; children: NavChild[] };
+
+const navLinks: NavLink[] = [
   { href: "/", label: "Inicio" },
   { href: "/catalog", label: "Colección" },
   {
@@ -154,7 +159,7 @@ export default function Navbar() {
                               minWidth: 160,
                             }}
                           >
-                            {link.children.map((child) => (
+                            {link.children!.map((child) => (
                               <Link key={child.label} href={child.href} onClick={() => setDropdownOpen(false)}>
                                 <motion.div
                                   whileHover={{ x: 4, color: GOLD }}
@@ -227,7 +232,15 @@ export default function Navbar() {
 
             {user ? (
               <div className="hidden lg:flex items-center gap-3">
-                <span className="text-xs tracking-wider" style={{ color: "rgba(212,175,55,0.6)" }}>{user.name}</span>
+                <Link href="/profile" data-testid="link-profile">
+                  <motion.span
+                    whileHover={{ color: GOLD }}
+                    className="text-xs tracking-wider cursor-pointer transition-colors"
+                    style={{ color: "rgba(212,175,55,0.6)" }}
+                  >
+                    {user.username}
+                  </motion.span>
+                </Link>
                 {user.role === "admin" && (
                   <Link href="/admin" data-testid="link-admin">
                     <span className="text-xs tracking-[0.15em] uppercase cursor-pointer" style={{ color: "rgba(212,175,55,0.7)" }}>
@@ -323,7 +336,7 @@ export default function Navbar() {
                         >
                           {link.label}
                         </motion.div>
-                        {link.children.map((child, j) => (
+                        {link.children!.map((child, j) => (
                           <Link key={child.label} href={child.href} onClick={() => setMobileOpen(false)}>
                             <motion.div
                               initial={{ opacity: 0, x: -20 }}
@@ -384,11 +397,24 @@ export default function Navbar() {
                     </motion.div>
                   </a>
                 </div>
-                <Link href="/login" onClick={() => setMobileOpen(false)}>
-                  <div className="text-center text-xs tracking-[0.2em] uppercase cursor-pointer" style={{ color: "rgba(255,255,255,0.3)" }}>
-                    Login / Registro
+                {user ? (
+                  <div className="flex gap-6 justify-center">
+                    <Link href="/profile" onClick={() => setMobileOpen(false)}>
+                      <div className="text-center text-xs tracking-[0.2em] uppercase cursor-pointer" style={{ color: "rgba(212,175,55,0.6)" }}>
+                        Mi Perfil
+                      </div>
+                    </Link>
+                    <button onClick={() => { logout(); setMobileOpen(false); }} className="text-center text-xs tracking-[0.2em] uppercase" style={{ color: "rgba(255,255,255,0.25)", background: "transparent", border: "none" }}>
+                      Salir
+                    </button>
                   </div>
-                </Link>
+                ) : (
+                  <Link href="/login" onClick={() => setMobileOpen(false)}>
+                    <div className="text-center text-xs tracking-[0.2em] uppercase cursor-pointer" style={{ color: "rgba(255,255,255,0.3)" }}>
+                      Login / Registro
+                    </div>
+                  </Link>
+                )}
               </div>
             </div>
           </motion.div>

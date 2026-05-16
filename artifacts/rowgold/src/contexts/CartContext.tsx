@@ -1,5 +1,6 @@
-import { createContext, useContext, useCallback, useState } from "react";
+import { createContext, useContext, useCallback } from "react";
 import { useGetCart, useAddToCart, useUpdateCartItem, useRemoveFromCart, useClearCart, getGetCartQueryKey } from "@workspace/api-client-react";
+import type { Cart } from "@workspace/api-client-react";
 import { useQueryClient } from "@tanstack/react-query";
 
 const ROWGOLD_SESSION = "rowgold-session-" + Math.random().toString(36).slice(2);
@@ -14,7 +15,7 @@ function getSessionId(): string {
 export const sessionId = getSessionId();
 
 interface CartContextValue {
-  cart: ReturnType<typeof useGetCart>["data"];
+  cart: Cart | undefined;
   isLoading: boolean;
   addToCart: (productId: number, quantity?: number) => void;
   updateQuantity: (productId: number, quantity: number) => void;
@@ -31,12 +32,13 @@ const requestOptions = {
 
 export function CartProvider({ children }: { children: React.ReactNode }) {
   const queryClient = useQueryClient();
-  const { data: cart, isLoading } = useGetCart({
+  const { data: rawCart, isLoading } = useGetCart({
     query: {
       queryKey: getGetCartQueryKey(),
     },
     request: requestOptions,
   } as Parameters<typeof useGetCart>[0]);
+  const cart = rawCart as Cart | undefined;
 
   const addMutation = useAddToCart({ request: requestOptions } as Parameters<typeof useAddToCart>[0]);
   const updateMutation = useUpdateCartItem({ request: requestOptions } as Parameters<typeof useUpdateCartItem>[0]);

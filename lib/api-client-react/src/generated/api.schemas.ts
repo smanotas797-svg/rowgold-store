@@ -19,10 +19,14 @@ export interface Product {
   originalPrice?: number | null;
   category: string;
   /** @nullable */
+  subcategory?: string | null;
+  /** @nullable */
   imageUrl?: string | null;
   images?: string[];
   featured?: boolean;
   inStock: boolean;
+  /** @nullable */
+  stockQuantity?: number | null;
   /** @nullable */
   material?: string | null;
   /** @nullable */
@@ -42,10 +46,12 @@ export interface ProductInput {
   price: number;
   originalPrice?: number;
   category: string;
+  subcategory?: string;
   imageUrl?: string;
   images?: string[];
   featured?: boolean;
   inStock?: boolean;
+  stockQuantity?: number;
   material?: string;
   weight?: string;
   collection?: string;
@@ -58,10 +64,12 @@ export interface ProductUpdate {
   /** @nullable */
   originalPrice?: number | null;
   category?: string;
+  subcategory?: string;
   imageUrl?: string;
   images?: string[];
   featured?: boolean;
   inStock?: boolean;
+  stockQuantity?: number;
   material?: string;
   weight?: string;
   collection?: string;
@@ -116,8 +124,10 @@ export type OrderStatus = typeof OrderStatus[keyof typeof OrderStatus];
 
 export const OrderStatus = {
   pending: 'pending',
-  confirmed: 'confirmed',
+  payment_confirmed: 'payment_confirmed',
+  preparing: 'preparing',
   shipped: 'shipped',
+  in_transit: 'in_transit',
   delivered: 'delivered',
   cancelled: 'cancelled',
 } as const;
@@ -129,10 +139,19 @@ export interface OrderItem {
   price: number;
 }
 
+export interface OrderStatusEvent {
+  status: string;
+  timestamp: string;
+  /** @nullable */
+  note?: string | null;
+}
+
 export interface Order {
   id: number;
   /** @nullable */
   userId?: number | null;
+  /** @nullable */
+  sessionId?: string | null;
   status: OrderStatus;
   items?: OrderItem[];
   subtotal?: number;
@@ -142,7 +161,13 @@ export interface Order {
   shippingAddress?: string | null;
   /** @nullable */
   paymentMethod?: string | null;
+  /** @nullable */
+  trackingNumber?: string | null;
+  /** @nullable */
+  estimatedDelivery?: string | null;
+  statusHistory?: OrderStatusEvent[];
   createdAt: string;
+  updatedAt?: string;
 }
 
 export interface OrderInput {
@@ -160,8 +185,9 @@ export const UserRole = {
 
 export interface User {
   id: number;
-  email: string;
-  name: string;
+  username: string;
+  /** @nullable */
+  email?: string | null;
   role: UserRole;
   createdAt?: string;
 }
@@ -179,6 +205,36 @@ export interface RegisterInput {
 export interface LoginInput {
   email: string;
   password: string;
+}
+
+export interface Review {
+  id: number;
+  productId: number;
+  authorName: string;
+  /** @nullable */
+  authorEmail?: string | null;
+  /**
+     * @minimum 1
+     * @maximum 5
+     */
+  rating: number;
+  /** @nullable */
+  title?: string | null;
+  body: string;
+  verified: boolean;
+  createdAt: string;
+}
+
+export interface ReviewInput {
+  authorName: string;
+  authorEmail?: string;
+  /**
+     * @minimum 1
+     * @maximum 5
+     */
+  rating: number;
+  title?: string;
+  body: string;
 }
 
 export type ListProductsParams = {

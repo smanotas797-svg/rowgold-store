@@ -7,11 +7,14 @@
  */
 import type { OrderItem } from './orderItem';
 import type { OrderStatus } from './orderStatus';
+import type { OrderStatusEvent } from './orderStatusEvent';
 
 export interface Order {
   id: number;
   /** @nullable */
   userId?: number | null;
+  /** @nullable */
+  sessionId?: string | null;
   status: OrderStatus;
   items?: OrderItem[];
   subtotal?: number;
@@ -21,5 +24,11 @@ export interface Order {
   shippingAddress?: string | null;
   /** @nullable */
   paymentMethod?: string | null;
+  /** @nullable */
+  trackingNumber?: string | null;
+  /** @nullable */
+  estimatedDelivery?: string | null;
+  statusHistory?: OrderStatusEvent[];
   createdAt: string;
+  updatedAt?: string;
 }

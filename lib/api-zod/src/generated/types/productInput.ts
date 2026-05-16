@@ -12,10 +12,12 @@ export interface ProductInput {
   price: number;
   originalPrice?: number;
   category: string;
+  subcategory?: string;
   imageUrl?: string;
   images?: string[];
   featured?: boolean;
   inStock?: boolean;
+  stockQuantity?: number;
   material?: string;
   weight?: string;
   collection?: string;

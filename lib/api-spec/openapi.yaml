@@ -455,6 +455,8 @@ components:
           type: ["number", "null"]
         category:
           type: string
+        subcategory:
+          type: ["string", "null"]
         imageUrl:
           type: ["string", "null"]
         images:
@@ -465,6 +467,8 @@ components:
           type: boolean
         inStock:
           type: boolean
+        stockQuantity:
+          type: ["integer", "null"]
         material:
           type: ["string", "null"]
         weight:
@@ -492,6 +496,8 @@ components:
           type: number
         category:
           type: string
+        subcategory:
+          type: string
         imageUrl:
           type: string
         images:
@@ -502,6 +508,8 @@ components:
           type: boolean
         inStock:
           type: boolean
+        stockQuantity:
+          type: integer
         material:
           type: string
         weight:
@@ -522,6 +530,8 @@ components:
           type: ["number", "null"]
         category:
           type: string
+        subcategory:
+          type: string
         imageUrl:
           type: string
         images:
@@ -532,6 +542,8 @@ components:
           type: boolean
         inStock:
           type: boolean
+        stockQuantity:
+          type: integer
         material:
           type: string
         weight:
@@ -627,9 +639,11 @@ components:
           type: integer
         userId:
           type: ["integer", "null"]
+        sessionId:
+          type: ["string", "null"]
         status:
           type: string
-          enum: [pending, confirmed, shipped, delivered, cancelled]
+          enum: [pending, payment_confirmed, preparing, shipped, in_transit, delivered, cancelled]
         items:
           type: array
           items:
@@ -644,8 +658,29 @@ components:
           type: ["string", "null"]
         paymentMethod:
           type: ["string", "null"]
+        trackingNumber:
+          type: ["string", "null"]
+        estimatedDelivery:
+          type: ["string", "null"]
+        statusHistory:
+          type: array
+          items:
+            $ref: "#/components/schemas/OrderStatusEvent"
         createdAt:
           type: string
+        updatedAt:
+          type: string
+
+    OrderStatusEvent:
+      type: object
+      required: [status, timestamp]
+      properties:
+        status:
+          type: string
+        timestamp:
+          type: string
+        note:
+          type: ["string", "null"]
 
     OrderItem:
       type: object
@@ -671,14 +706,14 @@ components:
 
     User:
       type: object
-      required: [id, email, name, role]
+      required: [id, username, role]
       properties:
         id:
           type: integer
+        username:
+          type: string
         email:
-          type: string
-        name:
-          type: string
+          type: ["string", "null"]
         role:
           type: string
           enum: [customer, admin]

@@ -13,10 +13,12 @@ export interface ProductUpdate {
   /** @nullable */
   originalPrice?: number | null;
   category?: string;
+  subcategory?: string;
   imageUrl?: string;
   images?: string[];
   featured?: boolean;
   inStock?: boolean;
+  stockQuantity?: number;
   material?: string;
   weight?: string;
   collection?: string;

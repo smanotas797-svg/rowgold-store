@@ -16,10 +16,14 @@ export interface Product {
   originalPrice?: number | null;
   category: string;
   /** @nullable */
+  subcategory?: string | null;
+  /** @nullable */
   imageUrl?: string | null;
   images?: string[];
   featured?: boolean;
   inStock: boolean;
+  /** @nullable */
+  stockQuantity?: number | null;
   /** @nullable */
   material?: string | null;
   /** @nullable */

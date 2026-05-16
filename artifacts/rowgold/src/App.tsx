@@ -14,6 +14,8 @@ import ProductDetail from "@/pages/ProductDetail";
 import Cart from "@/pages/Cart";
 import Checkout from "@/pages/Checkout";
 import Orders from "@/pages/Orders";
+import OrderDetail from "@/pages/OrderDetail";
+import Profile from "@/pages/Profile";
 import Login from "@/pages/Login";
 import Register from "@/pages/Register";
 import Admin from "@/pages/Admin";
@@ -21,10 +23,7 @@ import NotFound from "@/pages/not-found";
 
 const queryClient = new QueryClient({
   defaultOptions: {
-    queries: {
-      retry: 1,
-      staleTime: 30_000,
-    },
+    queries: { retry: 1, staleTime: 30_000 },
   },
 });
 
@@ -37,7 +36,7 @@ function PageWrapper({ children }: { children: React.ReactNode }) {
   const showFooter = !PAGES_WITHOUT_FOOTER.some((p) => path.endsWith(p));
 
   return (
-    <div style={{ minHeight: "100vh", background: "#080808" }}>
+    <div style={{ minHeight: "100vh", background: "#060606" }}>
       {showNavbar && <Navbar />}
       <main>{children}</main>
       {showFooter && <Footer />}
@@ -55,6 +54,8 @@ function Router() {
       <Route path="/cart" component={() => <PageWrapper><Cart /></PageWrapper>} />
       <Route path="/checkout" component={() => <PageWrapper><Checkout /></PageWrapper>} />
       <Route path="/orders" component={() => <PageWrapper><Orders /></PageWrapper>} />
+      <Route path="/orders/:id" component={({ params }) => <PageWrapper><OrderDetail id={params.id} /></PageWrapper>} />
+      <Route path="/profile" component={() => <PageWrapper><Profile /></PageWrapper>} />
       <Route path="/login" component={() => <Login />} />
       <Route path="/register" component={() => <Register />} />
       <Route path="/admin" component={() => <PageWrapper><Admin /></PageWrapper>} />

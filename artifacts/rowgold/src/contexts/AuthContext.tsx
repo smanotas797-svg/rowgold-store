@@ -1,12 +1,13 @@
 import { createContext, useContext, useCallback } from "react";
 import { useGetMe, useLogin, useLogout, useRegister, getGetMeQueryKey } from "@workspace/api-client-react";
+import type { User } from "@workspace/api-client-react";
 import { useQueryClient } from "@tanstack/react-query";
 import { sessionId } from "./CartContext";
 
 const requestOptions = { headers: { "x-session-id": sessionId } };
 
 interface AuthContextValue {
-  user: ReturnType<typeof useGetMe>["data"] | null;
+  user: User | null;
   isLoading: boolean;
   isAuthenticated: boolean;
   login: (email: string, password: string) => Promise<void>;
@@ -18,7 +19,7 @@ const AuthContext = createContext<AuthContextValue | null>(null);
 
 export function AuthProvider({ children }: { children: React.ReactNode }) {
   const queryClient = useQueryClient();
-  const { data: user, isLoading } = useGetMe({
+  const { data: rawUser, isLoading } = useGetMe({
     query: {
       queryKey: getGetMeQueryKey(),
       retry: false,
@@ -26,6 +27,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     },
     request: requestOptions,
   } as Parameters<typeof useGetMe>[0]);
+  const user = rawUser as User | undefined;
 
   const loginMutation = useLogin({ request: requestOptions } as Parameters<typeof useLogin>[0]);
   const logoutMutation = useLogout({ request: requestOptions } as Parameters<typeof useLogout>[0]);
