@@ -1,7 +1,7 @@
 import { Router } from "express";
 import { db, reviewsTable, productsTable } from "@workspace/db";
 import { eq, avg, count, sql } from "drizzle-orm";
-import { z } from "zod/v4";
+import { z } from "zod";
 
 const router = Router();
 
