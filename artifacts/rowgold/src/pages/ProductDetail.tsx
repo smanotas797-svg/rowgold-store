@@ -1,8 +1,16 @@
 import { useState } from "react";
 import { Link } from "wouter";
 import { motion } from "framer-motion";
-import { ShoppingBag, Star, ChevronLeft, Minus, Plus, Shield, Truck } from "lucide-react";
-import { useGetProduct, useListProducts } from "@workspace/api-client-react";
+import {
+  ShoppingBag,
+  Star,
+  ChevronLeft,
+  Minus,
+  Plus,
+  Shield,
+  Truck,
+} from "lucide-react";
+import { useGetProduct } from "@workspace/api-client-react";
 import { useCart } from "@/contexts/CartContext";
 import { ProductCard } from "./Home";
 
@@ -36,7 +44,10 @@ export default function ProductDetail({ id }: Props) {
 
   if (isLoading) {
     return (
-      <div className="min-h-screen pt-24 flex items-center justify-center" style={{ background: "#080808" }}>
+      <div
+        className="min-h-screen pt-24 flex items-center justify-center"
+        style={{ background: "#080808" }}
+      >
         <div className="text-center">
           <div
             className="w-8 h-8 border-t mx-auto animate-spin"
@@ -49,12 +60,24 @@ export default function ProductDetail({ id }: Props) {
 
   if (!product) {
     return (
-      <div className="min-h-screen pt-24 flex flex-col items-center justify-center gap-6" style={{ background: "#080808" }}>
-        <p style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: "1.5rem", color: "rgba(255,255,255,0.3)" }}>
+      <div
+        className="min-h-screen pt-24 flex flex-col items-center justify-center gap-6"
+        style={{ background: "#080808" }}
+      >
+        <p
+          style={{
+            fontFamily: "'Cormorant Garamond', serif",
+            fontSize: "1.5rem",
+            color: "rgba(255,255,255,0.3)",
+          }}
+        >
           Producto no encontrado
         </p>
         <Link href="/catalog">
-          <button className="text-xs tracking-widest uppercase border px-8 py-3" style={{ border: `1px solid ${GOLD}`, color: GOLD }}>
+          <button
+            className="text-xs tracking-widest uppercase border px-8 py-3"
+            style={{ border: `1px solid ${GOLD}`, color: GOLD }}
+          >
             Ver Catalogo
           </button>
         </Link>
@@ -62,7 +85,9 @@ export default function ProductDetail({ id }: Props) {
     );
   }
 
-  const images = [product.imageUrl, ...(product.images ?? [])].filter(Boolean) as string[];
+  const images = [product.imageUrl, ...(product.images ?? [])].filter(
+    Boolean,
+  ) as string[];
 
   return (
     <div className="min-h-screen pt-24 pb-20" style={{ background: "#080808" }}>
@@ -74,13 +99,19 @@ export default function ProductDetail({ id }: Props) {
           className="flex items-center gap-2 mb-10"
         >
           <Link href="/catalog">
-            <span className="flex items-center gap-1 text-xs tracking-widest uppercase cursor-pointer hover:text-amber-400 transition-colors" style={{ color: "rgba(255,255,255,0.3)" }}>
+            <span
+              className="flex items-center gap-1 text-xs tracking-widest uppercase cursor-pointer hover:text-amber-400 transition-colors"
+              style={{ color: "rgba(255,255,255,0.3)" }}
+            >
               <ChevronLeft size={12} />
               Catalogo
             </span>
           </Link>
           <span style={{ color: "rgba(212,175,55,0.3)" }}>/</span>
-          <span className="text-xs tracking-widest uppercase" style={{ color: "rgba(212,175,55,0.6)" }}>
+          <span
+            className="text-xs tracking-widest uppercase"
+            style={{ color: "rgba(212,175,55,0.6)" }}
+          >
             {product.name}
           </span>
         </motion.div>
@@ -88,7 +119,11 @@ export default function ProductDetail({ id }: Props) {
         {/* Main layout */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 mb-24">
           {/* Gallery */}
-          <motion.div initial={{ opacity: 0, x: -30 }} animate={{ opacity: 1, x: 0 }} transition={{ duration: 0.8 }}>
+          <motion.div
+            initial={{ opacity: 0, x: -30 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.8 }}
+          >
             <div
               className="luxury-card overflow-hidden mb-4"
               style={{ aspectRatio: "1/1", borderRadius: 2 }}
@@ -108,9 +143,19 @@ export default function ProductDetail({ id }: Props) {
               ) : (
                 <div
                   className="w-full h-full flex items-center justify-center"
-                  style={{ background: "linear-gradient(135deg, #111, #1a1a00)" }}
+                  style={{
+                    background: "linear-gradient(135deg, #111, #1a1a00)",
+                  }}
                 >
-                  <span style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: "5rem", color: "rgba(212,175,55,0.1)" }}>RG</span>
+                  <span
+                    style={{
+                      fontFamily: "'Cormorant Garamond', serif",
+                      fontSize: "5rem",
+                      color: "rgba(212,175,55,0.1)",
+                    }}
+                  >
+                    RG
+                  </span>
                 </div>
               )}
             </div>
@@ -129,7 +174,12 @@ export default function ProductDetail({ id }: Props) {
                       borderRadius: 2,
                     }}
                   >
-                    <img src={img} alt="" className="w-full h-full object-cover" style={{ filter: "brightness(0.85)" }} />
+                    <img
+                      src={img}
+                      alt=""
+                      className="w-full h-full object-cover"
+                      style={{ filter: "brightness(0.85)" }}
+                    />
                   </button>
                 ))}
               </div>
@@ -137,9 +187,17 @@ export default function ProductDetail({ id }: Props) {
           </motion.div>
 
           {/* Info */}
-          <motion.div initial={{ opacity: 0, x: 30 }} animate={{ opacity: 1, x: 0 }} transition={{ duration: 0.8 }}>
-            <p className="text-xs tracking-[0.3em] uppercase mb-3" style={{ color: "rgba(212,175,55,0.5)" }}>
-              {product.category} {product.collection ? `· ${product.collection}` : ""}
+          <motion.div
+            initial={{ opacity: 0, x: 30 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.8 }}
+          >
+            <p
+              className="text-xs tracking-[0.3em] uppercase mb-3"
+              style={{ color: "rgba(212,175,55,0.5)" }}
+            >
+              {product.category}{" "}
+              {product.collection ? `· ${product.collection}` : ""}
             </p>
 
             <h1
@@ -159,9 +217,19 @@ export default function ProductDetail({ id }: Props) {
             {product.rating && (
               <div className="flex items-center gap-2 mb-6">
                 {Array.from({ length: 5 }).map((_, i) => (
-                  <Star key={i} size={14} fill={i < Math.round(product.rating!) ? GOLD : "transparent"} color={GOLD} />
+                  <Star
+                    key={i}
+                    size={14}
+                    fill={
+                      i < Math.round(product.rating!) ? GOLD : "transparent"
+                    }
+                    color={GOLD}
+                  />
                 ))}
-                <span className="text-xs" style={{ color: "rgba(212,175,55,0.5)" }}>
+                <span
+                  className="text-xs"
+                  style={{ color: "rgba(212,175,55,0.5)" }}
+                >
                   {product.rating.toFixed(1)} ({product.reviewCount} reseñas)
                 </span>
               </div>
@@ -180,7 +248,10 @@ export default function ProductDetail({ id }: Props) {
                 ${product.price.toLocaleString()}
               </span>
               {product.originalPrice && (
-                <span className="text-lg line-through" style={{ color: "rgba(255,255,255,0.2)" }}>
+                <span
+                  className="text-lg line-through"
+                  style={{ color: "rgba(255,255,255,0.2)" }}
+                >
                   ${product.originalPrice.toLocaleString()}
                 </span>
               )}
@@ -189,7 +260,14 @@ export default function ProductDetail({ id }: Props) {
             <div className="gold-line mb-8" />
 
             {product.description && (
-              <p className="text-sm leading-relaxed mb-8" style={{ color: "rgba(255,255,255,0.5)", lineHeight: 1.8, letterSpacing: "0.03em" }}>
+              <p
+                className="text-sm leading-relaxed mb-8"
+                style={{
+                  color: "rgba(255,255,255,0.5)",
+                  lineHeight: 1.8,
+                  letterSpacing: "0.03em",
+                }}
+              >
                 {product.description}
               </p>
             )}
@@ -198,22 +276,50 @@ export default function ProductDetail({ id }: Props) {
             <div className="grid grid-cols-2 gap-4 mb-8">
               {product.material && (
                 <div>
-                  <p className="text-[10px] tracking-widest uppercase mb-1" style={{ color: "rgba(212,175,55,0.4)" }}>Material</p>
-                  <p className="text-sm" style={{ color: "rgba(255,255,255,0.65)" }}>{product.material}</p>
+                  <p
+                    className="text-[10px] tracking-widest uppercase mb-1"
+                    style={{ color: "rgba(212,175,55,0.4)" }}
+                  >
+                    Material
+                  </p>
+                  <p
+                    className="text-sm"
+                    style={{ color: "rgba(255,255,255,0.65)" }}
+                  >
+                    {product.material}
+                  </p>
                 </div>
               )}
               {product.weight && (
                 <div>
-                  <p className="text-[10px] tracking-widest uppercase mb-1" style={{ color: "rgba(212,175,55,0.4)" }}>Peso</p>
-                  <p className="text-sm" style={{ color: "rgba(255,255,255,0.65)" }}>{product.weight}</p>
+                  <p
+                    className="text-[10px] tracking-widest uppercase mb-1"
+                    style={{ color: "rgba(212,175,55,0.4)" }}
+                  >
+                    Peso
+                  </p>
+                  <p
+                    className="text-sm"
+                    style={{ color: "rgba(255,255,255,0.65)" }}
+                  >
+                    {product.weight}
+                  </p>
                 </div>
               )}
             </div>
 
             {/* Quantity */}
             <div className="flex items-center gap-4 mb-6">
-              <p className="text-xs tracking-widest uppercase" style={{ color: "rgba(255,255,255,0.3)" }}>Cantidad</p>
-              <div className="flex items-center" style={{ border: "1px solid rgba(212,175,55,0.2)" }}>
+              <p
+                className="text-xs tracking-widest uppercase"
+                style={{ color: "rgba(255,255,255,0.3)" }}
+              >
+                Cantidad
+              </p>
+              <div
+                className="flex items-center"
+                style={{ border: "1px solid rgba(212,175,55,0.2)" }}
+              >
                 <button
                   onClick={() => setQuantity(Math.max(1, quantity - 1))}
                   data-testid="button-qty-minus"
@@ -257,18 +363,50 @@ export default function ProductDetail({ id }: Props) {
               }}
             >
               <ShoppingBag size={16} />
-              {!product.inStock ? "Sin Stock" : added ? "Agregado al Carrito" : "Agregar al Carrito"}
+              {!product.inStock
+                ? "Sin Stock"
+                : added
+                  ? "Agregado al Carrito"
+                  : "Agregar al Carrito"}
             </motion.button>
 
             {/* Trust */}
             <div className="grid grid-cols-2 gap-3 mt-8">
-              <div className="flex items-center gap-2 p-3" style={{ border: "1px solid rgba(212,175,55,0.1)", background: "rgba(212,175,55,0.02)" }}>
+              <div
+                className="flex items-center gap-2 p-3"
+                style={{
+                  border: "1px solid rgba(212,175,55,0.1)",
+                  background: "rgba(212,175,55,0.02)",
+                }}
+              >
                 <Shield size={14} style={{ color: GOLD }} />
-                <span className="text-xs" style={{ color: "rgba(255,255,255,0.4)", letterSpacing: "0.04em" }}>Garantia Autentica</span>
+                <span
+                  className="text-xs"
+                  style={{
+                    color: "rgba(255,255,255,0.4)",
+                    letterSpacing: "0.04em",
+                  }}
+                >
+                  Garantia Autentica
+                </span>
               </div>
-              <div className="flex items-center gap-2 p-3" style={{ border: "1px solid rgba(212,175,55,0.1)", background: "rgba(212,175,55,0.02)" }}>
+              <div
+                className="flex items-center gap-2 p-3"
+                style={{
+                  border: "1px solid rgba(212,175,55,0.1)",
+                  background: "rgba(212,175,55,0.02)",
+                }}
+              >
                 <Truck size={14} style={{ color: GOLD }} />
-                <span className="text-xs" style={{ color: "rgba(255,255,255,0.4)", letterSpacing: "0.04em" }}>Envio Asegurado</span>
+                <span
+                  className="text-xs"
+                  style={{
+                    color: "rgba(255,255,255,0.4)",
+                    letterSpacing: "0.04em",
+                  }}
+                >
+                  Envio Asegurado
+                </span>
               </div>
             </div>
           </motion.div>
