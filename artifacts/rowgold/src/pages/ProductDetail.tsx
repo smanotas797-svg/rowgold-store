@@ -25,7 +25,7 @@ export default function ProductDetail({ id }: Props) {
   const { data: product, isLoading } = useGetProduct(productId, {
     query: { enabled: !!productId, queryKey: ["getProduct", productId] },
   });
-  const { data: allProducts } = useListProducts({});
+  const allProducts = [];
   const { addToCart } = useCart();
   const [quantity, setQuantity] = useState(1);
   const [selectedImage, setSelectedImage] = useState(0);
