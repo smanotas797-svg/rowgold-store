@@ -13,11 +13,9 @@ const GOLD = "#d4af37";
    HERO
 ───────────────────────────────────────────── */
 function HeroSection() {
-  const { data: jewelryProducts } = useGetFeaturedProducts({
-    category: "joyas",
-    featured: true,
-  });
-  const hero = Array.isArray(jewelryProducts) ? jewelryProducts[0] : null;
+  const { data: jewelryProducts } = useGetFeaturedProducts();
+
+  const hero = jewelryProducts?.length ? jewelryProducts[0] : null;
 
   return (
     <section

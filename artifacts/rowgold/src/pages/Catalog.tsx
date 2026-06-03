@@ -68,21 +68,24 @@ export default function Catalog() {
   const [sortBy, setSortBy] = useState("default");
   const [showFilters, setShowFilters] = useState(false);
 
-  const { data: products, isLoading } = useGetFeaturedProducts({
-    category: selectedCategory || undefined,
-  });
+  const { data: products, isLoading } = useGetFeaturedProducts();
   const { data: categories } = useListCategories();
 
   const hasSubs = selectedCategory && SUBCATEGORY_MAP[selectedCategory];
 
   const filtered = (products ?? [])
     .filter((p) => {
+      if (selectedCategory && p.category !== selectedCategory) return false;
+
       if (search && !p.name.toLowerCase().includes(search.toLowerCase()))
         return false;
+
       if (selectedSub) {
         const sub = (p as { subcategory?: string }).subcategory;
+
         if (sub !== selectedSub) return false;
       }
+
       return true;
     })
     .sort((a, b) => {

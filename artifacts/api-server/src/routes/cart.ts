@@ -1,7 +1,12 @@
 import { Router } from "express";
 import { db, cartItemsTable, productsTable } from "@workspace/db";
 import { eq, and } from "drizzle-orm";
-import { AddToCartBody, UpdateCartItemBody, UpdateCartItemParams, RemoveFromCartParams } from "@workspace/api-zod";
+import {
+  AddToCartBody,
+  UpdateCartItemBody,
+  UpdateCartItemParams,
+  RemoveFromCartParams,
+} from "@workspace/api-zod";
 
 const router = Router();
 
@@ -11,13 +16,19 @@ function getSessionId(req: import("express").Request): string {
 }
 
 async function buildCart(sessionId: string) {
-  const items = await db.select().from(cartItemsTable).where(eq(cartItemsTable.sessionId, sessionId));
+  const items = await db
+    .select()
+    .from(cartItemsTable)
+    .where(eq(cartItemsTable.sessionId, sessionId));
 
   const cartItems = [];
   let subtotal = 0;
 
   for (const item of items) {
-    const [product] = await db.select().from(productsTable).where(eq(productsTable.id, item.productId));
+    const [product] = await db
+      .select()
+      .from(productsTable)
+      .where(eq(productsTable.id, item.productId));
     if (!product) continue;
 
     const price = Number(product.price);
@@ -29,10 +40,14 @@ async function buildCart(sessionId: string) {
       product: {
         ...product,
         price,
-        originalPrice: product.originalPrice ? Number(product.originalPrice) : null,
+        originalPrice: product.originalPrice
+          ? Number(product.originalPrice)
+          : null,
         rating: product.rating ? Number(product.rating) : null,
-        images: (product.images as string[]) ?? [],
-        createdAt: product.createdAt.toISOString(),
+        images: Array.isArray(product.images) ? product.images : [],
+        createdAt: product.createdAt
+          ? new Date(product.createdAt).toISOString()
+          : null,
       },
     });
   }
@@ -65,7 +80,12 @@ router.post("/cart/items", async (req, res) => {
     const [existing] = await db
       .select()
       .from(cartItemsTable)
-      .where(and(eq(cartItemsTable.sessionId, sessionId), eq(cartItemsTable.productId, body.productId)));
+      .where(
+        and(
+          eq(cartItemsTable.sessionId, sessionId),
+          eq(cartItemsTable.productId, body.productId),
+        ),
+      );
 
     if (existing) {
       await db
@@ -90,18 +110,30 @@ router.post("/cart/items", async (req, res) => {
 router.patch("/cart/items/:productId", async (req, res) => {
   try {
     const sessionId = getSessionId(req);
-    const { productId } = UpdateCartItemParams.parse({ productId: Number(req.params.productId) });
+    const { productId } = UpdateCartItemParams.parse({
+      productId: Number(req.params.productId),
+    });
     const body = UpdateCartItemBody.parse(req.body);
 
     if (body.quantity <= 0) {
       await db
         .delete(cartItemsTable)
-        .where(and(eq(cartItemsTable.sessionId, sessionId), eq(cartItemsTable.productId, productId)));
+        .where(
+          and(
+            eq(cartItemsTable.sessionId, sessionId),
+            eq(cartItemsTable.productId, productId),
+          ),
+        );
     } else {
       await db
         .update(cartItemsTable)
         .set({ quantity: body.quantity })
-        .where(and(eq(cartItemsTable.sessionId, sessionId), eq(cartItemsTable.productId, productId)));
+        .where(
+          and(
+            eq(cartItemsTable.sessionId, sessionId),
+            eq(cartItemsTable.productId, productId),
+          ),
+        );
     }
 
     res.json(await buildCart(sessionId));
@@ -114,11 +146,18 @@ router.patch("/cart/items/:productId", async (req, res) => {
 router.delete("/cart/items/:productId", async (req, res) => {
   try {
     const sessionId = getSessionId(req);
-    const { productId } = RemoveFromCartParams.parse({ productId: Number(req.params.productId) });
+    const { productId } = RemoveFromCartParams.parse({
+      productId: Number(req.params.productId),
+    });
 
     await db
       .delete(cartItemsTable)
-      .where(and(eq(cartItemsTable.sessionId, sessionId), eq(cartItemsTable.productId, productId)));
+      .where(
+        and(
+          eq(cartItemsTable.sessionId, sessionId),
+          eq(cartItemsTable.productId, productId),
+        ),
+      );
 
     res.json(await buildCart(sessionId));
   } catch (err) {
@@ -130,7 +169,9 @@ router.delete("/cart/items/:productId", async (req, res) => {
 router.delete("/cart/clear", async (req, res) => {
   try {
     const sessionId = getSessionId(req);
-    await db.delete(cartItemsTable).where(eq(cartItemsTable.sessionId, sessionId));
+    await db
+      .delete(cartItemsTable)
+      .where(eq(cartItemsTable.sessionId, sessionId));
     res.json(await buildCart(sessionId));
   } catch (err) {
     req.log.error({ err }, "Failed to clear cart");

@@ -133,7 +133,8 @@ export default function Admin() {
   const queryClient = useQueryClient();
   const { data: products, isLoading: productsLoading } =
     useGetFeaturedProducts();
-  const { data: orders } = useListOrders();
+
+  const { data: orders, isLoading: ordersLoading } = useListOrders();
   const { data: stats } = useGetCatalogStats();
   const createProduct = useCreateProduct();
   const deleteProduct = useDeleteProduct();
@@ -775,7 +776,7 @@ export default function Admin() {
                         </td>
                       </tr>
                     ) : (
-                      (products ?? []).map((p) => (
+                      (products ?? []).map((p: any) => (
                         <tr
                           key={p.id}
                           className="transition-colors hover:bg-amber-400/[0.02]"
@@ -794,6 +795,7 @@ export default function Admin() {
                                   style={{ borderRadius: 1 }}
                                 />
                               )}
+
                               <span
                                 className="text-sm"
                                 style={{ color: "rgba(255,255,255,0.75)" }}
@@ -802,18 +804,21 @@ export default function Admin() {
                               </span>
                             </div>
                           </td>
+
                           <td
                             className="px-5 py-4 text-xs capitalize"
                             style={{ color: "rgba(212,175,55,0.55)" }}
                           >
                             {p.category}
                           </td>
+
                           <td
                             className="px-5 py-4 text-xs capitalize"
                             style={{ color: "rgba(212,175,55,0.35)" }}
                           >
                             {(p as { subcategory?: string }).subcategory ?? "—"}
                           </td>
+
                           <td
                             className="px-5 py-4 text-sm whitespace-nowrap"
                             style={{
@@ -823,6 +828,7 @@ export default function Admin() {
                           >
                             ${Number(p.price).toLocaleString()}
                           </td>
+
                           <td className="px-5 py-4">
                             <span
                               className="text-xs px-2 py-1"
@@ -834,6 +840,7 @@ export default function Admin() {
                               {p.inStock ? "Disponible" : "Agotado"}
                             </span>
                           </td>
+
                           <td className="px-5 py-4">
                             <button
                               onClick={() => handleDelete(p.id)}

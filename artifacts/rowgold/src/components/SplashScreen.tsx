@@ -13,7 +13,11 @@ interface Particle {
   opacity: number;
 }
 
-export default function SplashScreen({ onComplete }: { onComplete: () => void }) {
+export default function SplashScreen({
+  onComplete,
+}: {
+  onComplete: () => void;
+}) {
   const [visible, setVisible] = useState(true);
   const [particles, setParticles] = useState<Particle[]>([]);
 
@@ -49,7 +53,7 @@ export default function SplashScreen({ onComplete }: { onComplete: () => void })
           style={{ background: "#080808" }}
         >
           {/* Gold particles */}
-          {particles.map((p) => (
+          {particles.map((p: any) => (
             <motion.div
               key={p.id}
               className="absolute rounded-full"
@@ -85,7 +89,8 @@ export default function SplashScreen({ onComplete }: { onComplete: () => void })
               width: 500,
               height: 500,
               borderRadius: "50%",
-              background: "radial-gradient(circle, rgba(212,175,55,0.15) 0%, rgba(212,175,55,0.05) 40%, transparent 70%)",
+              background:
+                "radial-gradient(circle, rgba(212,175,55,0.15) 0%, rgba(212,175,55,0.05) 40%, transparent 70%)",
             }}
           />
 
@@ -104,10 +109,16 @@ export default function SplashScreen({ onComplete }: { onComplete: () => void })
               <motion.div
                 initial={{ opacity: 0 }}
                 animate={{ opacity: [0, 0.6, 0.3, 0.7, 0.4] }}
-                transition={{ duration: 2, delay: 0.8, repeat: Infinity, repeatType: "mirror" }}
+                transition={{
+                  duration: 2,
+                  delay: 0.8,
+                  repeat: Infinity,
+                  repeatType: "mirror",
+                }}
                 className="absolute inset-0 rounded-full"
                 style={{
-                  background: "radial-gradient(circle, rgba(212,175,55,0.4) 0%, transparent 70%)",
+                  background:
+                    "radial-gradient(circle, rgba(212,175,55,0.4) 0%, transparent 70%)",
                   filter: "blur(20px)",
                   transform: "scale(1.5)",
                 }}
@@ -119,7 +130,8 @@ export default function SplashScreen({ onComplete }: { onComplete: () => void })
                   width: 280,
                   height: 280,
                   objectFit: "contain",
-                  filter: "drop-shadow(0 0 20px rgba(212,175,55,0.5)) drop-shadow(0 0 40px rgba(212,175,55,0.2))",
+                  filter:
+                    "drop-shadow(0 0 20px rgba(212,175,55,0.5)) drop-shadow(0 0 40px rgba(212,175,55,0.2))",
                 }}
               />
             </motion.div>
@@ -152,9 +164,20 @@ export default function SplashScreen({ onComplete }: { onComplete: () => void })
             animate={{ opacity: 1 }}
             transition={{ delay: 1, duration: 0.5 }}
           >
-            <div style={{ width: 180, height: 1, background: "rgba(212,175,55,0.2)", borderRadius: 1 }}>
+            <div
+              style={{
+                width: 180,
+                height: 1,
+                background: "rgba(212,175,55,0.2)",
+                borderRadius: 1,
+              }}
+            >
               <motion.div
-                style={{ height: "100%", background: "#d4af37", borderRadius: 1 }}
+                style={{
+                  height: "100%",
+                  background: "#d4af37",
+                  borderRadius: 1,
+                }}
                 initial={{ width: "0%" }}
                 animate={{ width: "100%" }}
                 transition={{ duration: 2.5, ease: "linear", delay: 0.5 }}

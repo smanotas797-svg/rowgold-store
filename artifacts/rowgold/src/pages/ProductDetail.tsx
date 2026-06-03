@@ -10,7 +10,12 @@ import {
   Shield,
   Truck,
 } from "lucide-react";
-import { useGetProduct } from "@workspace/api-client-react";
+
+import {
+  useGetProduct,
+  useGetFeaturedProducts,
+} from "@workspace/api-client-react";
+
 import { useCart } from "@/contexts/CartContext";
 import { ProductCard } from "./Home";
 
@@ -25,7 +30,7 @@ export default function ProductDetail({ id }: Props) {
   const { data: product, isLoading } = useGetProduct(productId, {
     query: { enabled: !!productId, queryKey: ["getProduct", productId] },
   });
-  const allProducts = [];
+  const { data: allProducts = [] } = useGetFeaturedProducts();
   const { addToCart } = useCart();
   const [quantity, setQuantity] = useState(1);
   const [selectedImage, setSelectedImage] = useState(0);
@@ -429,7 +434,7 @@ export default function ProductDetail({ id }: Props) {
               Piezas Relacionadas
             </h2>
             <div className="grid grid-cols-2 lg:grid-cols-4 gap-5">
-              {related.map((p, i) => (
+              {related.map((p: any, i: number) => (
                 <ProductCard key={p.id} product={p} index={i} inView />
               ))}
             </div>
