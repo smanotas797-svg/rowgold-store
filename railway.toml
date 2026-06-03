@@ -1,0 +1,5 @@
+[build]
+builder = "railpack"
+
+[deploy]
+startCommand = "cd artifacts/api-server && pnpm start"
