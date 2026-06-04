@@ -15,26 +15,19 @@ const router = Router();
 
 router.get("/products", async (req, res) => {
   try {
-    let products = await db.select().from(productsTable);
+    const products = await db.select().from(productsTable);
     
-    // Convertimos a array seguro
-    const safeProducts = Array.isArray(products) ? products : [];
-
-    // Limpiamos los datos para que el frontend NUNCA reciba un undefined
-    const result = safeProducts.map((p: any) => ({
+    // Fuerza a que cada producto tenga números reales, nunca null o undefined
+    const cleanProducts = (Array.isArray(products) ? products : []).map(p => ({
       ...p,
-      name: p.name ?? "Producto sin nombre",
-      price: Number(p.price ?? 0),
+      price: Number(p.price) || 0,
       originalPrice: p.originalPrice ? Number(p.originalPrice) : 0,
-      rating: Number(p.rating ?? 0),
-      images: Array.isArray(p.images) ? p.images : [],
-      createdAt: p.createdAt ? new Date(p.createdAt).toISOString() : new Date().toISOString(),
+      rating: Number(p.rating) || 0
     }));
 
-    res.json(result);
+    res.json(cleanProducts);
   } catch (err) {
-    req.log.error({ err }, "Failed to list products");
-    res.status(500).json([]); // Enviamos un array vacío en lugar de un error 500
+    res.status(500).json([]);
   }
 });
 
