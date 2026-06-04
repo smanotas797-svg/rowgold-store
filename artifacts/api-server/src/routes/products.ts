@@ -53,15 +53,15 @@ router.get("/products", async (req, res) => {
     // Convertimos explícitamente a un array y filtramos elementos vacíos
     const safeProducts = Array.isArray(products) ? products : [];
 
-    const result = safeProducts.map((p: any) => ({
+   const result = safeProducts.map((p: any) => ({
       ...p,
       price: Number(p.price ?? 0),
       originalPrice: p.originalPrice ? Number(p.originalPrice) : null,
-      rating: p.rating ? Number(p.rating) : null,
+      // Cambiamos esta línea para evitar el error de 'undefined'
+      rating: Number(p.rating ?? 0), 
       images: Array.isArray(p.images) ? p.images : [],
       createdAt: p.createdAt ? new Date(p.createdAt).toISOString() : null,
     }));
-    
     res.json(result);
   } catch (err) {
     req.log.error({ err }, "Failed to list products");
