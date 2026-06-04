@@ -17,23 +17,25 @@ router.get("/products", async (req, res) => {
   try {
     const products = await db.select().from(productsTable);
     
-    // AQUÍ ESTÁ EL TRUCO: 
-    // Si products no es un array, lo convertimos a uno vacío [].
-    const safeProducts = Array.isArray(products) ? products : (products ? [products] : []);
+    // Convertimos a array, y si llega un solo objeto o nada, creamos un array vacío
+    const data = Array.isArray(products) ? products : (products ? [products] : []);
 
-    const result = safeProducts.map((p: any) => ({
-      ...p,
+    const result = data.map((p: any) => ({
+      id: p.id ?? 0,
       name: p.name ?? "Producto sin nombre",
-      price: Number(p.price ?? 0),
-      originalPrice: p.originalPrice ? Number(p.originalPrice) : 0,
-      rating: Number(p.rating ?? 0),
+      // Forzamos que sea siempre un número. Si no hay precio, ponemos 0.
+      price: typeof p.price === 'number' ? p.price : parseFloat(p.price) || 0,
+      originalPrice: typeof p.originalPrice === 'number' ? p.originalPrice : parseFloat(p.originalPrice) || 0,
+      rating: typeof p.rating === 'number' ? p.rating : parseFloat(p.rating) || 0,
       images: Array.isArray(p.images) ? p.images : [],
       createdAt: p.createdAt ? new Date(p.createdAt).toISOString() : new Date().toISOString(),
     }));
 
-    res.json(result); // Esto siempre será un array [{}, {}]
+    res.json(result);
   } catch (err) {
-    res.json([]); // Si hay error, enviamos un array vacío para que el frontend no rompa
+    // Si la base de datos falla, enviamos un array vacío.
+    // Esto evita que el frontend rompa y muestre pantalla negra.
+    res.json([]);
   }
 });
 
