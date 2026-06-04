@@ -50,7 +50,10 @@ router.get("/products", async (req, res) => {
       const limit = query.data.limit ?? 100;
       products = products.slice(offset, offset + limit);
     }
-    const result = safeArray(products).map((p: any) => ({
+    // Convertimos explícitamente a un array y filtramos elementos vacíos
+    const safeProducts = Array.isArray(products) ? products : [];
+
+    const result = safeProducts.map((p: any) => ({
       ...p,
       price: Number(p.price ?? 0),
       originalPrice: p.originalPrice ? Number(p.originalPrice) : null,
@@ -58,7 +61,7 @@ router.get("/products", async (req, res) => {
       images: Array.isArray(p.images) ? p.images : [],
       createdAt: p.createdAt ? new Date(p.createdAt).toISOString() : null,
     }));
-
+    
     res.json(result);
   } catch (err) {
     req.log.error({ err }, "Failed to list products");
