@@ -17,13 +17,25 @@ router.get("/products", async (req, res) => {
   try {
     const products = await db.select().from(productsTable);
     
-    // Fuerza a que cada producto tenga números reales, nunca null o undefined
-    const cleanProducts = (Array.isArray(products) ? products : []).map(p => ({
+    // AQUÍ ESTÁ EL TRUCO: 
+    // Si products no es un array, lo convertimos a uno vacío [].
+    const safeProducts = Array.isArray(products) ? products : (products ? [products] : []);
+
+    const result = safeProducts.map((p: any) => ({
       ...p,
-      price: Number(p.price) || 0,
+      name: p.name ?? "Producto sin nombre",
+      price: Number(p.price ?? 0),
       originalPrice: p.originalPrice ? Number(p.originalPrice) : 0,
-      rating: Number(p.rating) || 0
+      rating: Number(p.rating ?? 0),
+      images: Array.isArray(p.images) ? p.images : [],
+      createdAt: p.createdAt ? new Date(p.createdAt).toISOString() : new Date().toISOString(),
     }));
+
+    res.json(result); // Esto siempre será un array [{}, {}]
+  } catch (err) {
+    res.json([]); // Si hay error, enviamos un array vacío para que el frontend no rompa
+  }
+});
 
     res.json(cleanProducts);
   } catch (err) {
