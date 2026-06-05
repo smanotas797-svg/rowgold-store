@@ -350,7 +350,7 @@ function HeroSection() {
                           color: GOLD,
                         }}
                       >
-                        ${hero.price.toLocaleString()}
+                        ${(hero.price ?? 0).toLocaleString()}
                       </span>
                       {hero.rating != null && (
                         <div className="flex items-center gap-1">
@@ -535,7 +535,7 @@ export function ProductCard({ product, index, inView }: ProductCardProps) {
                     color: GOLD,
                   }}
                 >
-                  ${product.price.toLocaleString()}
+                  ${(product.price ?? 0).toLocaleString()}
                 </span>
                 {product.originalPrice && (
                   <span

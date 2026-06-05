@@ -826,7 +826,7 @@ export default function Admin() {
                               fontFamily: "'Cormorant Garamond', serif",
                             }}
                           >
-                            ${Number(p.price).toLocaleString()}
+                            ${(Number(p.price) || 0).toLocaleString()}
                           </td>
 
                           <td className="px-5 py-4">

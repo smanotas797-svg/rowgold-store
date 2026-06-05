@@ -250,7 +250,7 @@ export default function ProductDetail({ id }: Props) {
                 }}
                 data-testid="text-price"
               >
-                ${product.price.toLocaleString()}
+                ${(product.price ?? 0).toLocaleString()}
               </span>
               {product.originalPrice && (
                 <span
