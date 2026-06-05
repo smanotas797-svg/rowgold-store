@@ -257,7 +257,7 @@ export default function ProductDetail({ id }: Props) {
                   className="text-lg line-through"
                   style={{ color: "rgba(255,255,255,0.2)" }}
                 >
-                  ${product.originalPrice.toLocaleString()}
+                  ${(product.originalPrice ?? 0).toLocaleString()}
                 </span>
               )}
             </div>

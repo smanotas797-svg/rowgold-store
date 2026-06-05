@@ -542,7 +542,7 @@ export function ProductCard({ product, index, inView }: ProductCardProps) {
                     className="text-sm line-through"
                     style={{ color: "rgba(255,255,255,0.18)" }}
                   >
-                    ${product.originalPrice.toLocaleString()}
+                    ${(product.originalPrice ?? 0).toLocaleString()}
                   </span>
                 )}
               </div>
