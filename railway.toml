@@ -1,5 +1,16 @@
 [build]
-builder = "railpack"
+builder = "dockerfile"
 
 [deploy]
-startCommand = "cd artifacts/api-server && pnpm start"
+startCommand = "node dist/server.js"
+healthcheckPath = "/api/healthz"
+healthcheckTimeout = 30
+restartPolicyType = "on_failure"
+
+[[deploy.envVars]]
+name = "NODE_ENV"
+value = "production"
+
+[[deploy.envVars]]
+name = "PORT"
+value = "3000"

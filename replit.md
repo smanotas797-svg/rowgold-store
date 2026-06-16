@@ -4,33 +4,39 @@ Ultra-premium luxury jewelry & accessories store with a black-and-gold aesthetic
 
 ## Run & Operate
 
-- `pnpm --filter @workspace/api-server run dev` — run the API server (port 5000)
-- `pnpm run typecheck` — full typecheck across all packages
-- `pnpm run build` — typecheck + build all packages
-- `pnpm --filter @workspace/api-spec run codegen` — regenerate API hooks and Zod schemas from the OpenAPI spec
-- `pnpm --filter @workspace/db run push` — push DB schema changes (dev only)
-- `pnpm --filter @workspace/scripts run seed` — seed the database with sample products/categories
+- `npm run dev:client` — run the frontend (Vite, port 25397)
+- `npm run dev:server` — run the API server (tsx watch, port 8080)
+- `npm run build` — build both client and server for production
+- `npm run start` — run production server (`dist/server.js`)
+- `npm run db:push` — push DB schema changes (dev only)
 - Required env: `DATABASE_URL` — Postgres connection string
 
 ## Stack
 
-- pnpm workspaces, Node.js 24, TypeScript 5.9
-- Frontend: React + Vite + Wouter + TanStack Query + Framer Motion
-- API: Express 5
+- **Single npm project** — flat monolith, no workspace packages
+- Frontend: React + Vite + Wouter + TanStack Query + Framer Motion (`client/`)
+- API: Express 5 (`server/`)
 - DB: PostgreSQL + Drizzle ORM
-- Validation: Zod (`zod/v4`), `drizzle-zod`
-- API codegen: Orval (from OpenAPI spec)
-- Build: esbuild (CJS bundle)
+- Validation: Zod
+- Build: Vite (client) + esbuild (server → `dist/server.js`)
+- Deploy: Dockerfile + railway.toml (Railway / Render / any Docker host)
 
 ## Where things live
 
-- `artifacts/rowgold/` — React + Vite SPA frontend (main app)
-- `artifacts/api-server/` — Express API backend
-- `lib/db/src/schema/` — DB schema (products, categories, users, orders, cart)
-- `lib/api-client-react/` — Generated React Query hooks
-- `lib/api-zod/` — Generated Zod validation schemas
-- `scripts/src/seed.ts` — Database seeder
-- `artifacts/rowgold/vercel.json` — SPA deployment config for Vercel
+- `client/` — React + Vite SPA frontend
+  - `client/src/lib/api.ts` — all API hooks (useQuery/useMutation wrappers)
+  - `client/src/contexts/` — CartContext, AuthContext
+  - `client/src/pages/` — all pages
+  - `client/src/components/` — Navbar, Footer, UI components
+  - `client/vite.config.ts` — Vite config (proxies /api → port 8080 in dev)
+- `server/` — Express API backend
+  - `server/index.ts` — entry point (serves API + static in prod)
+  - `server/routes/` — auth, products, cart, orders, reviews
+  - `server/db/` — Drizzle schema + db client
+- `dist/` — production output (`dist/public/` = React build, `dist/server.js` = bundled API)
+- `Dockerfile` — multi-stage Docker build for deployment
+- `railway.toml` — Railway deployment config
+- `drizzle.config.ts` — Drizzle Kit config
 
 ## Architecture decisions
 
@@ -39,6 +45,7 @@ Ultra-premium luxury jewelry & accessories store with a black-and-gold aesthetic
 - API routes: `/api/products`, `/api/categories`, `/api/cart`, `/api/orders`, `/api/auth/*`, `/api/catalog/featured`, `/api/catalog/stats`
 - All pages use Cormorant Garamond serif font for headings, Inter for body
 - Black (#080808) background, gold (#d4af37) accent throughout
+- Production: Express serves `dist/public/` as static files + handles all `/api/*` routes
 
 ## Product
 
@@ -62,11 +69,20 @@ Ultra-premium luxury jewelry & accessories store with a black-and-gold aesthetic
 
 ## Gotchas
 
-- Always rebuild libs before typechecking API server: `pnpm run typecheck:libs` first
-- `pnpm --filter @workspace/db run push` before seeding after schema changes
 - Auth `/api/auth/me` correctly returns 401 when unauthenticated — handled gracefully
 - Cart uses `x-session-id` header, session ID generated/stored in localStorage
+- In Replit dev, Vite proxies `/api/*` to `localhost:8080` (set in `client/vite.config.ts`)
+- After schema changes: `npm run db:push` then restart the API server workflow
 
-## Pointers
+## Deployment
 
-- See the `pnpm-workspace` skill for workspace structure, TypeScript setup, and package details
+```bash
+# Railway / Render / any Docker host:
+docker build -t rowgold .
+docker run -p 3000:3000 -e DATABASE_URL=... rowgold
+```
+
+The Dockerfile:
+1. Builds the React client → `dist/public/`
+2. Bundles the Express server → `dist/server.js`
+3. Runs `node dist/server.js` which serves both API and static files

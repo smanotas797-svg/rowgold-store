@@ -1,14 +1,26 @@
-FROM node:20
+FROM node:20-slim AS builder
 
 WORKDIR /app
 
-RUN corepack enable
-RUN corepack prepare pnpm@latest --activate
+COPY package*.json ./
+RUN npm ci
 
 COPY . .
 
-RUN pnpm install --frozen-lockfile
+RUN npm run build
 
-RUN cd artifacts/api-server && pnpm build
+FROM node:20-slim AS runner
 
-CMD ["sh", "-c", "cd artifacts/api-server && pnpm start"]
+WORKDIR /app
+
+COPY package*.json ./
+RUN npm ci --omit=dev
+
+COPY --from=builder /app/dist ./dist
+
+EXPOSE 3000
+
+ENV NODE_ENV=production
+ENV PORT=3000
+
+CMD ["node", "dist/server.js"]

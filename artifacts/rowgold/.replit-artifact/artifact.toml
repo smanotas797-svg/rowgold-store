@@ -15,11 +15,11 @@ paths = [ "/" ]
 localPort = 25397
 
 [services.development]
-run = "pnpm --filter @workspace/rowgold run dev"
+run = "npm --prefix /home/runner/workspace run dev:client"
 
 [services.production]
-build = [ "pnpm", "--filter", "@workspace/rowgold", "run", "build" ]
-publicDir = "artifacts/rowgold/dist/public"
+build = [ "npm", "--prefix", "/home/runner/workspace", "run", "build:client" ]
+publicDir = "dist/public"
 serve = "static"
 
 [[services.production.rewrites]]

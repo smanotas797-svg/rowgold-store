@@ -1,0 +1,36 @@
+Quiero reestructurar por completo mi proyecto "Rowgold" para eliminar todos los errores de despliegue, solucionar los problemas de conexión de la API y unificar el sistema. Actualmente el proyecto está muy separado (Monorepo/pnpm) y causa fallos de rutas, módulos no encontrados y bloqueos en producción.
+
+Por favor, transforma el proyecto siguiendo estrictamente estas directrices para que sea el mejor y más definitivo:
+
+1. ARQUITECTURA UNIFICADA (Monolito Limpio):
+   - Elimina la estructura de Monorepo, pnpm workspaces y carpetas separadas como 'artifacts' o 'lib'.
+   - Todo debe estar en un único proyecto estándar de Node.js con un solo 'package.json' en la raíz usando NPM estándar.
+   - La API (Backend) y el Servidor deben programarse en Express (en un archivo como 'server.js' o dentro de 'src/').
+
+2. PANEL DE ADMIN Y CATÁLOGO EN EL MISMO PROYECTO:
+   - El panel de administración y la tienda pública deben compartir el mismo backend.
+   - Configura el frontend (Vite/React) para que al compilarse ('npm run build') genere una carpeta unificada (ej. 'dist' o 'public').
+   - El servidor de Express debe servir estos archivos de forma estática usando `express.static()`.
+   - Las rutas del Panel de Admin deben responder en '/admin' y la tienda en la raíz '/', manejadas por el mismo servidor para que NUNCA vuelvas a tener problemas de CORS o URLs de API caídas.
+
+3. COMPATIBILIDAD MULTIPLATAFORMA (Render, Railway, Vercel, etc.):
+   - Asegúrate de que el puerto sea dinámico usando `process.env.PORT || 8080`.
+   - El comando de arranque en el package.json debe ser obligatoriamente: "start": "node server.js" (o la ruta al archivo principal).
+   - Crea un archivo 'Dockerfile' en la raíz estándar e indestructible:
+     ```dockerfile
+     FROM node:20-alpine
+     WORKDIR /app
+     COPY package*.json ./
+     RUN npm install
+     COPY . .
+     RUN npm run build
+     EXPOSE 8080
+     ENV PORT=8080
+     ENV NODE_ENV=production
+     CMD ["npm", "start"]
+     ```
+
+4. VARIABLES DE ENTORNO SEGURAS:
+   - Todas las credenciales deben leerse estrictamente desde `process.env` (DATABASE_URL, SESSION_SECRET, ADMIN_TOKEN). No dejes ningún valor quemado (hardcoded).
+
+Por favor, haz esta reestructuración manteniendo toda la lógica de negocio de Rowgold (catálogo, Supabase, lógica de administración), pero unificando los archivos para que el lanzamiento sea exitoso en cualquier hosting en el primer intento.
