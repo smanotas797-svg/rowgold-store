@@ -30,13 +30,8 @@ function getSessionId(req: import("express").Request): string {
 function formatOrder(o: typeof ordersTable.$inferSelect) {
   return {
     ...o,
-    subtotal: Number(o.subtotal),
-    shipping: Number(o.shipping ?? 0),
-    total: Number(o.total),
-    items: (o.items as unknown[]) ?? [],
-    statusHistory: (o.statusHistory as unknown[]) ?? [],
-    createdAt: o.createdAt.toISOString(),
-    updatedAt: o.updatedAt?.toISOString() ?? o.createdAt.toISOString(),
+    items: Array.isArray(o.items) ? o.items : [],
+    statusHistory: Array.isArray(o.statusHistory) ? o.statusHistory : [],
   };
 }
 
@@ -46,7 +41,7 @@ router.get("/orders", async (req, res) => {
     res.json(orders.map(formatOrder));
   } catch (err) {
     req.log.error({ err }, "Failed to list orders");
-    res.status(500).json({ error: "Internal server error" });
+    res.status(500).json({ error: "Error interno del servidor" });
   }
 });
 
@@ -56,7 +51,7 @@ router.post("/orders", async (req, res) => {
     const body = CreateOrderBody.parse(req.body);
     const cartItems = await db.select().from(cartItemsTable).where(eq(cartItemsTable.sessionId, sessionId));
     if (cartItems.length === 0) {
-      res.status(400).json({ error: "Cart is empty" });
+      res.status(400).json({ error: "El carrito está vacío" });
       return;
     }
     const orderItems = [];
@@ -64,9 +59,8 @@ router.post("/orders", async (req, res) => {
     for (const item of cartItems) {
       const [product] = await db.select().from(productsTable).where(eq(productsTable.id, item.productId));
       if (!product) continue;
-      const price = Number(product.price);
-      subtotal += price * item.quantity;
-      orderItems.push({ productId: item.productId, productName: product.name, quantity: item.quantity, price, imageUrl: product.imageUrl ?? undefined });
+      subtotal += product.price * item.quantity;
+      orderItems.push({ productId: item.productId, productName: product.name, quantity: item.quantity, price: product.price, imageUrl: product.imageUrl ?? undefined });
     }
     const shipping = subtotal > 500 ? 0 : 25;
     const total = subtotal + shipping;
@@ -75,9 +69,9 @@ router.post("/orders", async (req, res) => {
       sessionId,
       status: "pending",
       items: orderItems,
-      subtotal: String(subtotal),
-      shipping: String(shipping),
-      total: String(total),
+      subtotal,
+      shipping,
+      total,
       shippingAddress: body.shippingAddress,
       paymentMethod: body.paymentMethod,
       statusHistory: [{ status: "pending", timestamp: now, note: "Pedido recibido exitosamente" }],
@@ -86,7 +80,7 @@ router.post("/orders", async (req, res) => {
     res.status(201).json(formatOrder(order));
   } catch (err) {
     req.log.error({ err }, "Failed to create order");
-    res.status(400).json({ error: "Bad request" });
+    res.status(400).json({ error: "Solicitud inválida" });
   }
 });
 
@@ -95,33 +89,33 @@ router.get("/orders/:id", async (req, res) => {
     const { id } = IdParam.parse({ id: Number(req.params.id) });
     const [order] = await db.select().from(ordersTable).where(eq(ordersTable.id, id));
     if (!order) {
-      res.status(404).json({ error: "Order not found" });
+      res.status(404).json({ error: "Pedido no encontrado" });
       return;
     }
     res.json(formatOrder(order));
   } catch (err) {
     req.log.error({ err }, "Failed to get order");
-    res.status(404).json({ error: "Not found" });
+    res.status(404).json({ error: "No encontrado" });
   }
 });
 
 router.patch("/orders/:id/status", async (req, res) => {
   try {
     const id = Number(req.params.id);
-    if (isNaN(id)) { res.status(400).json({ error: "Invalid id" }); return; }
+    if (isNaN(id)) { res.status(400).json({ error: "ID inválido" }); return; }
     const body = UpdateStatusBody.parse(req.body);
     const [existing] = await db.select().from(ordersTable).where(eq(ordersTable.id, id));
-    if (!existing) { res.status(404).json({ error: "Order not found" }); return; }
+    if (!existing) { res.status(404).json({ error: "Pedido no encontrado" }); return; }
     const now = new Date().toISOString();
-    const history = [...((existing.statusHistory as unknown[]) ?? []),
+    const history = [...(Array.isArray(existing.statusHistory) ? existing.statusHistory : []),
       { status: body.status, timestamp: now, note: body.note ?? ORDER_STATUS_LABELS[body.status] }];
-    const updateData: Record<string, unknown> = { status: body.status, statusHistory: history, updatedAt: new Date() };
+    const updateData: Record<string, unknown> = { status: body.status, statusHistory: history, updatedAt: now };
     if (body.trackingNumber) updateData.trackingNumber = body.trackingNumber;
     const [updated] = await db.update(ordersTable).set(updateData).where(eq(ordersTable.id, id)).returning();
     res.json(formatOrder(updated));
   } catch (err) {
     req.log.error({ err }, "Failed to update order status");
-    res.status(400).json({ error: "Bad request" });
+    res.status(400).json({ error: "Solicitud inválida" });
   }
 });
 

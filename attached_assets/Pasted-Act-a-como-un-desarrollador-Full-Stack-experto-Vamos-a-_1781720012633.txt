@@ -1,0 +1,15 @@
+Actúa como un desarrollador Full-Stack experto. Vamos a preparar este proyecto de manera definitiva para desplegarlo en RENDER usando Node/pnpm, eliminando TODA la basura de ayer y haciendo que el Panel de Administración sea 100% funcional y permanente usando SQLite.
+
+Por favor, realiza estrictamente las siguientes tareas en el código:
+
+1. ELIMINAR BASURA DE DOCKER: Borra por completo el archivo 'Dockerfile' y '.dockerignore' de la raíz del proyecto. No vamos a usar Docker; Render usará el entorno nativo de Node.
+
+2. CONFIGURAR SQLite LOCAL (BASE DE DATOS REAL): Modifica el servidor ('server/index.ts' y la configuración de Drizzle ORM) para que en lugar de buscar un 'DATABASE_URL' de Supabase/PostgreSQL, se conecte a una base de datos local SQLite guardada en un archivo dentro del proyecto (por ejemplo, 'sqlite.db'). 
+
+3. INYECTAR CATÁLOGO INICIAL: Asegúrate de que al arrancar, si la base de datos SQLite está vacía, se cree automáticamente la tabla e inyecte un catálogo inicial atractivo (mínimo 10 o 12 artículos de joyería: cadenas de oro, pulseras, anillos, relojes) con nombres comerciales, descripciones, precios y stock para que la tienda no aparezca vacía.
+
+4. PANEL DE ADMINISTRACIÓN 100% PERSISTENTE: Asegúrate de que las rutas del Panel Admin (crear producto, editar precio, eliminar, ver pedidos) lean y escriban directamente en este archivo SQLite. El inicio de sesión debe validar con las variables 'ADMIN_USERNAME' y 'ADMIN_PASSWORD' de Render. Ahora los cambios de productos SÍ deben guardarse de forma permanente.
+
+5. CONFIGURACIÓN PARA RENDER: Asegúrate de que el servidor Express escuche en el puerto 'process.env.PORT || 3000' y sirva la carpeta 'dist/public'. Revisa que 'package.json' compile limpiamente el frontend con Vite y el backend con esbuild mediante 'pnpm run build' sin errores de TypeScript.
+
+6. SUBIR A GITHUB: Cuando todo compile perfecto localmente y la base de datos SQLite esté integrada, haz un commit y push automático a la rama 'main' de mi GitHub con el mensaje "feat: tienda funcional con panel admin permanente en SQLite".

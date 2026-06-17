@@ -28,11 +28,11 @@ const IdParam = z.object({ id: z.number().int().positive() });
 function formatProduct(p: typeof productsTable.$inferSelect) {
   return {
     ...p,
-    price: Number(p.price ?? 0),
-    originalPrice: p.originalPrice ? Number(p.originalPrice) : null,
-    rating: p.rating ? Number(p.rating) : null,
+    price: p.price ?? 0,
+    originalPrice: p.originalPrice ?? null,
+    rating: p.rating ?? null,
     images: Array.isArray(p.images) ? p.images : [],
-    createdAt: p.createdAt ? new Date(p.createdAt).toISOString() : null,
+    createdAt: p.createdAt ?? new Date().toISOString(),
   };
 }
 
@@ -53,8 +53,8 @@ router.post("/products", async (req, res) => {
       .values({
         name: body.name,
         description: body.description,
-        price: String(body.price),
-        originalPrice: body.originalPrice ? String(body.originalPrice) : null,
+        price: body.price,
+        originalPrice: body.originalPrice ?? null,
         category: body.category,
         subcategory: body.subcategory,
         imageUrl: body.imageUrl,
@@ -69,7 +69,7 @@ router.post("/products", async (req, res) => {
     res.status(201).json(formatProduct(product));
   } catch (err) {
     req.log.error({ err }, "Failed to create product");
-    res.status(400).json({ error: "Bad request" });
+    res.status(400).json({ error: "Solicitud inválida" });
   }
 });
 
@@ -78,13 +78,13 @@ router.get("/products/:id", async (req, res) => {
     const { id } = IdParam.parse({ id: Number(req.params.id) });
     const [product] = await db.select().from(productsTable).where(eq(productsTable.id, id));
     if (!product) {
-      res.status(404).json({ error: "Product not found" });
+      res.status(404).json({ error: "Producto no encontrado" });
       return;
     }
     res.json(formatProduct(product));
   } catch (err) {
     req.log.error({ err }, "Failed to get product");
-    res.status(404).json({ error: "Not found" });
+    res.status(404).json({ error: "No encontrado" });
   }
 });
 
@@ -95,8 +95,8 @@ router.patch("/products/:id", async (req, res) => {
     const updateData: Record<string, unknown> = {};
     if (body.name !== undefined) updateData.name = body.name;
     if (body.description !== undefined) updateData.description = body.description;
-    if (body.price !== undefined) updateData.price = String(body.price);
-    if (body.originalPrice !== undefined) updateData.originalPrice = body.originalPrice ? String(body.originalPrice) : null;
+    if (body.price !== undefined) updateData.price = body.price;
+    if (body.originalPrice !== undefined) updateData.originalPrice = body.originalPrice;
     if (body.category !== undefined) updateData.category = body.category;
     if (body.subcategory !== undefined) updateData.subcategory = body.subcategory;
     if (body.imageUrl !== undefined) updateData.imageUrl = body.imageUrl;
@@ -108,13 +108,13 @@ router.patch("/products/:id", async (req, res) => {
     if (body.collection !== undefined) updateData.collection = body.collection;
     const [product] = await db.update(productsTable).set(updateData).where(eq(productsTable.id, id)).returning();
     if (!product) {
-      res.status(404).json({ error: "Product not found" });
+      res.status(404).json({ error: "Producto no encontrado" });
       return;
     }
     res.json(formatProduct(product));
   } catch (err) {
     req.log.error({ err }, "Failed to update product");
-    res.status(400).json({ error: "Bad request" });
+    res.status(400).json({ error: "Solicitud inválida" });
   }
 });
 
@@ -125,7 +125,7 @@ router.delete("/products/:id", async (req, res) => {
     res.status(204).send();
   } catch (err) {
     req.log.error({ err }, "Failed to delete product");
-    res.status(500).json({ error: "Internal server error" });
+    res.status(500).json({ error: "Error interno del servidor" });
   }
 });
 
@@ -142,7 +142,7 @@ router.get("/categories", async (req, res) => {
     })));
   } catch (err) {
     req.log.error({ err }, "Failed to list categories");
-    res.status(500).json({ error: "Internal server error" });
+    res.status(500).json({ error: "Error interno del servidor" });
   }
 });
 
@@ -152,7 +152,7 @@ router.get("/catalog/featured", async (req, res) => {
     res.json(safeArray(products).map(formatProduct));
   } catch (err) {
     req.log.error({ err }, "Failed to get featured products");
-    res.status(500).json({ error: "Internal server error" });
+    res.status(500).json({ error: "Error interno del servidor" });
   }
 });
 
@@ -172,7 +172,7 @@ router.get("/catalog/stats", async (req, res) => {
     });
   } catch (err) {
     req.log.error({ err }, "Failed to get catalog stats");
-    res.status(500).json({ error: "Internal server error" });
+    res.status(500).json({ error: "Error interno del servidor" });
   }
 });
 

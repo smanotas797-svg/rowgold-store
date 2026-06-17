@@ -20,18 +20,15 @@ async function buildCart(sessionId: string) {
   for (const item of items) {
     const [product] = await db.select().from(productsTable).where(eq(productsTable.id, item.productId));
     if (!product) continue;
-    const price = Number(product.price);
-    subtotal += price * item.quantity;
+    subtotal += product.price * item.quantity;
     cartItems.push({
       productId: item.productId,
       quantity: item.quantity,
       product: {
         ...product,
-        price,
-        originalPrice: product.originalPrice ? Number(product.originalPrice) : null,
-        rating: product.rating ? Number(product.rating) : null,
+        originalPrice: product.originalPrice ?? null,
+        rating: product.rating ?? null,
         images: Array.isArray(product.images) ? product.images : [],
-        createdAt: product.createdAt ? new Date(product.createdAt).toISOString() : null,
       },
     });
   }
@@ -44,7 +41,7 @@ router.get("/cart", async (req, res) => {
     res.json(await buildCart(getSessionId(req)));
   } catch (err) {
     req.log.error({ err }, "Failed to get cart");
-    res.status(500).json({ error: "Internal server error" });
+    res.status(500).json({ error: "Error interno del servidor" });
   }
 });
 
@@ -62,7 +59,7 @@ router.post("/cart/items", async (req, res) => {
     res.json(await buildCart(sessionId));
   } catch (err) {
     req.log.error({ err }, "Failed to add to cart");
-    res.status(400).json({ error: "Bad request" });
+    res.status(400).json({ error: "Solicitud inválida" });
   }
 });
 
@@ -80,7 +77,7 @@ router.patch("/cart/items/:productId", async (req, res) => {
     res.json(await buildCart(sessionId));
   } catch (err) {
     req.log.error({ err }, "Failed to update cart item");
-    res.status(400).json({ error: "Bad request" });
+    res.status(400).json({ error: "Solicitud inválida" });
   }
 });
 
@@ -92,7 +89,7 @@ router.delete("/cart/items/:productId", async (req, res) => {
     res.json(await buildCart(sessionId));
   } catch (err) {
     req.log.error({ err }, "Failed to remove from cart");
-    res.status(500).json({ error: "Internal server error" });
+    res.status(500).json({ error: "Error interno del servidor" });
   }
 });
 
@@ -103,7 +100,7 @@ router.delete("/cart/clear", async (req, res) => {
     res.json(await buildCart(sessionId));
   } catch (err) {
     req.log.error({ err }, "Failed to clear cart");
-    res.status(500).json({ error: "Internal server error" });
+    res.status(500).json({ error: "Error interno del servidor" });
   }
 });
 

@@ -14,11 +14,9 @@
     "typecheck": "tsc --project tsconfig.server.json --noEmit"
   },
   "dependencies": {
-    "cookie-parser": "^1.4.7",
     "cors": "^2.8.6",
     "drizzle-orm": "^0.45.2",
     "express": "^5.2.1",
-    "pg": "^8.20.0",
     "pino": "^9.14.0",
     "pino-http": "^10.5.0",
     "zod": "^3.25.76"
@@ -55,11 +53,9 @@
     "@tailwindcss/typography": "^0.5.15",
     "@tailwindcss/vite": "^4.1.14",
     "@tanstack/react-query": "^5.90.21",
-    "@types/cookie-parser": "^1.4.10",
     "@types/cors": "^2.8.19",
     "@types/express": "^5.0.6",
     "@types/node": "^25.3.3",
-    "@types/pg": "^8.20.0",
     "@types/react": "^19.2.0",
     "@types/react-dom": "^19.2.0",
     "@vitejs/plugin-react": "^5.0.4",

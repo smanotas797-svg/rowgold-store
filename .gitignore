@@ -47,3 +47,12 @@ Thumbs.db
 # Replit
 .cache/
 .local/
+
+# SQLite database (persists locally, use env DB_PATH in production)
+sqlite.db
+sqlite.db-shm
+sqlite.db-wal
+
+# pnpm backup
+pnpm-workspace.yaml.bak
+pnpm-lock.yaml

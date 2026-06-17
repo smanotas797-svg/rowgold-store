@@ -1,0 +1,1 @@
+- [SQLite en Replit sin compilación nativa](sqlite-replit.md) — usar node:sqlite (Node 24 built-in) + drizzle-orm/sqlite-proxy; better-sqlite3 y @libsql/client fallan por node-gyp.
