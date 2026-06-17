@@ -35,7 +35,7 @@ if (isProduction) {
   const publicDir = join(__dirname, "public");
   if (existsSync(publicDir)) {
     app.use(express.static(publicDir));
-    app.get("*", (_req, res) => {
+    app.get("/{*path}", (_req, res) => {
       res.sendFile(join(publicDir, "index.html"));
     });
   }
