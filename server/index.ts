@@ -80,7 +80,7 @@ async function seedDatabase() {
   name: "Pulsera Mariposa",
   description: "Pulsera para Dama con un hermoso dije central de mariposa, incluye cadena ajustable para adaptarse perfectamente a cualquier muñeca.",
   price: 55000,
-  originalPrice: null, // Corregido: Se añade 'null' para que no rompa el código
+  originalPrice: 
   category: "Pulsera",
   subcategory: "plata",
   imageUrl: "https://res.cloudinary.com/dmlpiqian/image/upload/v1780028172/707308402_17870738712677507_2338569982685114741_n_uyj1ze.jpg", // Corregido: Se quitó la 'p' extra del final
