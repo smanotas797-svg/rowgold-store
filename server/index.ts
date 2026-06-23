@@ -58,18 +58,18 @@ async function seedDatabase() {
 
   await db.insert(productsTable).values([
     {
-      name: "Cadena Cubana Oro 18K",
+      name: "Cadena ",
       description: "Cadena cubana de oro 18 quilates con acabado brillante. Eslabones sólidos de 5mm de ancho. La pieza favorita de los coleccionistas.",
       price: 1850,
       originalPrice: 2200,
       category: "cadenas",
       subcategory: "oro",
-      imageUrl: "https://images.unsplash.com/photo-1599643478518-a784e5dc4c8f?w=600&auto=format&fit=crop",
-      images: ["https://images.unsplash.com/photo-1599643478518-a784e5dc4c8f?w=600&auto=format&fit=crop"],
+      imageUrl: "https://res.cloudinary.com/dmlpiqian/image/upload/v1780130299/IMG_3904_kxk6ka.jpg",
+      images: ["https://res.cloudinary.com/dmlpiqian/image/upload/v1780130299/IMG_3904_kxk6ka.jpg"],
       featured: true,
       inStock: true,
       stockQuantity: 15,
-      material: "Oro 18K",
+      material: "Oro ",
       weight: "42g",
       collection: "Clásica",
       rating: 4.9,
