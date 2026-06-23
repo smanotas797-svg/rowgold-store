@@ -3,7 +3,7 @@ import { motion } from "framer-motion";
 import { SiInstagram, SiTiktok, SiWhatsapp } from "react-icons/si";
 import rowgoldLogo from "@assets/WhatsApp_Image_2026-05-14_at_9.43.54_PM_1778817269857.jpeg";
 
-const INSTAGRAM_URL = "https://www.instagram.com/rowgold.accesorios?igsh=MTl4bDFuYzF1bmlvaQ==";
+const INSTAGRAM_URL = "https://www.instagram.com/rowgoldjoyeria/";
 const WHATSAPP_URL = "https://wa.me/573213195879";
 const TIKTOK_URL = "https://tiktok.com/@rowgold";
 const GOLD = "#d4af37";
