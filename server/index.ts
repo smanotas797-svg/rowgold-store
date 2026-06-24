@@ -115,7 +115,7 @@ async function seedDatabase() {
       originalPrice: 100000,
       category: "pulseras",
       subcategory: "oro",
-      imageUrl: "https://res.cloudinary.com/dmlpiqian/image/upload/v1780093898/099FD742-D45A-4665-86B3-D62B19C23860_xfqbzy.jpg"
+      imageUrl: "https://res.cloudinary.com/dmlpiqian/image/upload/v1780093898/099FD742-D45A-4665-86B3-D62B19C23860_xfqbzy.jpg",
       featured: true,
       inStock: true,
       stockQuantity: 8,
