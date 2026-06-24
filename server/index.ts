@@ -157,7 +157,7 @@ async function seedDatabase() {
       stockQuantity: 3,
       material: "Oro Laminado 18k",
       weight: "5g",
-      collection: ""ICONIC OF ROWGOLD",
+      collection: "ICONIC OF ROWGOLD",
       rating: 5.0,
       reviewCount: 63,
     },
