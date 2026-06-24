@@ -272,7 +272,7 @@ async function seedDatabase() {
       price: 275000,
       originalPrice: null,
       category: "Pulsera",
-      subcategory: "Oro Laminado",
+      subcategory: "Oro",
       imageUrl: "https://res.cloudinary.com/dmlpiqian/image/upload/v1782341578/IMG_4949_xrqkfb.jpg",
       featured: true,
       inStock: true,
