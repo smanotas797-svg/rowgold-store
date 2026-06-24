@@ -266,6 +266,22 @@ async function seedDatabase() {
       rating: 5.0,
       reviewCount: 27,
     },
+    {
+      name: "Pulsera Grumet Slim",
+      description: "Pulsera Grumet delgada en Oro Laminado 18K, tejido plano que se adapta a la muñeca con un brillo e cada movimiento",
+      price: 275000,
+      originalPrice: null,
+      category: "Pulsera",
+      subcategory: "Oro Laminado",
+      imageUrl: "https://res.cloudinary.com/dmlpiqian/image/upload/v1782341578/IMG_4949_xrqkfb.jpg",
+      featured: true,
+      inStock: true,
+      stockQuantity: 8,
+      material: "Oro Laminado 18k",
+      weight: "",
+      collection: "ROWGOLD",
+      rating: 5.0,
+      reviewCount: 27,
   ]);
 
   logger.info("Base de datos sembrada: 12 productos y 6 categorías creados");
