@@ -65,7 +65,6 @@ async function seedDatabase() {
       category: "cadenas",
       subcategory: "oro",
       imageUrl: "https://res.cloudinary.com/dmlpiqian/image/upload/v1780113134/708536706_17870740644677507_5806512027029785331_n_qz7n9b.jpg",
-      image:
       featured: true,
       inStock: true,
       stockQuantity: 15,
