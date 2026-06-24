@@ -133,7 +133,7 @@ async function seedDatabase() {
       category: "pulseras",
       subcategory: "diamantes",
       imageUrl: "https://res.cloudinary.com/dmlpiqian/image/upload/v1780093922/78C47220-BDFB-42AC-A3E5-60A51E39AD5D_mcr1hr.jpgp",
-      images: ["hhttps://res.cloudinary.com/dmlpiqian/image/upload/v1780093922/78C47220-BDFB-42AC-A3E5-60A51E39AD5D_mcr1hr.jpg"],
+      images: ["https://res.cloudinary.com/dmlpiqian/image/upload/v1780093922/78C47220-BDFB-42AC-A3E5-60A51E39AD5D_mcr1hr.jpg"],
       featured: true,
       inStock: true,
       stockQuantity: 5,
