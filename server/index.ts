@@ -282,6 +282,7 @@ async function seedDatabase() {
       collection: "ROWGOLD",
       rating: 5.0,
       reviewCount: 27,
+    },
   ]);
 
   logger.info("Base de datos sembrada: 12 productos y 6 categorías creados");
