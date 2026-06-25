@@ -371,7 +371,7 @@ async function seedDatabase() {
     {
       name: "Pulsera Figaro",
       description: "Pulsera Figaro con eslabones aplanados que reflejan la luz y dan brillo en Oro Laminado",
-      price: 130000,
+      price: 120000,
       originalPrice: null,
       category: "Pulsera",
       subcategory : "Oro",
@@ -409,7 +409,7 @@ async function seedDatabase() {
       originalPrice: null,
       category: "Anillos",
       subcategory : "Plata",
-      imageUrl: "",
+      imageUrl: "https://res.cloudinary.com/dmlpiqian/image/upload/v1782355373/IMG_5001_t6ehqx.jpg",
       featured: true,
       inStock: true,
       stockQuantity: 8,
