@@ -2,7 +2,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { useState } from "react";
 import { SiInstagram, SiWhatsapp } from "react-icons/si";
 
-const INSTAGRAM_URL = "https://www.instagram.com/rowgold.accesorios?igsh=MTl4bDFuYzF1bmlvaQ==";
+const INSTAGRAM_URL = "https://www.instagram.com/rowgoldjoyeria?utm_source=qr";
 const WHATSAPP_URL = "https://wa.me/573213195879";
 const GOLD = "#d4af37";
 
