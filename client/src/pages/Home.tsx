@@ -993,13 +993,13 @@ function TrustBadges() {
       title: "Garantía Vitalicia",
       desc: "Certificado de autenticidad incluido",
     },
-    { icon: Truck, title: "Envío Gratis", desc: "En compras mayores a $500" },
+    { icon: Truck, title: "Envío Gratis", desc: "En compras mayores a $400000" },
     {
       icon: Award,
       title: "Materiales Premium",
       desc: "Oro 18k, platino y diamantes",
     },
-    { icon: Star, title: "5 Estrellas", desc: "Miles de clientes satisfechos" },
+    { icon: Star, title: "5 Estrellas", desc: " clientes satisfechos" },
   ];
 
   return (
