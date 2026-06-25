@@ -665,7 +665,7 @@ async function seedDatabase() {
     {
       name: "Cadena Marina",
       description: "Esta Cadena es inspirada en anclas marinas diseño con movmiento, textura y peso, un clasico moderno unisex en Plata Italiana 9.25",
-      price: 6850000,
+      price: 685000,
       originalPrice: null,
       category: "cadenas",
       subcategory: "Plata",
