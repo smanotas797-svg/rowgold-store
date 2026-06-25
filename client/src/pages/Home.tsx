@@ -105,7 +105,7 @@ function HeroSection() {
               className="text-[10px] tracking-[0.45em] uppercase"
               style={{ color: "rgba(212,175,55,0.6)" }}
             >
-              Colección 2024
+              Colección 2026
             </p>
             <div
               style={{
