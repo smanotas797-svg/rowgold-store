@@ -1,9 +1,12 @@
 import { Link } from "wouter";
 import { motion, AnimatePresence } from "framer-motion";
-import { Minus, Plus, X, ShoppingBag, ArrowRight } from "lucide-react";
+import { Minus, Plus, X, ShoppingBag, MessageCircle } from "lucide-react"; // Cambié ArrowRight por MessageCircle
 import { useCart } from "@/contexts/CartContext";
 
 const GOLD = "#d4af37";
+
+// 📱 COLOCA AQUÍ TU NÚMERO DE WHATSAPP (Con el 57 de Colombia y sin espacios ni símbolos)
+const TELEFONO_DUEÑO = "573213195879"; 
 
 export default function Cart() {
   const { cart, isLoading, updateQuantity, removeItem, clearCart } = useCart();
@@ -23,6 +26,23 @@ export default function Cart() {
   }
 
   const items = cart?.items ?? [];
+
+  // 🔥 FUNCIÓN QUE ARMA EL MENSAJE DINÁMICO Y ABRE WHATSAPP
+  const enviarPedidoWhatsApp = () => {
+    let mensaje = "✨ *¡Hola ROWGOLD! Quiero realizar un pedido:* \n\n";
+
+    items.forEach((item) => {
+      mensaje += `▪️ *${item.product.name}* \n`;
+      mensaje += `   Cantidad: ${item.quantity} \n`;
+      mensaje += `   Precio: $${(item.product.price * item.quantity).toLocaleString()} COP \n\n`;
+    });
+
+    mensaje += `💰 *Total del Pedido:* $${(cart?.total ?? 0).toLocaleString()} COP\n\n`;
+    mensaje += "¿Me confirman disponibilidad para coordinar el pago y el envío? ¡Muchas gracias!";
+
+    const mensajeEncriptado = encodeURIComponent(mensaje);
+    window.open(`https://wa.me/${TELEFONO_DUEÑO}?text=${mensajeEncriptado}`, "_blank");
+  };
 
   return (
     <div
@@ -81,7 +101,7 @@ export default function Cart() {
                 style={{ border: `1px solid ${GOLD}`, color: GOLD }}
                 data-testid="button-go-catalog"
               >
-                Explorar Catalogo
+                Explarar Catalogo
               </button>
             </Link>
           </motion.div>
@@ -305,22 +325,23 @@ export default function Cart() {
                 </p>
               )}
 
-              <Link href="/checkout" data-testid="button-checkout">
-                <motion.button
-                  whileHover={{ scale: 1.02 }}
-                  whileTap={{ scale: 0.98 }}
-                  className="w-full flex items-center justify-center gap-3 py-4 text-xs tracking-[0.2em] uppercase"
-                  style={{
-                    background:
-                      "linear-gradient(135deg, #b8960c, #d4af37, #b8960c)",
-                    color: "#080808",
-                    fontWeight: 600,
-                  }}
-                >
-                  Proceder al Pago
-                  <ArrowRight size={14} />
-                </motion.button>
-              </Link>
+              {/* 🔄 BOTÓN DE WHATSAPP NUEVO CON ANIMACIÓN */}
+              <motion.button
+                whileHover={{ scale: 1.02 }}
+                whileTap={{ scale: 0.98 }}
+                onClick={enviarPedidoWhatsApp}
+                className="w-full flex items-center justify-center gap-3 py-4 text-xs tracking-[0.2em] uppercase"
+                style={{
+                  background:
+                    "linear-gradient(135deg, #b8960c, #d4af37, #b8960c)",
+                  color: "#080808",
+                  fontWeight: 600,
+                }}
+                data-testid="button-checkout"
+              >
+                Pedir por WhatsApp
+                <MessageCircle size={14} />
+              </motion.button>
 
               <Link href="/catalog">
                 <button
