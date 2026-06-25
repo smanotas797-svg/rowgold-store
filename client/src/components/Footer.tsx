@@ -5,7 +5,7 @@ import rowgoldLogo from "@assets/WhatsApp_Image_2026-05-14_at_9.43.54_PM_1778817
 
 const INSTAGRAM_URL = "https://www.instagram.com/rowgoldjoyeria?utm_source=qr";
 const WHATSAPP_URL = "https://wa.me/573213195879";
-const TIKTOK_URL = "https://tiktok.com/@rowgold";
+const TIKTOK_URL = "www.tiktok.com/@rowgold.joyeria";
 const GOLD = "#d4af37";
 
 const socials = [
