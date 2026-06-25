@@ -105,7 +105,7 @@ function HeroSection() {
               className="text-[10px] tracking-[0.45em] uppercase"
               style={{ color: "rgba(212,175,55,0.6)" }}
             >
-              Colección 2024
+              Colección 2026
             </p>
             <div
               style={{
@@ -993,13 +993,13 @@ function TrustBadges() {
       title: "Garantía Vitalicia",
       desc: "Certificado de autenticidad incluido",
     },
-    { icon: Truck, title: "Envío Gratis", desc: "En compras mayores a $500" },
+    { icon: Truck, title: "Envío Gratis", desc: "En compras mayores a $400000",
     {
       icon: Award,
       title: "Materiales Premium",
-      desc: "Oro 18k, platino y diamantes",
+      desc: "Oro 18k, plata 925",
     },
-    { icon: Star, title: "5 Estrellas", desc: "Miles de clientes satisfechos" },
+    { icon: Star, title: "5 Estrellas", desc: "clientes satisfechos" },
   ];
 
   return (
@@ -1158,7 +1158,7 @@ function BrandStatement() {
           className="text-[10px] tracking-[0.25em] mt-6 uppercase"
           style={{ color: "rgba(212,175,55,0.35)" }}
         >
-          ROWGOLD — Fundada 2019
+          ROWGOLD — Fundada 2026
         </motion.p>
       </div>
     </section>
