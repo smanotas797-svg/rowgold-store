@@ -763,7 +763,7 @@ async function seedDatabase() {
       weight: "",
       collection: "ROWGOLD",
       rating: 4.8,
-      reviewCount:,
+      reviewCount:0,
     },
     {
       name: "Pulsera Mariner",
