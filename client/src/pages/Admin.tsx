@@ -7,6 +7,7 @@ import {
   ShoppingCart,
   TrendingUp,
   ChevronDown,
+  Lock, // Añadido para el icono de bloqueo
 } from "lucide-react";
 import {
   useGetFeaturedProducts,
@@ -130,6 +131,11 @@ function StatusDropdown({
 }
 
 export default function Admin() {
+  // ── ESTADOS DE AUTENTICACIÓN ──
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const [password, setPassword] = useState("");
+  const [errorAuth, setErrorAuth] = useState(false);
+
   const queryClient = useQueryClient();
   const { data: products, isLoading: productsLoading } =
     useGetFeaturedProducts();
@@ -156,6 +162,20 @@ export default function Admin() {
     featured: false,
     inStock: true,
   });
+
+  // Manejador del login de administración
+  const handleLogin = (e: React.FormEvent) => {
+    e.preventDefault();
+    const CLAVE_CORRECTA = "26rowgold06joyeria437"; // 👈 CAMBIA TU CONTRASEÑA AQUÍ
+
+    if (password === CLAVE_CORRECTA) {
+      setIsAuthenticated(true);
+      setErrorAuth(false);
+    } else {
+      setErrorAuth(true);
+      setPassword("");
+    }
+  };
 
   const handleCreateProduct = () => {
     if (!newProduct.name || !newProduct.price) return;
@@ -222,6 +242,94 @@ export default function Admin() {
     { key: "orders" as const, label: "Pedidos", icon: ShoppingCart },
   ];
 
+  // ── RENDER DE LA PANTALLA DE BLOQUEO ──
+  if (!isAuthenticated) {
+    return (
+      <div
+        className="min-h-screen flex items-center justify-center px-6"
+        style={{ background: "#060606" }}
+      >
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          animate={{ opacity: 1, y: 0 }}
+          className="w-full max-w-md p-8"
+          style={{
+            background: "#0c0c0c",
+            border: "1px solid rgba(212,175,55,0.12)",
+            boxShadow: "0 24px 50px rgba(0,0,0,0.9)",
+          }}
+        >
+          <div className="flex flex-col items-center text-center mb-8">
+            <div 
+              className="p-4 mb-4 rounded-full"
+              style={{ background: "rgba(212,175,55,0.03)", border: "1px solid rgba(212,175,55,0.15)" }}
+            >
+              <Lock size={22} style={{ color: GOLD }} />
+            </div>
+            <p
+              className="text-[10px] tracking-[0.4em] uppercase mb-1"
+              style={{ color: "rgba(212,175,55,0.55)" }}
+            >
+              Row Gold S.A.
+            </p>
+            <h2
+              style={{
+                fontFamily: "'Cormorant Garamond', serif",
+                fontSize: "1.8rem",
+                fontWeight: 300,
+                color: "rgba(255,255,255,0.9)",
+                letterSpacing: "0.04em",
+              }}
+            >
+              Acceso Restringido
+            </h2>
+          </div>
+
+          <form onSubmit={handleLogin} className="space-y-5">
+            <div>
+              <label
+                className="block text-[10px] tracking-widest uppercase mb-2"
+                style={{ color: "rgba(212,175,55,0.4)" }}
+              >
+                Contraseña de Administrador
+              </label>
+              <input
+                type="password"
+                placeholder="••••••••"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                className="w-full px-4 py-3 bg-transparent text-sm outline-none text-center transition-all font-mono"
+                style={{
+                  border: errorAuth ? "1px solid #f87171" : "1px solid rgba(212,175,55,0.2)",
+                  color: "rgba(255,255,255,0.8)",
+                  letterSpacing: "0.2em"
+                }}
+              />
+              {errorAuth && (
+                <p className="text-[11px] text-red-400 mt-2 text-center tracking-wide">
+                  Clave incorrecta. Inténtalo de nuevo.
+                </p>
+              )}
+            </div>
+
+            <button
+              type="submit"
+              className="w-full py-3 text-xs tracking-widest uppercase transition-all"
+              style={{
+                background: "linear-gradient(135deg, #9a7808, #d4af37)",
+                color: "#080808",
+                fontWeight: 600,
+              }}
+            >
+              Verificar Identidad
+            </button>
+          </form>
+        </motion.div>
+      </div>
+    );
+  }
+
+  // ── RENDER PRINCIPAL (DASHBOARD) ──
   return (
     <div
       className="min-h-screen pt-24 pb-20 px-6"
@@ -851,136 +959,6 @@ export default function Admin() {
                             </button>
                           </td>
                         </tr>
-                      ))
-                    )}
-                  </tbody>
-                </table>
-              </div>
-            </div>
-          </motion.div>
-        )}
-
-        {/* ── ORDERS ── */}
-        {activeTab === "orders" && (
-          <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }}>
-            <div className="mb-5 flex items-center justify-between">
-              <p className="text-sm" style={{ color: "rgba(255,255,255,0.3)" }}>
-                {orders?.length ?? 0} pedidos
-              </p>
-            </div>
-
-            <div className="luxury-card overflow-hidden">
-              <div className="overflow-x-auto">
-                <table className="w-full">
-                  <thead>
-                    <tr
-                      style={{ borderBottom: "1px solid rgba(212,175,55,0.1)" }}
-                    >
-                      {[
-                        "Pedido",
-                        "Fecha",
-                        "Cliente",
-                        "Método Pago",
-                        "Total",
-                        "Estado",
-                        "Acciones",
-                      ].map((h) => (
-                        <th
-                          key={h}
-                          className="px-5 py-4 text-left text-[10px] tracking-widest uppercase whitespace-nowrap"
-                          style={{ color: "rgba(212,175,55,0.5)" }}
-                        >
-                          {h}
-                        </th>
-                      ))}
-                    </tr>
-                  </thead>
-                  <tbody>
-                    {(orders ?? []).length === 0 ? (
-                      <tr>
-                        <td
-                          colSpan={7}
-                          className="text-center py-16"
-                          style={{
-                            color: "rgba(255,255,255,0.2)",
-                            fontFamily: "'Cormorant Garamond', serif",
-                            fontSize: "1.1rem",
-                          }}
-                        >
-                          No hay pedidos aún
-                        </td>
-                      </tr>
-                    ) : (
-                      (orders ?? []).map((order, i) => (
-                        <motion.tr
-                          key={order.id}
-                          initial={{ opacity: 0 }}
-                          animate={{ opacity: 1 }}
-                          transition={{ delay: i * 0.04 }}
-                          className="transition-colors hover:bg-amber-400/[0.02]"
-                          style={{
-                            borderBottom: "1px solid rgba(212,175,55,0.05)",
-                          }}
-                          data-testid={`row-admin-order-${order.id}`}
-                        >
-                          <td
-                            className="px-5 py-4 text-xs"
-                            style={{ color: "rgba(212,175,55,0.55)" }}
-                          >
-                            #{order.id}
-                          </td>
-                          <td
-                            className="px-5 py-4 text-xs whitespace-nowrap"
-                            style={{ color: "rgba(255,255,255,0.3)" }}
-                          >
-                            {new Date(order.createdAt).toLocaleDateString(
-                              "es-CO",
-                              {
-                                month: "short",
-                                day: "numeric",
-                                year: "2-digit",
-                              },
-                            )}
-                          </td>
-                          <td
-                            className="px-5 py-4 text-xs"
-                            style={{ color: "rgba(255,255,255,0.35)" }}
-                          >
-                            {(order.shippingAddress ?? "—").split(",")[0]}
-                          </td>
-                          <td
-                            className="px-5 py-4 text-xs capitalize"
-                            style={{ color: "rgba(255,255,255,0.35)" }}
-                          >
-                            {order.paymentMethod?.replace(/_/g, " ") ?? "—"}
-                          </td>
-                          <td
-                            className="px-5 py-4 text-sm whitespace-nowrap"
-                            style={{
-                              color: GOLD,
-                              fontFamily: "'Cormorant Garamond', serif",
-                            }}
-                          >
-                            ${Number(order.total).toLocaleString()}
-                          </td>
-                          <td className="px-5 py-4">
-                            <StatusDropdown
-                              orderId={order.id}
-                              current={order.status}
-                            />
-                          </td>
-                          <td className="px-5 py-4">
-                            <a
-                              href={`/orders/${order.id}`}
-                              target="_blank"
-                              rel="noreferrer"
-                              className="text-xs tracking-wider uppercase transition-colors hover:text-amber-400"
-                              style={{ color: "rgba(212,175,55,0.4)" }}
-                            >
-                              Ver →
-                            </a>
-                          </td>
-                        </motion.tr>
                       ))
                     )}
                   </tbody>
