@@ -909,7 +909,7 @@ collection: "ROWGOLD",
 rating: 4.8,
 reviewCount: 36,
 },
-     {
+{
 
 name: "Pulsera Prisma",
 description: "Pulsera para Dama de línea contemporánea elaborada en Plata 9.25 con acabado pulido de alto brillo",
@@ -926,6 +926,43 @@ weight: "",
 collection: "ROWGOLD",
 rating: 4.8,
 reviewCount:56,
+
+},
+ {
+
+name: "Cadena Aurelia Mesh",
+description: "Cadena tipo malla plana elaborada con tejido Italiano cerrado, y acabajo en baño de oro de 18K. Es una pieza atemporal, ancha y con presencia Unisex.",
+price: 595000,
+originalPrice: null,
+category: "cadenas",
+subcategory: "Oro",
+imageUrl: "https://res.cloudinary.com/dmlpiqian/image/upload/v1782429135/IMG_5090_vgk5gz_xlzqem.jpg",
+featured: true,
+instock: true,
+stockQuantity: 8,
+material: "Oro Laminado 18k",
+weight: "",
+collection: "ROWGOLD",
+rating: 5.0,
+reviewCount:16,
+},
+  {
+
+name: "Dije  Royal Crest",
+description: "Dije unisex circular de line a premium elaborado een baño de Oro, el diseño se centra en una corona en alto relieve, simbolo universal de liderazgo, logro y autoestima.",
+price: 130000,
+originalPrice: null,
+category: "accessorios",
+subcategory: "Oro",
+imageUrl: "https://res.cloudinary.com/dmlpiqian/image/upload/v1782428949/IMG_5088_mpg0ud.jpg",
+featured: true,
+instock: true,
+stockQuantity: 8,
+material: "Oro Laminado 18k",
+weight: "",
+collection: "ROWGOLD",
+rating: 4.8.,
+reviewCount:16,
 
 },
 
