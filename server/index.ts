@@ -696,6 +696,7 @@ async function seedDatabase() {
       rating: 4.9,
       reviewCount: 33,
     },
+    
      {
       name: "Pulsera Figaro Roma",
       description: "Pulsera Unisex tejido figaro acabado pulido en plata 9.25, el diseño plano queda recto en la muñeca, refleja luz en todo lado.",
@@ -711,7 +712,7 @@ async function seedDatabase() {
       weight: "",
       collection: "ROWGOLD",
       rating: 4.8,
-      reviewCount:,
+      reviewCount: ,
     },
      {
       name: "Pulsera Sleek ",
