@@ -782,6 +782,23 @@ async function seedDatabase() {
       rating: 4.8,
       reviewCount: 4,
     },
+    {
+      name: "Collar Eternity Green",
+      description: "Collar Eternity Green, diseño continuo que se adapta al cuello, en Plata Italiana 9.25",
+      price: 820000 ,
+      originalPrice: null,
+      category: "accesorios",
+      subcategory: "Plata",
+      imageUrl: "https://res.cloudinary.com/dmlpiqian/image/upload/v1782367821/IMG_5043_tjt6ew.jpg", 
+      featured: true,
+      inStock: true,
+      stockQuantity: 8,
+      material: "Plata Italiana 9.25",
+      weight: "",
+      collection: "ICONIC OF ROWGOLD",
+      rating: 5.0,
+      reviewCount: 0,
+    },
     
   ]);
 
