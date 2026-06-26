@@ -803,7 +803,7 @@ async function seedDatabase() {
 
 name: "Anillo Hamsa Protector",
 description: " Anillo circular en plata 9.25 con corona en el centro con detalles árabes",
-price: 1550000,
+price: 155000,
 originalPrice: null,
 category: "anillos",
 subcategory: "Plata ",
