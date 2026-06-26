@@ -227,23 +227,6 @@ export default function Footer() {
             <p className="text-xs" style={{ color: "rgba(255,255,255,0.18)", letterSpacing: "0.1em" }}>
               &copy; {new Date().getFullYear()} ROWGOLD. Todos los derechos reservados.
             </p>
-            {/* Tu firma perfecta sin errores de sintaxis */}
-            <p className="text-[11px] mt-1.5 flex items-center gap-1 font-medium tracking-wide animate-pulse">
-              <span style={{ color: "rgba(255,255,255,0.3)" }}>Creado de</span>
-              <span className="scale-110" style={{ textShadow: "0 0 8px rgba(239,68,68,0.6)" }}>❤️</span>
-              <span style={{ color: "rgba(255,255,255,0.3)" }}>by:</span>
-              <span 
-                className="font-bold tracking-wider ml-0.5"
-                style={{
-                  background: "linear-gradient(135deg, #FFE07D 0%, #D4AF37 50%, #8A6F27 100%)",
-                  WebkitBackgroundClip: "text",
-                  WebkitTextFillColor: "transparent",
-                  textShadow: "0px 0px 10px rgba(212,175,55,0.2)"
-                }}
-              >
-                Sebastián Manotas
-              </span>
-            </p>
           </div>
           
           <div className="flex items-center gap-6">
