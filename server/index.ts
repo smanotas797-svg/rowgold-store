@@ -728,7 +728,7 @@ async function seedDatabase() {
       weight: "",
       collection: "ICONIC OF ROWGOLD",
       rating: 4.9,
-      reviewCount:,
+      reviewCount:3,
     },
     {
       name: "Dije Virgen Milagrosa",
@@ -745,7 +745,7 @@ async function seedDatabase() {
       weight: "",
       collection: "ICONIC OF ROWGOLD ",
       rating: 4.9,
-      reviewCount:,
+      reviewCount: 10,
     },
      {
       name: "Cadena Figaro Roma",
@@ -766,7 +766,7 @@ async function seedDatabase() {
     },
     {
       name: "Pulsera Mariner",
-      description: "Pulsera para caballero con tejido mariner en plata 925 con acabado pulido y borde pavé de circonias.  ",
+      description: "Pulsera para caballero con tejido mariner en plata 925 con acabado pulido y borde pavé de circonias.",
       price: 315000 ,
       originalPrice: null,
       category: "pulseras",
@@ -779,7 +779,7 @@ async function seedDatabase() {
       weight: "",
       collection: "ROWGOLD",
       rating: 4.8,
-      reviewCount:,
+      reviewCount: 4,
     },
      {
       name: "Pulsera Mariner",
@@ -796,7 +796,7 @@ async function seedDatabase() {
       weight: "",
       collection: "ROWGOLD",
       rating: 4.8,
-      reviewCount:,
+      reviewCount: 13,
     },
   ]);
 
