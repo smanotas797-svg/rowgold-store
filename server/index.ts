@@ -818,7 +818,7 @@ rating: 4.8,
 reviewCount:36,
 
 },
-    {
+{
 
 name: "Anillos Royal Crest ",
 description: " Nueva Edición de ROWGOLD en Plata Premium para mayor brillo y resistencia a la oxidación, manteniendo la coherencia del lenguaje visual de la pieza en Plata Italiana 9.25",
@@ -837,31 +837,32 @@ rating: 5.0,
 reviewCount: 42,
 
 },
-    {
+{
 
 name: "Anillo Royal Emblem ",
 description: " Colección ROWGOLD, elaborada en base de Plata 9.25 Con símbolo de corona con textura martillada, genera contraste y profundidad, enmarcando el emblema central.",
-price: 270000,
-originalPrice:,
-category: "anillo",
+price: 27'000,
+originalPrice: null,
+category: "anillos",
 subcategory: "Plata",
-imageUrl: " https://res.cloudinary.com/dmlpiqian/image/upload/v1782438022/IMG_5097_e7bgv8.jpg",
+imageUrl:" https://res.cloudinary.com/dmlpiqian/image/upload/v1782438022/IMG_5097_e7bgv8.jpg",
 featured: true,
 instock: true,
 stockQuantity: 8,
 material: "Plata Italiana 9.25",
 weight: "",
 collection: "ICONIC OF ROWGOLD",
-rating: 4.8,
-reviewCount: 19,
+rating: 5.0,
+reviewCount: 42,
 },
-{
-name: "Anillos Square ",
-description: "Eslabón geométrico que aporta ritmo, técnica y un guiño a la relojería clásica, es una joya para hombre contemporáneo en Plata Italiana 9.25",
-price:270000 ,
+     {
+
+name: "Anillos Square",
+description: " Eslabón geométrico que aporta ritmo, técnica y un guiño a la relojería clásica, es una joya para hombre contemporáneo en Plata Italiana 9.25",
+price: 170000,
 originalPrice: null,
-category: "anillo",
-subcategory: "plata",
+category: "anillos",
+subcategory: "Plata ",
 imageUrl: " https://res.cloudinary.com/dmlpiqian/image/upload/v1782439866/IMG_5099_n40qcw.jpg",
 featured: true,
 instock: true,
@@ -869,8 +870,9 @@ stockQuantity: 8,
 material: "Plata Italiana 9.25",
 weight: "",
 collection: "ROWGOLD",
-rating: 4.8,
-reviewCount: 25,
+rating: 4.0,
+reviewCount:36,
+
 },
 
   ]);
