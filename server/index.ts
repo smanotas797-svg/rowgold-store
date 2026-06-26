@@ -685,7 +685,7 @@ async function seedDatabase() {
       price: 75000,
       originalPrice: null,
       category: "aretes",
-      subcategory: "Oro",
+      subcategory: "oro",
       imageUrl: "https://res.cloudinary.com/dmlpiqian/image/upload/v1782428730/IMG_5079_gn77ku.jpg", 
       featured: true,
       inStock: true,
@@ -694,7 +694,7 @@ async function seedDatabase() {
       weight: "",
       collection: "ROWGOLD",
       rating: 4.9,
-      reviewCount: ,
+      reviewCount: 33,
     },
      {
       name: "Pulsera Figaro Roma",
