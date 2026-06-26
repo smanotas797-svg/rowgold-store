@@ -546,7 +546,7 @@ async function seedDatabase() {
     {
       name: "Cadena Singapur",
       description: "Acabado diamantado que refleja la luz con cada movimiento, liviana y flexible que eleva con cualquier Outfit",
-      price: 96000,
+      price: 85000,
       originalPrice: null,
       category: "cadenas",
       subcategory: "plata",
@@ -563,7 +563,7 @@ async function seedDatabase() {
     {
       name: "Pulsera Milan II",
       description: "Tejido pulido que refleja la luz, diseño atemporal para caballero resistente y flexible",
-      price: 98000,
+      price: 148000,
       originalPrice: null,
       category: "pulseras",
       subcategory: "plata",
@@ -700,7 +700,7 @@ async function seedDatabase() {
      {
       name: "Pulsera Figaro Roma",
       description: "Pulsera Unisex tejido figaro acabado pulido en plata 9.25, el diseño plano queda recto en la muñeca, refleja luz en todo lado.",
-      price: 265000 ,
+      price: 115000 ,
       originalPrice: null,
       category: "pulseras",
       subcategory: "Plata",
@@ -768,7 +768,7 @@ async function seedDatabase() {
     {
       name: "Pulsera Mariner",
       description: "Pulsera para caballero con tejido mariner en plata 925 con acabado pulido y borde pavé de circonias.",
-      price: 315000 ,
+      price: 265000 ,
       originalPrice: null,
       category: "pulseras",
       subcategory: "Plata",
@@ -859,7 +859,7 @@ reviewCount: 42,
 
 name: "Anillos Square",
 description: " Eslabón geométrico que aporta ritmo, técnica y un guiño a la relojería clásica, es una joya para hombre contemporáneo en Plata Italiana 9.25",
-price: 170000,
+price: 290000,
 originalPrice: null,
 category: "anillos",
 subcategory: "Plata ",
@@ -877,7 +877,7 @@ reviewCount:36,
   {
 name: "Pulsera De Órbita y Esferas",
 description: "Pulsera para Dama de línea contemporánea elaborada en Plata 9.25 con acabado pulido de alto brillo",
-price: 160000,
+price: 155000,
 originalPrice: null,
 category: "pulsera",
 subcategory: "Plata ",
