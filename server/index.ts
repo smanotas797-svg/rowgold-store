@@ -782,23 +782,7 @@ async function seedDatabase() {
       rating: 4.8,
       reviewCount: 4,
     },
-     {
-      name: "Pulsera Mariner",
-      description: " ",
-      price: 5000 ,
-      originalPrice: null,
-      category: "pulseras",
-      subcategory: "Plata",
-      imageUrl: "h", 
-      featured: true,
-      inStock: true,
-      stockQuantity: 8,
-      material: "Plata Italiana 9.25",
-      weight: "",
-      collection: "ROWGOLD",
-      rating: 4.8,
-      reviewCount: 13,
-    },
+    
   ]);
 
   logger.info("Base de datos sembrada: 12 productos y 6 categorías creados");
