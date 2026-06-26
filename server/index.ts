@@ -853,7 +853,7 @@ material: "Plata Italiana 9.25",
 weight: "",
 collection: "ICONIC OF ROWGOLD",
 rating: 4.8,
-reviewCount: 17,
+reviewCount: 19,
 },
 {
 name: "Anillos Square ",
