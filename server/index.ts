@@ -877,7 +877,7 @@ reviewCount:36,
   {
 name: "Pulsera De Órbita y Esferas",
 description: "Pulsera para Dama de línea contemporánea elaborada en Plata 9.25 con acabado pulido de alto brillo",
-price: 128000,
+price: 160000,
 originalPrice: null,
 category: "pulsera",
 subcategory: "Plata ",
@@ -891,6 +891,23 @@ collection: "ICONIC OF ROWGOLD",
 rating: 4.8,
 reviewCount: 33,
 
+},
+    {
+name: "Anillo Carmesí",
+description: "Anillo Carmesí para Dama en Plata Italiana 9.25, el diseño se centra en una piedra roja de corte brillante que permite el paso máximo de luz y realza su color profundo",
+price: 110000,
+originalPrice: null,
+category: "anillos",
+subcategory: "Plata ",
+imageUrl: "https://res.cloudinary.com/dmlpiqian/image/upload/v1782442970/IMG_5100_un6s78.jpg",
+featured: true,
+instock: true,
+stockQuantity: 8,
+material: "Plata Italiana 9.25",
+weight: "",
+collection: "ROWGOLD",
+rating: 4.8,
+reviewCount: 36,
 },
      {
 
@@ -911,23 +928,7 @@ rating: 4.8,
 reviewCount:56,
 
 },
-{
-name: "Anillo Carmesí",
-description: "Anillo Carmesí para Dama en Plata Italiana 9.25, el diseño se centra en una piedra roja de corte brillante que permite el paso máximo de luz y realza su color profundo",
-price: 110000,
-originalPrice: null,
-category: "anillos",
-subcategory: "Plata ",
-imageUrl: "https://res.cloudinary.com/dmlpiqian/image/upload/v1782442970/IMG_5100_un6s78.jpg",
-featured: true,
-instock: true,
-stockQuantity: 8,
-material: "Plata Italiana 9.25",
-weight: "",
-collection: "ROWGOLD",
-rating: 4.8,
-reviewCount: 36,
-},
+
 
   ]);
 
