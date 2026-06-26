@@ -837,6 +837,42 @@ rating: 5.0,
 reviewCount: 42,
 
 },
+    {
+
+name: "Anillo Royal Emblem ",
+description: " Colección ROWGOLD, elaborada en base de Plata 9.25 Con símbolo de corona con textura martillada, genera contraste y profundidad, enmarcando el emblema central.",
+price: 270000,
+originalPrice:,
+category: "anillo",
+subcategory: "Plata",
+imageUrl: " https://res.cloudinary.com/dmlpiqian/image/upload/v1782438022/IMG_5097_e7bgv8.jpg",
+featured: true,
+instock: true,
+stockQuantity: 8,
+material: "Plata Italiana 9.25",
+weight: "",
+collection: "ICONIC OF ROWGOLD",
+rating: 4.8,
+reviewCount: 17,
+},
+{
+name: "Anillos Square ",
+description: "Eslabón geométrico que aporta ritmo, técnica y un guiño a la relojería clásica, es una joya para hombre contemporáneo en Plata Italiana 9.25",
+price:270000 ,
+originalPrice: null,
+category: "anillo",
+subcategory: "plata",
+imageUrl: " https://res.cloudinary.com/dmlpiqian/image/upload/v1782439866/IMG_5099_n40qcw.jpg",
+featured: true,
+instock: true,
+stockQuantity: 8,
+material: "Plata Italiana 9.25",
+weight: "",
+collection: "ROWGOLD",
+rating: 4.8,
+reviewCount:,
+},
+
   ]);
 
   logger.info("Base de datos sembrada: 12 productos y 6 categorías creados");
