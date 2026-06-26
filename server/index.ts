@@ -797,9 +797,46 @@ async function seedDatabase() {
       weight: "",
       collection: "ICONIC OF ROWGOLD",
       rating: 5.0,
-      reviewCount: 0,
+      reviewCount: 2,
     },
-    
+   {
+
+name: "Anillo Hamsa Protector",
+description: " Anillo circular en plata 9.25 con corona en el centro con detalles árabes",
+price: 170000,
+originalPrice: null,
+category: "anillos",
+subcategory: "Plata ",
+imageUrl: "https://res.cloudinary.com/dmlpiqian/image/upload/v1782437993/IMG_5095_r8yqjr.jpg",
+featured: true,
+instock: true,
+stockQuantity: 8,
+material: "Plata Italiana 9.25",
+weight: "",
+collection: "ROWGOLD",
+rating: 4.8,
+reviewCount: 6,
+
+},
+    {
+
+name: "Anillos Royal Crest ",
+description: " Nueva Edición de ROWGOLD en Plata Premium para mayor brillo y resistencia a la oxidación, manteniendo la coherencia del lenguaje visual de la pieza en Plata Italiana 9.25",
+price: 175000,
+originalPrice: null,
+category: "anillos",
+subcategory: "Plata",
+imageUrl: "https://res.cloudinary.com/dmlpiqian/image/upload/v1782438005/IMG_5096_n4jqp2.jpg",
+featured: true,
+instock: true,
+stockQuantity: 8,
+material: "Plata Italiana 9.25",
+weight: "",
+collection: "ROWGOLD",
+rating: 5.0,
+reviewCount: 42,
+
+},
   ]);
 
   logger.info("Base de datos sembrada: 12 productos y 6 categorías creados");
