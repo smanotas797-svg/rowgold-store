@@ -815,7 +815,7 @@ material: "Plata Italiana 9.25",
 weight: "",
 collection: "ROWGOLD",
 rating: 4.8,
-reviewCount: 6,
+reviewCount:36,
 
 },
     {
@@ -870,7 +870,7 @@ material: "Plata Italiana 9.25",
 weight: "",
 collection: "ROWGOLD",
 rating: 4.8,
-reviewCount:,
+reviewCount: 25,
 },
 
   ]);
