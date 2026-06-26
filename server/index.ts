@@ -841,7 +841,7 @@ reviewCount: 42,
 
 name: "Anillo Royal Emblem ",
 description: " Colección ROWGOLD, elaborada en base de Plata 9.25 Con símbolo de corona con textura martillada, genera contraste y profundidad, enmarcando el emblema central.",
-price: 27'000,
+price: 270000,
 originalPrice: null,
 category: "anillos",
 subcategory: "Plata",
@@ -855,7 +855,7 @@ collection: "ICONIC OF ROWGOLD",
 rating: 5.0,
 reviewCount: 42,
 },
-     {
+{
 
 name: "Anillos Square",
 description: " Eslabón geométrico que aporta ritmo, técnica y un guiño a la relojería clásica, es una joya para hombre contemporáneo en Plata Italiana 9.25",
