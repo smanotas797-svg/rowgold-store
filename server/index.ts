@@ -962,8 +962,27 @@ stockQuantity: 8,
 material: "Oro Laminado 18k",
 weight: "",
 collection: "ROWGOLD",
-rating: 4.8.,
+rating: 4.8,
 reviewCount:16,
+
+},
+     {
+
+name: "Pulsera Magica",
+description: "Pulsera Hongo Magico para dama, elaborado en plata Italiana 9.25 graduable para un Look ligero y moderno ",
+price: 88000,
+originalPrice: null,
+category: "pulseras",
+subcategory: "plata",
+imageUrl: "https://res.cloudinary.com/dmlpiqian/image/upload/v1782522135/IMG_5145_e0egsr_tw6kzz.jpg",
+featured: true,
+instock: true,
+stockQuantity: 8,
+material: "Plata Italiana 9.25",
+weight: "",
+collection: "ROWGOLD",
+rating: 4.9,
+reviewCount:56,
 
 },
     
