@@ -1,5 +1,6 @@
+import { useState } from "react";
 import { Link } from "wouter";
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 import { SiInstagram, SiTiktok, SiWhatsapp } from "react-icons/si";
 import rowgoldLogo from "@assets/WhatsApp_Image_2026-05-14_at_9.43.54_PM_1778817269857.jpeg";
 
@@ -31,14 +32,16 @@ const categoryLinks = [
 ];
 
 const supportLinks = [
-  "Política de Privacidad",
-  "Términos y Condiciones",
-  "Devoluciones",
-  "Envíos",
-  "Contacto",
+  { id: "privacy", label: "Política de Privacidad" },
+  { href: "/terms", label: "Términos y Condiciones" },
+  { href: "/returns", label: "Devoluciones" },
+  { href: "/shipping", label: "Envíos" },
+  { href: "/contact", label: "Contacto" },
 ];
 
 export default function Footer() {
+  const [isPrivacyOpen, setIsPrivacyOpen] = useState(false);
+
   return (
     <footer
       className="relative overflow-hidden mt-24"
@@ -201,14 +204,27 @@ export default function Footer() {
             </h4>
             <ul className="space-y-3.5">
               {supportLinks.map((item) => (
-                <li key={item}>
-                  <motion.span
-                    whileHover={{ x: 4, color: GOLD }}
-                    className="text-sm cursor-pointer transition-colors block"
-                    style={{ color: "rgba(255,255,255,0.32)", letterSpacing: "0.05em" }}
-                  >
-                    {item}
-                  </motion.span>
+                <li key={item.label}>
+                  {item.id === "privacy" ? (
+                    <motion.span
+                      onClick={() => setIsPrivacyOpen(true)}
+                      whileHover={{ x: 4, color: GOLD }}
+                      className="text-sm cursor-pointer transition-colors block"
+                      style={{ color: "rgba(255,255,255,0.32)", letterSpacing: "0.05em" }}
+                    >
+                      {item.label}
+                    </motion.span>
+                  ) : (
+                    <Link href={item.href}>
+                      <motion.span
+                        whileHover={{ x: 4, color: GOLD }}
+                        className="text-sm cursor-pointer transition-colors block"
+                        style={{ color: "rgba(255,255,255,0.32)", letterSpacing: "0.05em" }}
+                      >
+                        {item.label}
+                      </motion.span>
+                    </Link>
+                  )}
                 </li>
               ))}
             </ul>
@@ -237,6 +253,156 @@ export default function Footer() {
           </div>
         </div>
       </div>
+
+      {/* ========================================== */}
+      {/* MODAL EMERGENTE DE POLÍTICA DE PRIVACIDAD */}
+      {/* ========================================== */}
+      <AnimatePresence>
+        {isPrivacyOpen && (
+          <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              onClick={() => setIsPrivacyOpen(false)}
+              className="absolute inset-0 bg-black/80 backdrop-blur-sm"
+            />
+
+            <motion.div
+              initial={{ opacity: 0, scale: 0.95, y: 20 }}
+              animate={{ opacity: 1, scale: 1, y: 0 }}
+              exit={{ opacity: 0, scale: 0.95, y: 20 }}
+              className="relative w-full max-w-3xl max-h-[85vh] overflow-y-auto rounded-lg p-6 md:p-8 border"
+              style={{
+                background: "#0a0a0a",
+                borderColor: "rgba(212,175,55,0.2)",
+                boxShadow: "0 10px 40px rgba(0,0,0,0.8), 0 0 30px rgba(212,175,55,0.03)"
+              }}
+            >
+              {/* Botón de cerrar arriba a la derecha */}
+              <button
+                onClick={() => setIsPrivacyOpen(false)}
+                className="absolute top-4 right-4 text-xs tracking-widest uppercase transition-colors"
+                style={{ color: "rgba(255,255,255,0.4)" }}
+                onMouseEnter={(e) => e.target.style.color = GOLD}
+                onMouseLeave={(e) => e.target.style.color = "rgba(255,255,255,0.4)"}
+              >
+                ✕ Cerrar
+              </button>
+
+              {/* Título Principal */}
+              <h3 
+                className="text-lg md:text-xl mb-6 tracking-wide pb-3 border-b uppercase"
+                style={{ 
+                  fontFamily: "'Cormorant Garamond', Georgia, serif", 
+                  color: GOLD,
+                  borderColor: "rgba(212,175,55,0.1)"
+                }}
+              >
+                Política de seguridad, privacidad y tratamiento de datos personales
+              </h3>
+
+              {/* Cuerpo de Información */}
+              <div className="text-sm space-y-5 leading-relaxed text-left pr-2" style={{ color: "rgba(255,255,255,0.6)" }}>
+                
+                <p>
+                  En <strong>ROWGOLD</strong> reconocemos la importancia de la privacidad y la protección de la información personal de nuestros clientes. Por ello, tratamos los datos personales de conformidad con lo dispuesto en la Ley 1581 de 2012, el Decreto 1377 de 2013, el Decreto 1074 de 2015 y las demás normas que modifiquen, adicionen o sustituyan la legislación colombiana sobre protección de datos personales.
+                </p>
+                
+                <p>
+                  Nuestro compromiso es garantizar una experiencia de compra segura, transparente y confiable, implementando medidas técnicas, administrativas y organizacionales orientadas a proteger la información suministrada por nuestros usuarios contra el acceso no autorizado, pérdida, alteración, divulgación, uso indebido o cualquier tratamiento contrario a la ley. Toda la información personal recolectada por ROWGOLD será utilizada exclusivamente para gestionar pedidos, validar pagos, coordinar envíos, atender solicitudes de garantía, brindar soporte al cliente, dar respuesta a peticiones, quejas o reclamos, cumplir obligaciones legales y mejorar la experiencia de compra. En ningún caso comercializaremos, venderemos o cederemos datos personales a terceros con fines distintos a los necesarios para la correcta prestación de nuestros servicios, salvo cuando exista autorización expresa del titular o una obligación legal que así lo requiera.
+                </p>
+
+                <h4 style={{ color: GOLD, fontWeight: "600", letterSpacing: "0.05em" }} className="uppercase text-xs pt-2">
+                  Seguridad en los pagos
+                </h4>
+                <p>
+                  Con el propósito de ofrecer transacciones seguras, ROWGOLD no almacena, procesa ni tiene acceso a la información completa de tarjetas de crédito o débito. Todos los pagos son gestionados mediante pasarelas de pago certificadas que utilizan protocolos de seguridad, cifrado de datos (SSL/TLS) y mecanismos de autenticación para proteger cada transacción realizada por nuestros clientes.
+                </p>
+                <p>
+                  Cuando el proceso de compra requiera coordinación mediante WhatsApp, la confirmación del pago se realizará únicamente a través del número oficial <strong>+57 321 319 5879</strong>, evitando intermediarios y reduciendo el riesgo de fraude.
+                </p>
+
+                <h4 style={{ color: GOLD, fontWeight: "600", letterSpacing: "0.05em" }} className="uppercase text-xs pt-2">
+                  Protección de la información
+                </h4>
+                <p>
+                  ROWGOLD implementa mecanismos de seguridad informática orientados a preservar la confidencialidad, integridad y disponibilidad de la información. Nuestros sistemas cuentan con protocolos de cifrado de datos, controles de acceso y medidas de seguridad que buscan minimizar cualquier riesgo de acceso no autorizado o tratamiento indebido de la información suministrada por nuestros clientes.
+                </p>
+
+                <h4 style={{ color: GOLD, fontWeight: "600", letterSpacing: "0.05em" }} className="uppercase text-xs pt-2">
+                  Derechos del titular de los datos
+                </h4>
+                <p>
+                  De conformidad con la Ley 1581 de 2012, el titular de los datos personales podrá conocer, actualizar, rectificar o solicitar la eliminación de su información cuando sea procedente, así como revocar la autorización otorgada para su tratamiento y presentar consultas o reclamos relacionados con el uso de sus datos personales. Las solicitudes serán atendidas a través de nuestros canales oficiales de contacto dentro de los términos establecidos por la legislación colombiana.
+                </p>
+
+                <h4 style={{ color: GOLD, fontWeight: "600", letterSpacing: "0.05em" }} className="uppercase text-xs pt-2">
+                  Garantía de nuestros productos
+                </h4>
+                <p>
+                  ROWGOLD comercializa joyas elaboradas en Plata Italiana Ley 925, Oro de 18 Kilates, Baño de Oro y relojes seleccionados bajo criterios de calidad.
+                </p>
+                <ul className="list-disc pl-5 space-y-1.5" style={{ color: "rgba(255,255,255,0.55)" }}>
+                  <li>Las joyas elaboradas en Plata Italiana Ley 925, Oro de 18 Kilates y Baño de Oro cuentan con una <strong>garantía de treinta (30) días calendario</strong>, exclusivamente por defectos de fabricación.</li>
+                  <li>Los relojes cuentan con una <strong>garantía de doce (12) meses</strong>, aplicable únicamente a defectos internos de maquinaria.</li>
+                </ul>
+                <p>
+                  La garantía no cubre daños ocasionados por golpes, caídas, manipulación inadecuada, contacto con perfumes, cremas, productos químicos, piscinas, agua salada, humedad excesiva, intervenciones realizadas por terceros, desgaste natural por el uso o cualquier situación derivada del uso indebido del producto.
+                </p>
+
+                <h4 style={{ color: GOLD, fontWeight: "600", letterSpacing: "0.05em" }} className="uppercase text-xs pt-2">
+                  Política de cambios
+                </h4>
+                <p>
+                  Como beneficio para nuestros clientes, ROWGOLD permitirá el cambio de los productos dentro de los <strong>trescientos sesenta y cinco (365) días calendario</strong> siguientes a la fecha de entrega, siempre que el producto se encuentre en perfectas condiciones, sin señales de uso, con su empaque original y conserve todas las etiquetas con las cuales fue entregado y sin daños o desgaste.
+                </p>
+                <p>
+                  Una vez recibido el producto, ROWGOLD verificará el cumplimiento de las condiciones anteriormente descritas antes de autorizar el cambio correspondiente.
+                </p>
+
+                <h4 style={{ color: GOLD, fontWeight: "600", letterSpacing: "0.05em" }} className="uppercase text-xs pt-2">
+                  Política de devoluciones y reembolsos
+                </h4>
+                <p>
+                  ROWGOLD no realiza devoluciones de dinero por motivos de gusto personal, cambio de opinión o errores atribuibles al comprador. Las devoluciones únicamente procederán cuando así lo disponga la legislación colombiana aplicable, incluyendo el ejercicio del derecho de retracto cuando corresponda, o cuando exista un defectuoso cubierto por la garantía legal que no pueda ser solucionado mediante reparación o sustitución del producto, conforme a lo establecido en la Ley 1480 de 2011 (Estatuto del Consumidor).
+                </p>
+                <p>
+                  Las solicitudes relacionadas con garantías, cambios o reembolsos deberán presentarse a través de los canales oficiales de atención.
+                </p>
+
+                <h4 style={{ color: GOLD, fontWeight: "600", letterSpacing: "0.05em" }} className="uppercase text-xs pt-2">
+                  Canales oficiales de atención
+                </h4>
+                <ul className="space-y-1" style={{ color: "rgba(255,255,255,0.55)" }}>
+                  <li><strong>Sitio web:</strong> <a href="https://rowgold-store.onrender.com" target="_blank" rel="noreferrer" className="underline hover:text-white transition-colors">https://rowgold-store.onrender.com</a></li>
+                  <li><strong>Correo electrónico:</strong> rowgold06joyeria@gmail.com</li>
+                  <li><strong>WhatsApp oficial:</strong> +57 321 319 5879</li>
+                  <li><strong>Horario de atención:</strong> Lunes a domingo, de 7:00 a. m. a 11:59 p. m., a través del sitio web, WhatsApp o Instagram “rowgoldjoyeria”.</li>
+                </ul>
+
+              </div>
+
+              {/* Botón de cierre inferior */}
+              <div className="mt-6 flex justify-end border-t pt-4" style={{ borderColor: "rgba(212,175,55,0.1)" }}>
+                <button
+                  onClick={() => setIsPrivacyOpen(false)}
+                  className="px-6 py-2 text-xs uppercase tracking-widest transition-all duration-300"
+                  style={{
+                    border: "1px solid rgba(212,175,55,0.3)",
+                    color: GOLD,
+                    background: "rgba(212,175,55,0.02)"
+                  }}
+                  onMouseEnter={(e) => e.target.style.background = "rgba(212,175,55,0.1)"}
+                  onMouseLeave={(e) => e.target.style.background = "rgba(212,175,55,0.02)"}
+                >
+                  Entendido
+                </button>
+              </div>
+            </motion.div>
+          </div>
+        )}
+      </AnimatePresence>
     </footer>
   );
 }
