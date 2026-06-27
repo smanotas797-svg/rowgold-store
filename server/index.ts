@@ -966,25 +966,7 @@ rating: 4.8.,
 reviewCount:16,
 
 },
-    {
-      name: "Pulsera de Trébol",
-      description: "Esta Pulsera Unisex se destaca por sus icónicos Tréboles con sutiles Blancos y bordes texturizados. Una pieza en tendencia ideal para realzar cualquier look..",
-      price: 125000,
-      originalPrice: null,
-      category: "pulseras",
-      subcategory: "plata",
-      imageUrl: "",
-      featured: true,
-      inStock: true,
-      stockQuantity: 7,
-      material: "Plata Italiana 9.25",
-      weight: "6g",
-      collection: "ROWGOLD",
-      rating: 4.9,
-      reviewCount: 24,
-    },
-
-
+    
   ]);
 
   logger.info("Base de datos sembrada: 12 productos y 6 categorías creados");
