@@ -42,6 +42,13 @@ const supportLinks = [
 export default function Footer() {
   const [isPrivacyOpen, setIsPrivacyOpen] = useState(false);
 
+  // Función segura para abrir el modal impidiendo comportamientos extraños del navegador
+  const handleOpenPrivacy = (e) => {
+    e.preventDefault();
+    e.stopPropagation();
+    setIsPrivacyOpen(true);
+  };
+
   return (
     <footer
       className="relative overflow-hidden mt-24"
@@ -206,14 +213,19 @@ export default function Footer() {
               {supportLinks.map((item) => (
                 <li key={item.label}>
                   {item.id === "privacy" ? (
-                    <motion.span
-                      onClick={() => setIsPrivacyOpen(true)}
-                      whileHover={{ x: 4, color: GOLD }}
-                      className="text-sm cursor-pointer transition-colors block"
-                      style={{ color: "rgba(255,255,255,0.32)", letterSpacing: "0.05em" }}
+                    <button
+                      type="button"
+                      onClick={handleOpenPrivacy}
+                      className="text-sm cursor-pointer transition-colors block text-left bg-transparent border-0 p-0 outline-none w-full"
                     >
-                      {item.label}
-                    </motion.span>
+                      <motion.span
+                        whileHover={{ x: 4, color: GOLD }}
+                        className="block"
+                        style={{ color: "rgba(255,255,255,0.32)", letterSpacing: "0.05em" }}
+                      >
+                        {item.label}
+                      </motion.span>
+                    </button>
                   ) : (
                     <Link href={item.href}>
                       <motion.span
@@ -254,35 +266,38 @@ export default function Footer() {
         </div>
       </div>
 
-      {/* ========================================== */}
-      {/* MODAL EMERGENTE DE POLÍTICA DE PRIVACIDAD */}
-      {/* ========================================== */}
+      {/* ========================================================= */}
+      {/* MODAL EMERGENTE (Con z-[9999] para forzar prioridad visual) */}
+      {/* ========================================================= */}
       <AnimatePresence>
         {isPrivacyOpen && (
-          <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
+          <div className="fixed inset-0 z-[9999] flex items-center justify-center p-4">
+            {/* Fondo oscuro */}
             <motion.div
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
               onClick={() => setIsPrivacyOpen(false)}
-              className="absolute inset-0 bg-black/80 backdrop-blur-sm"
+              className="absolute inset-0 bg-black/85 backdrop-blur-md"
             />
 
+            {/* Tarjeta del documento */}
             <motion.div
               initial={{ opacity: 0, scale: 0.95, y: 20 }}
               animate={{ opacity: 1, scale: 1, y: 0 }}
               exit={{ opacity: 0, scale: 0.95, y: 20 }}
-              className="relative w-full max-w-3xl max-h-[85vh] overflow-y-auto rounded-lg p-6 md:p-8 border"
+              className="relative w-full max-w-3xl max-h-[85vh] overflow-y-auto rounded-lg p-6 md:p-8 border z-[10000]"
               style={{
                 background: "#0a0a0a",
-                borderColor: "rgba(212,175,55,0.2)",
-                boxShadow: "0 10px 40px rgba(0,0,0,0.8), 0 0 30px rgba(212,175,55,0.03)"
+                borderColor: "rgba(212,175,55,0.25)",
+                boxShadow: "0 25px 50px -12px rgba(0,0,0,0.9), 0 0 40px rgba(212,175,55,0.05)"
               }}
             >
-              {/* Botón de cerrar arriba a la derecha */}
+              {/* Botón superior de cierre */}
               <button
+                type="button"
                 onClick={() => setIsPrivacyOpen(false)}
-                className="absolute top-4 right-4 text-xs tracking-widest uppercase transition-colors"
+                className="absolute top-4 right-4 text-xs tracking-widest uppercase transition-colors bg-transparent border-0 cursor-pointer"
                 style={{ color: "rgba(255,255,255,0.4)" }}
                 onMouseEnter={(e) => e.target.style.color = GOLD}
                 onMouseLeave={(e) => e.target.style.color = "rgba(255,255,255,0.4)"}
@@ -292,18 +307,18 @@ export default function Footer() {
 
               {/* Título Principal */}
               <h3 
-                className="text-lg md:text-xl mb-6 tracking-wide pb-3 border-b uppercase"
+                className="text-lg md:text-xl mb-6 tracking-wide pb-3 border-b uppercase text-left"
                 style={{ 
                   fontFamily: "'Cormorant Garamond', Georgia, serif", 
                   color: GOLD,
-                  borderColor: "rgba(212,175,55,0.1)"
+                  borderColor: "rgba(212,175,55,0.15)"
                 }}
               >
                 Política de seguridad, privacidad y tratamiento de datos personales
               </h3>
 
-              {/* Cuerpo de Información */}
-              <div className="text-sm space-y-5 leading-relaxed text-left pr-2" style={{ color: "rgba(255,255,255,0.6)" }}>
+              {/* Contenido Legal */}
+              <div className="text-sm space-y-5 leading-relaxed text-left pr-2" style={{ color: "rgba(255,255,255,0.65)" }}>
                 
                 <p>
                   En <strong>ROWGOLD</strong> reconocemos la importancia de la privacidad y la protección de la información personal de nuestros clientes. Por ello, tratamos los datos personales de conformidad con lo dispuesto en la Ley 1581 de 2012, el Decreto 1377 de 2013, el Decreto 1074 de 2015 y las demás normas que modifiquen, adicionen o sustituyan la legislación colombiana sobre protección de datos personales.
@@ -365,7 +380,7 @@ export default function Footer() {
                   Política de devoluciones y reembolsos
                 </h4>
                 <p>
-                  ROWGOLD no realiza devoluciones de dinero por motivos de gusto personal, cambio de opinión o errores atribuibles al comprador. Las devoluciones únicamente procederán cuando así lo disponga la legislación colombiana aplicable, incluyendo el ejercicio del derecho de retracto cuando corresponda, o cuando exista un defectuoso cubierto por la garantía legal que no pueda ser solucionado mediante reparación o sustitución del producto, conforme a lo establecido en la Ley 1480 de 2011 (Estatuto del Consumidor).
+                  ROWGOLD no realiza devoluciones de dinero por motivos de gusto personal, cambio de opinión o errores atribuibles al comprador. Las devoluciones únicamente procederán cuando así lo disponga la legislación colombiana aplicable, incluyendo el ejercicio del derecho de retracto cuando corresponda, o cuando exista un defecto cubierto por la garantía legal que no pueda ser solucionado mediante reparación o sustitución del producto, conforme a lo establecido en la Ley 1480 de 2011 (Estatuto del Consumidor).
                 </p>
                 <p>
                   Las solicitudes relacionadas con garantías, cambios o reembolsos deberán presentarse a través de los canales oficiales de atención.
@@ -383,11 +398,12 @@ export default function Footer() {
 
               </div>
 
-              {/* Botón de cierre inferior */}
+              {/* Botón inferior de cierre */}
               <div className="mt-6 flex justify-end border-t pt-4" style={{ borderColor: "rgba(212,175,55,0.1)" }}>
                 <button
+                  type="button"
                   onClick={() => setIsPrivacyOpen(false)}
-                  className="px-6 py-2 text-xs uppercase tracking-widest transition-all duration-300"
+                  className="px-6 py-2 text-xs uppercase tracking-widest transition-all duration-300 cursor-pointer"
                   style={{
                     border: "1px solid rgba(212,175,55,0.3)",
                     color: GOLD,
