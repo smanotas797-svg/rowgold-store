@@ -1038,25 +1038,7 @@ rating: 4.9,
 reviewCount: 78,
 
 },
-   {
-name: "Pulsera Sweet Cherry", 
-description: " ",
-price: 88000,
-originalPrice: null,
-category: "pulsera",
-subcategory: "Plata ",
-imageUrl: "https://res.cloudinary.com/dmlpiqian/image/upload/v1782574210/IMG_5165_m0gxld.jpg",
-featured: true,
-instock: true,
-stockQuantity: 8,
-material: "Plata Italiana 9.25",
-weight: "",
-collection: " ROWGOLD",
-rating: 4.9,
-reviewCount: 78,
-
-},
-     {
+  {
 name: "Pulsera Watermelon", 
 description: " Summer Slice es una pulsera en Plata 925, es el accesorio perfecto para regalo y para  quienes aman los detalles unicos ",
 price: 86000,
