@@ -94,7 +94,7 @@ async function seedDatabase() {
     {
       name: "Collar de Tréboles Verdes",
       description: "Este diseño clásico intercala tréboles de cuatro hojas verdes",
-      price: 145000,
+      price: 143000,
       originalPrice: null,
       category: "collares",
       subcategory: "oro blanco",
