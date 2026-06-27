@@ -106,7 +106,7 @@ async function seedDatabase() {
       weight: "28g",
       collection: "ICONIC OF ROWGOLD",
       rating: 5.0,
-      reviewCount: 15,
+      reviewCount: 24,
     },
     {
       name: "Pulsera Rope Chain",
@@ -231,7 +231,7 @@ async function seedDatabase() {
       weight: "65g",
       collection: "Exclusiva",
       rating: 5.0,
-      reviewCount: 12,
+      reviewCount: 32,
     },
     {
       name: "Cadena Rope Chain",
@@ -282,7 +282,7 @@ async function seedDatabase() {
       weight: "",
       collection: "ROWGOLD",
       rating: 5.0,
-      reviewCount: 27,
+      reviewCount: 25,
     },
     {
       name: "Anillo V-Star",
@@ -299,7 +299,7 @@ async function seedDatabase() {
       weight: "",
       collection: "ROWGOLD",
       rating: 5.0,
-      reviewCount: 27,
+      reviewCount: 30,
     },
     {
       name: "Candongas Doble",
@@ -333,7 +333,7 @@ async function seedDatabase() {
       weight: "",
       collection: "ROWGOLD",
       rating: 5.0,
-      reviewCount: 27,
+      reviewCount: 47,
     },
     {
       name: "Cadena Milan ",
@@ -435,7 +435,7 @@ async function seedDatabase() {
       weight: "",
       collection: "ROWGOLD",
       rating: 4.9,
-      reviewCount: 28,
+      reviewCount: 31,
     },
     {
       name: "Cadena Figaro Milan",
@@ -713,7 +713,7 @@ async function seedDatabase() {
       weight: "",
       collection: "ROWGOLD",
       rating: 4.8,
-      reviewCount: 0,
+      reviewCount: 8,
     },
      {
       name: "Pulsera Sleek ",
@@ -730,7 +730,7 @@ async function seedDatabase() {
       weight: "",
       collection: "ICONIC OF ROWGOLD",
       rating: 4.9,
-      reviewCount:3,
+      reviewCount: 9,
     },
     {
       name: "Dije Virgen Milagrosa",
@@ -764,7 +764,7 @@ async function seedDatabase() {
       weight: "",
       collection: "ROWGOLD",
       rating: 4.8,
-      reviewCount:0,
+      reviewCount: 31,
     },
     {
       name: "Pulsera Mariner",
@@ -781,7 +781,7 @@ async function seedDatabase() {
       weight: "",
       collection: "ROWGOLD",
       rating: 4.8,
-      reviewCount: 4,
+      reviewCount: 14,
     },
     {
       name: "Collar Eternity Green",
@@ -798,7 +798,7 @@ async function seedDatabase() {
       weight: "",
       collection: "ICONIC OF ROWGOLD",
       rating: 5.0,
-      reviewCount: 2,
+      reviewCount: 5,
     },
    {
 
@@ -835,7 +835,7 @@ material: "Plata Italiana 9.25",
 weight: "",
 collection: "ROWGOLD",
 rating: 5.0,
-reviewCount: 42,
+reviewCount: 48,
 
 },
 {
@@ -890,7 +890,7 @@ material: "Plata Italiana 9.25",
 weight: "",
 collection: "ICONIC OF ROWGOLD",
 rating: 4.8,
-reviewCount: 33,
+reviewCount: 35,
 
 },
     {
@@ -908,7 +908,7 @@ material: "Plata Italiana 9.25",
 weight: "",
 collection: "ROWGOLD",
 rating: 4.8,
-reviewCount: 36,
+reviewCount: 39,
 },
 {
 
@@ -963,7 +963,7 @@ material: "Oro Laminado 18k",
 weight: "",
 collection: "ROWGOLD",
 rating: 4.8,
-reviewCount:16,
+reviewCount: 28,
 
 },
      {
@@ -983,6 +983,41 @@ weight: "",
 collection: "ROWGOLD",
 rating: 4.9,
 reviewCount:56,
+     }, 
+  { 
+name: "Pulsera Triplo Mesh",
+description: "Pulsera para caballero, con tejido cerrado elaborada en Plata Italiana 925 con acabado pulido y esoejo de alto brillo, este diseño crea una pieza ancha y flexible que cae perfectamente en la muñeca",
+price: 155000,
+originalPrice: null,
+category: "pulseras",
+subcategory: "plata",
+imageUrl: "https://res.cloudinary.com/dmlpiqian/image/upload/v1782521954/IMG_5060_sfs7jz.jpg",
+featured: true,
+instock: true,
+stockQuantity: 8,
+material: "Plata Italiana 9.25",
+weight: "",
+collection: "ROWGOLD",
+rating: 5.0,
+reviewCount: 56,
+
+},
+{
+name: "Pulsera Ruby Beetle", 
+description: "Pulsera delicada para dama en Plata Italiana 925. Este diseño se centra en un dije de mariquita delicada. La mariquita es un simbolo universal de buena suerte, proteccion y nuevos comienzos. ",
+price: 95000,
+originalPrice: null,
+category: "pulsera",
+subcategory: "Plata ",
+imageUrl: "https://res.cloudinary.com/dmlpiqian/image/upload/v1782523423/IMG_5147_jzryvk.jpg",
+featured: true,
+instock: true,
+stockQuantity: 8,
+material: "Plata Italiana 9.25",
+weight: "",
+collection: "ICONIC OF ROWGOLD",
+rating: 4.8,
+reviewCount: 43,
 
 },
     
