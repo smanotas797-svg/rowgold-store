@@ -1020,7 +1020,24 @@ rating: 4.8,
 reviewCount: 43,
 
 },
-    
+   {
+name: "Pulsera Sweet Cherry", 
+description: "Este diseño se centra en un Dije de cereza dobles en esmaltte rojo brillantecon hoja verde, esta pulsera en plata italian 9.25 para dama simboliza juventud, amor y dulzura ",
+price: 95000,
+originalPrice: null,
+category: "pulsera",
+subcategory: "Plata ",
+imageUrl: "https://res.cloudinary.com/dmlpiqian/image/upload/v1782574210/IMG_5165_m0gxld.jpg",
+featured: true,
+instock: true,
+stockQuantity: 8,
+material: "Plata Italiana 9.25",
+weight: "",
+collection: " ROWGOLD",
+rating: 4.9,
+reviewCount: 33,
+
+},
   ]);
 
   logger.info("Base de datos sembrada: 12 productos y 6 categorías creados");
