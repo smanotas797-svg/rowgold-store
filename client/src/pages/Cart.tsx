@@ -1,7 +1,13 @@
 import { Link } from "wouter";
 import { motion, AnimatePresence } from "framer-motion";
-import { Minus, Plus, X, ShoppingBag, MessageCircle } from "lucide-react"; // Cambié ArrowRight por MessageCircle
-import { useCart } from "@/contexts/CartContext";
+import { Minus, Plus, X, ShoppingBag, MessageCircle } from "lucide-react";
+import { 
+  useGetCart, 
+  useUpdateCartItem, 
+  useRemoveFromCart, 
+  useClearCart, 
+  useCreateOrder 
+} from "@/lib/api";
 
 const GOLD = "#d4af37";
 
@@ -9,7 +15,11 @@ const GOLD = "#d4af37";
 const TELEFONO_DUEÑO = "573213195879"; 
 
 export default function Cart() {
-  const { cart, isLoading, updateQuantity, removeItem, clearCart } = useCart();
+  const { data: cart, isLoading } = useGetCart();
+  const updateItemMutation = useUpdateCartItem();
+  const removeItemMutation = useRemoveFromCart();
+  const clearCartMutation = useClearCart();
+  const createOrderMutation = useCreateOrder();
 
   if (isLoading) {
     return (
@@ -27,21 +37,64 @@ export default function Cart() {
 
   const items = cart?.items ?? [];
 
-  // 🔥 FUNCIÓN QUE ARMA EL MENSAJE DINÁMICO Y ABRE WHATSAPP
+  // 🔄 Manejadores de eventos conectados a las mutaciones
+  const handleUpdateQuantity = (productId: number, newQty: number) => {
+    if (newQty <= 0) {
+      removeItemMutation.mutate({ productId });
+    } else {
+      updateItemMutation.mutate({ productId, data: { quantity: newQty } });
+    }
+  };
+
+  const handleRemoveItem = (productId: number) => {
+    removeItemMutation.mutate({ productId });
+  };
+
+  const handleClearCart = () => {
+    clearCartMutation.mutate();
+  };
+
+  // 🔥 REGISTRA LA VENTA EN EL ADMIN Y LUEGO ABRE WHATSAPP
   const enviarPedidoWhatsApp = () => {
-    let mensaje = "✨ *¡Hola ROWGOLD! Quiero realizar un pedido:* \n\n";
+    if (items.length === 0) return;
 
-    items.forEach((item) => {
-      mensaje += `▪️ *${item.product.name}* \n`;
-      mensaje += `   Cantidad: ${item.quantity} \n`;
-      mensaje += `   Precio: $${(item.product.price * item.quantity).toLocaleString()} COP \n\n`;
-    });
+    // 1. Guardamos la orden en la base de datos a través de la API
+    createOrderMutation.mutate(
+      {
+        data: {
+          shippingAddress: "Pedido realizado por WhatsApp",
+          paymentMethod: "WhatsApp / Coordinar",
+        },
+      },
+      {
+        onSuccess: (orderCreated) => {
+          // 2. Una vez guardada con éxito en el Admin, armamos el mensaje usando el ID real generado
+          let mensaje = `✨ *¡Hola ROWGOLD! Quiero realizar un pedido:* \n`;
+          mensaje += `🆔 *Orden N°:* #${orderCreated.id}\n\n`;
 
-    mensaje += `💰 *Total del Pedido:* $${(cart?.total ?? 0).toLocaleString()} COP\n\n`;
-    mensaje += "¿Me confirman disponibilidad para coordinar el pago y el envío? ¡Muchas gracias!";
+          items.forEach((item) => {
+            mensaje += `▪️ *${item.product.name}* \n`;
+            mensaje += `   Cantidad: ${item.quantity} \n`;
+            mensaje += `   Precio: $${(item.product.price * item.quantity).toLocaleString()} COP \n\n`;
+          });
 
-    const mensajeEncriptado = encodeURIComponent(mensaje);
-    window.open(`https://wa.me/${TELEFONO_DUEÑO}?text=${mensajeEncriptado}`, "_blank");
+          mensaje += `💰 *Total del Pedido:* $${(cart?.total ?? 0).toLocaleString()} COP\n\n`;
+          mensaje += "¿Me confirman disponibilidad para coordinar el pago y el envío? ¡Muchas gracias!";
+
+          const mensajeEncriptado = encodeURIComponent(mensaje);
+          
+          // 3. Abrimos WhatsApp
+          window.open(`https://wa.me/${TELEFONO_DUEÑO}?text=${mensajeEncriptado}`, "_blank");
+
+          // 4. Limpiamos el carrito local ya que el pedido fue procesado
+          clearCartMutation.mutate();
+        },
+        onError: (error) => {
+          console.error("Error al registrar el pedido en el admin:", error);
+          alert("Hubo un problema al procesar tu orden. Por favor, intenta nuevamente.");
+        }
+      }
+    );
   };
 
   return (
@@ -101,7 +154,7 @@ export default function Cart() {
                 style={{ border: `1px solid ${GOLD}`, color: GOLD }}
                 data-testid="button-go-catalog"
               >
-                Explarar Catalogo
+                Explorar Catalogo
               </button>
             </Link>
           </motion.div>
@@ -123,7 +176,7 @@ export default function Cart() {
                     {/* Image */}
                     <Link href={`/product/${item.productId}`}>
                       <div
-                        className="shrink-0 overflow-hidden"
+                        className="shrink-0 overflow-hidden cursor-pointer"
                         style={{ width: 90, height: 90, background: "#111" }}
                       >
                         {item.product.imageUrl ? (
@@ -174,7 +227,7 @@ export default function Cart() {
                           </Link>
                         </div>
                         <button
-                          onClick={() => removeItem(item.productId)}
+                          onClick={() => handleRemoveItem(item.productId)}
                           data-testid={`button-remove-${item.productId}`}
                           className="text-white/20 hover:text-red-400 transition-colors ml-4"
                         >
@@ -190,7 +243,7 @@ export default function Cart() {
                         >
                           <button
                             onClick={() =>
-                              updateQuantity(item.productId, item.quantity - 1)
+                              handleUpdateQuantity(item.productId, item.quantity - 1)
                             }
                             data-testid={`button-minus-${item.productId}`}
                             className="w-8 h-8 flex items-center justify-center hover:bg-amber-400/5 transition-colors"
@@ -207,7 +260,7 @@ export default function Cart() {
                           </span>
                           <button
                             onClick={() =>
-                              updateQuantity(item.productId, item.quantity + 1)
+                              handleUpdateQuantity(item.productId, item.quantity + 1)
                             }
                             data-testid={`button-plus-${item.productId}`}
                             className="w-8 h-8 flex items-center justify-center hover:bg-amber-400/5 transition-colors"
@@ -238,9 +291,9 @@ export default function Cart() {
               </AnimatePresence>
 
               <button
-                onClick={clearCart}
+                onClick={handleClearCart}
                 data-testid="button-clear-cart"
-                className="text-xs tracking-widest uppercase transition-colors hover:text-red-400"
+                className="text-xs tracking-widest uppercase transition-colors hover:text-red-400 cursor-pointer"
                 style={{ color: "rgba(255,255,255,0.2)" }}
               >
                 Vaciar Carrito
@@ -320,17 +373,17 @@ export default function Cart() {
                     letterSpacing: "0.04em",
                   }}
                 >
-                  Agrega ${(500 - (cart?.subtotal ?? 0)).toLocaleString()} mas
-                  para envio gratis
+                  Agrega ${(500 - (cart?.subtotal ?? 0)).toLocaleString()} mas para envio gratis
                 </p>
               )}
 
-              {/* 🔄 BOTÓN DE WHATSAPP NUEVO CON ANIMACIÓN */}
+              {/* 🔄 BOTÓN DE CHECKOUT CONECTADO AL SERVER */}
               <motion.button
                 whileHover={{ scale: 1.02 }}
                 whileTap={{ scale: 0.98 }}
                 onClick={enviarPedidoWhatsApp}
-                className="w-full flex items-center justify-center gap-3 py-4 text-xs tracking-[0.2em] uppercase"
+                disabled={createOrderMutation.isPending}
+                className="w-full flex items-center justify-center gap-3 py-4 text-xs tracking-[0.2em] uppercase cursor-pointer disabled:opacity-50"
                 style={{
                   background:
                     "linear-gradient(135deg, #b8960c, #d4af37, #b8960c)",
@@ -339,13 +392,13 @@ export default function Cart() {
                 }}
                 data-testid="button-checkout"
               >
-                Pedir por WhatsApp
+                {createOrderMutation.isPending ? "Procesando pedido..." : "Pedir por WhatsApp"}
                 <MessageCircle size={14} />
               </motion.button>
 
               <Link href="/catalog">
                 <button
-                  className="w-full py-3 mt-3 text-xs tracking-widest uppercase text-center transition-colors"
+                  className="w-full py-3 mt-3 text-xs tracking-widest uppercase text-center transition-colors cursor-pointer"
                   style={{ color: "rgba(255,255,255,0.25)" }}
                   data-testid="button-continue-shopping"
                 >
