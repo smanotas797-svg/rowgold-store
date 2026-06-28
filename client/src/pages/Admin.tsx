@@ -7,7 +7,7 @@ import {
   ShoppingCart,
   TrendingUp,
   ChevronDown,
-  Lock, // Añadido para el icono de bloqueo
+  Lock,
 } from "lucide-react";
 import {
   useGetFeaturedProducts,
@@ -137,16 +137,13 @@ export default function Admin() {
   const [errorAuth, setErrorAuth] = useState(false);
 
   const queryClient = useQueryClient();
-  const { data: products, isLoading: productsLoading } =
-    useGetFeaturedProducts();
-
+  const { data: products, isLoading: productsLoading } = useGetFeaturedProducts();
   const { data: orders, isLoading: ordersLoading } = useListOrders();
   const { data: stats } = useGetCatalogStats();
   const createProduct = useCreateProduct();
   const deleteProduct = useDeleteProduct();
-  const [activeTab, setActiveTab] = useState<
-    "dashboard" | "products" | "orders"
-  >("dashboard");
+  
+  const [activeTab, setActiveTab] = useState<"dashboard" | "products" | "orders">("dashboard");
   const [showForm, setShowForm] = useState(false);
   const [newProduct, setNewProduct] = useState({
     name: "",
@@ -163,10 +160,9 @@ export default function Admin() {
     inStock: true,
   });
 
-  // Manejador del login de administración
   const handleLogin = (e: React.FormEvent) => {
     e.preventDefault();
-    const CLAVE_CORRECTA = "26rowgold06joyeria437"; // 👈 CAMBIA TU CONTRASEÑA AQUÍ
+    const CLAVE_CORRECTA = "26rowgold06joyeria437";
 
     if (password === CLAVE_CORRECTA) {
       setIsAuthenticated(true);
@@ -184,9 +180,7 @@ export default function Admin() {
         data: {
           name: newProduct.name,
           price: Number(newProduct.price),
-          originalPrice: newProduct.originalPrice
-            ? Number(newProduct.originalPrice)
-            : undefined,
+          originalPrice: newProduct.originalPrice ? Number(newProduct.originalPrice) : undefined,
           category: newProduct.category,
           subcategory: newProduct.subcategory || undefined,
           description: newProduct.description || undefined,
@@ -242,13 +236,9 @@ export default function Admin() {
     { key: "orders" as const, label: "Pedidos", icon: ShoppingCart },
   ];
 
-  // ── RENDER DE LA PANTALLA DE BLOQUEO ──
   if (!isAuthenticated) {
     return (
-      <div
-        className="min-h-screen flex items-center justify-center px-6"
-        style={{ background: "#060606" }}
-      >
+      <div className="min-h-screen flex items-center justify-center px-6" style={{ background: "#060606" }}>
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
@@ -260,37 +250,20 @@ export default function Admin() {
           }}
         >
           <div className="flex flex-col items-center text-center mb-8">
-            <div 
-              className="p-4 mb-4 rounded-full"
-              style={{ background: "rgba(212,175,55,0.03)", border: "1px solid rgba(212,175,55,0.15)" }}
-            >
+            <div className="p-4 mb-4 rounded-full" style={{ background: "rgba(212,175,55,0.03)", border: "1px solid rgba(212,175,55,0.15)" }}>
               <Lock size={22} style={{ color: GOLD }} />
             </div>
-            <p
-              className="text-[10px] tracking-[0.4em] uppercase mb-1"
-              style={{ color: "rgba(212,175,55,0.55)" }}
-            >
+            <p className="text-[10px] tracking-[0.4em] uppercase mb-1" style={{ color: "rgba(212,175,55,0.55)" }}>
               Row Gold S.A.
             </p>
-            <h2
-              style={{
-                fontFamily: "'Cormorant Garamond', serif",
-                fontSize: "1.8rem",
-                fontWeight: 300,
-                color: "rgba(255,255,255,0.9)",
-                letterSpacing: "0.04em",
-              }}
-            >
+            <h2 style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: "1.8rem", fontWeight: 300, color: "rgba(255,255,255,0.9)", letterSpacing: "0.04em" }}>
               Acceso Restringido
             </h2>
           </div>
 
           <form onSubmit={handleLogin} className="space-y-5">
             <div>
-              <label
-                className="block text-[10px] tracking-widest uppercase mb-2"
-                style={{ color: "rgba(212,175,55,0.4)" }}
-              >
+              <label className="block text-[10px] tracking-widest uppercase mb-2" style={{ color: "rgba(212,175,55,0.4)" }}>
                 Contraseña de Administrador
               </label>
               <input
@@ -302,7 +275,7 @@ export default function Admin() {
                 style={{
                   border: errorAuth ? "1px solid #f87171" : "1px solid rgba(212,175,55,0.2)",
                   color: "rgba(255,255,255,0.8)",
-                  letterSpacing: "0.2em"
+                  letterSpacing: "0.2em",
                 }}
               />
               {errorAuth && (
@@ -312,15 +285,7 @@ export default function Admin() {
               )}
             </div>
 
-            <button
-              type="submit"
-              className="w-full py-3 text-xs tracking-widest uppercase transition-all"
-              style={{
-                background: "linear-gradient(135deg, #9a7808, #d4af37)",
-                color: "#080808",
-                fontWeight: 600,
-              }}
-            >
+            <button type="submit" className="w-full py-3 text-xs tracking-widest uppercase transition-all" style={{ background: "linear-gradient(135deg, #9a7808, #d4af37)", color: "#080808", fontWeight: 600 }}>
               Verificar Identidad
             </button>
           </form>
@@ -329,50 +294,21 @@ export default function Admin() {
     );
   }
 
-  // ── RENDER PRINCIPAL (DASHBOARD) ──
   return (
-    <div
-      className="min-h-screen pt-24 pb-20 px-6"
-      style={{ background: "#060606" }}
-    >
+    <div className="min-h-screen pt-24 pb-20 px-6" style={{ background: "#060606" }}>
       <div className="max-w-7xl mx-auto">
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          className="mb-10"
-        >
-          <p
-            className="text-[10px] tracking-[0.4em] uppercase mb-2"
-            style={{ color: "rgba(212,175,55,0.55)" }}
-          >
+        <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} className="mb-10">
+          <p className="text-[10px] tracking-[0.4em] uppercase mb-2" style={{ color: "rgba(212,175,55,0.55)" }}>
             Panel de Control
           </p>
-          <h1
-            style={{
-              fontFamily: "'Cormorant Garamond', serif",
-              fontSize: "2.5rem",
-              fontWeight: 300,
-              color: "rgba(255,255,255,0.9)",
-              letterSpacing: "0.06em",
-            }}
-          >
+          <h1 style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: "2.5rem", fontWeight: 300, color: "rgba(255,255,255,0.9)", letterSpacing: "0.06em" }}>
             Administración
           </h1>
-          <div
-            className="w-12 mt-3"
-            style={{
-              height: 1,
-              background:
-                "linear-gradient(90deg, rgba(212,175,55,0.7), transparent)",
-            }}
-          />
+          <div className="w-12 mt-3" style={{ height: 1, background: "linear-gradient(90deg, rgba(212,175,55,0.7), transparent)" }} />
         </motion.div>
 
         {/* Tabs */}
-        <div
-          className="flex gap-1 mb-10"
-          style={{ borderBottom: "1px solid rgba(212,175,55,0.1)" }}
-        >
+        <div className="flex gap-1 mb-10" style={{ borderBottom: "1px solid rgba(212,175,55,0.1)" }}>
           {tabs.map((tab) => (
             <button
               key={tab.key}
@@ -381,10 +317,7 @@ export default function Admin() {
               className="flex items-center gap-2 px-6 py-3 text-xs tracking-widest uppercase transition-all"
               style={{
                 color: activeTab === tab.key ? GOLD : "rgba(255,255,255,0.3)",
-                borderBottom:
-                  activeTab === tab.key
-                    ? `2px solid ${GOLD}`
-                    : "2px solid transparent",
+                borderBottom: activeTab === tab.key ? `2px solid ${GOLD}` : "2px solid transparent",
                 marginBottom: -1,
               }}
             >
@@ -399,118 +332,50 @@ export default function Admin() {
           <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }}>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-5 mb-8">
               {[
-                {
-                  icon: Package,
-                  label: "Total Productos",
-                  value: stats?.totalProducts ?? 0,
-                  color: GOLD,
-                },
-                {
-                  icon: ShoppingCart,
-                  label: "Total Pedidos",
-                  value: orders?.length ?? 0,
-                  color: "#60a5fa",
-                },
-                {
-                  icon: TrendingUp,
-                  label: "Entregados",
-                  value:
-                    orders?.filter((o) => o.status === "delivered").length ?? 0,
-                  color: "#34d399",
-                },
+                { icon: Package, label: "Total Productos", value: stats?.totalProducts ?? 0, color: GOLD },
+                { icon: ShoppingCart, label: "Total Pedidos", value: orders?.length ?? 0, color: "#60a5fa" },
+                { icon: TrendingUp, label: "Entregados", value: orders?.filter((o: any) => o.status === "delivered").length ?? 0, color: "#34d399" },
               ].map((stat, i) => (
-                <motion.div
-                  key={stat.label}
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: i * 0.1 }}
-                  className="luxury-card p-8"
-                  data-testid={`stat-admin-${i}`}
-                >
+                <motion.div key={stat.label} initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: i * 0.1 }} className="luxury-card p-8" data-testid={`stat-admin-${i}`}>
                   <div className="flex items-center justify-between mb-4">
-                    <p
-                      className="text-xs tracking-widest uppercase"
-                      style={{ color: "rgba(255,255,255,0.3)" }}
-                    >
+                    <p className="text-xs tracking-widest uppercase" style={{ color: "rgba(255,255,255,0.3)" }}>
                       {stat.label}
                     </p>
                     <stat.icon size={18} style={{ color: stat.color }} />
                   </div>
-                  <p
-                    style={{
-                      fontFamily: "'Cormorant Garamond', serif",
-                      fontSize: "3rem",
-                      fontWeight: 300,
-                      color: stat.color,
-                    }}
-                  >
+                  <p style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: "3rem", fontWeight: 300, color: stat.color }}>
                     {stat.value}
                   </p>
                 </motion.div>
               ))}
             </div>
 
-            {/* Revenue */}
             <div className="grid grid-cols-1 md:grid-cols-2 gap-5 mb-5">
               <div className="luxury-card p-8">
-                <p
-                  className="text-xs tracking-widest uppercase mb-2"
-                  style={{ color: "rgba(255,255,255,0.3)" }}
-                >
+                <p className="text-xs tracking-widest uppercase mb-2" style={{ color: "rgba(255,255,255,0.3)" }}>
                   Ingresos Totales
                 </p>
-                <p
-                  style={{
-                    fontFamily: "'Cormorant Garamond', serif",
-                    fontSize: "2.8rem",
-                    fontWeight: 300,
-                    color: GOLD,
-                  }}
-                >
-                  $
-                  {(orders ?? [])
-                    .reduce((s, o) => s + Number(o.total), 0)
-                    .toLocaleString()}
+                <p style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: "2.8rem", fontWeight: 300, color: GOLD }}>
+                  ${(orders ?? []).reduce((s: number, o: any) => s + Number(o.total), 0).toLocaleString()}
                 </p>
-                <p
-                  className="text-xs mt-1"
-                  style={{ color: "rgba(255,255,255,0.2)" }}
-                >
-                  {
-                    (orders ?? []).filter((o) => o.status !== "cancelled")
-                      .length
-                  }{" "}
-                  pedidos completados/activos
+                <p className="text-xs mt-1" style={{ color: "rgba(255,255,255,0.2)" }}>
+                  {(orders ?? []).filter((o: any) => o.status !== "cancelled").length} pedidos completados/activos
                 </p>
               </div>
               <div className="luxury-card p-8">
-                <p
-                  className="text-xs tracking-widest uppercase mb-4"
-                  style={{ color: "rgba(255,255,255,0.3)" }}
-                >
+                <p className="text-xs tracking-widest uppercase mb-4" style={{ color: "rgba(255,255,255,0.3)" }}>
                   Estado de Pedidos
                 </p>
                 <div className="space-y-2">
                   {ORDER_STATUS_FLOW.slice(0, 5).map((s) => {
-                    const count = (orders ?? []).filter(
-                      (o) => o.status === s.key,
-                    ).length;
+                    const count = (orders ?? []).filter((o: any) => o.status === s.key).length;
                     return (
                       <div key={s.key} className="flex items-center gap-3">
-                        <div
-                          className="w-2 h-2 rounded-full shrink-0"
-                          style={{ background: s.color }}
-                        />
-                        <span
-                          className="text-xs flex-1"
-                          style={{ color: "rgba(255,255,255,0.4)" }}
-                        >
+                        <div className="w-2 h-2 rounded-full shrink-0" style={{ background: s.color }} />
+                        <span className="text-xs flex-1" style={{ color: "rgba(255,255,255,0.4)" }}>
                           {s.label}
                         </span>
-                        <span
-                          className="text-xs font-mono"
-                          style={{ color: s.color }}
-                        >
+                        <span className="text-xs font-mono" style={{ color: s.color }}>
                           {count}
                         </span>
                       </div>
@@ -522,44 +387,22 @@ export default function Admin() {
 
             {stats?.byCategory && (
               <div className="luxury-card p-8">
-                <h3
-                  className="text-xs tracking-[0.25em] uppercase mb-6"
-                  style={{ color: "rgba(212,175,55,0.6)" }}
-                >
+                <h3 className="text-xs tracking-[0.25em] uppercase mb-6" style={{ color: "rgba(212,175,55,0.6)" }}>
                   Productos por Categoría
                 </h3>
                 <div className="space-y-4">
-                  {stats.byCategory.map((cat) => (
-                    <div
-                      key={cat.category}
-                      data-testid={`stat-category-${cat.category}`}
-                    >
-                      <div
-                        className="flex justify-between text-sm mb-2"
-                        style={{ color: "rgba(255,255,255,0.5)" }}
-                      >
+                  {stats.byCategory.map((cat: any) => (
+                    <div key={cat.category} data-testid={`stat-category-${cat.category}`}>
+                      <div className="flex justify-between text-sm mb-2" style={{ color: "rgba(255,255,255,0.5)" }}>
                         <span className="capitalize">{cat.category}</span>
                         <span style={{ color: GOLD }}>{cat.count}</span>
                       </div>
-                      <div
-                        style={{
-                          height: 2,
-                          background: "rgba(212,175,55,0.08)",
-                          borderRadius: 1,
-                        }}
-                      >
+                      <div style={{ height: 2, background: "rgba(212,175,55,0.08)", borderRadius: 1 }}>
                         <motion.div
                           initial={{ width: 0 }}
-                          animate={{
-                            width: `${Math.min((cat.count / (stats.totalProducts || 1)) * 100, 100)}%`,
-                          }}
+                          animate={{ width: `${Math.min((cat.count / (stats.totalProducts || 1)) * 100, 100)}%` }}
                           transition={{ duration: 0.8 }}
-                          style={{
-                            height: "100%",
-                            background:
-                              "linear-gradient(90deg, #9a7808, #d4af37)",
-                            borderRadius: 1,
-                          }}
+                          style={{ height: "100%", background: "linear-gradient(90deg, #9a7808, #d4af37)", borderRadius: 1 }}
                         />
                       </div>
                     </div>
@@ -582,9 +425,7 @@ export default function Admin() {
                 data-testid="button-add-product"
                 className="flex items-center gap-2 px-6 py-2.5 text-xs tracking-widest uppercase transition-all"
                 style={{
-                  background: showForm
-                    ? "transparent"
-                    : "linear-gradient(135deg, #9a7808, #d4af37)",
+                  background: showForm ? "transparent" : "linear-gradient(135deg, #9a7808, #d4af37)",
                   color: showForm ? GOLD : "#080808",
                   border: showForm ? `1px solid ${GOLD}` : "none",
                 }}
@@ -596,249 +437,99 @@ export default function Admin() {
 
             <AnimatePresence>
               {showForm && (
-                <motion.div
-                  initial={{ opacity: 0, y: -10 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  exit={{ opacity: 0, y: -10 }}
-                  className="luxury-card p-8 mb-6"
-                >
-                  <h3
-                    className="text-xs tracking-[0.25em] uppercase mb-6"
-                    style={{ color: "rgba(212,175,55,0.6)" }}
-                  >
+                <motion.div initial={{ opacity: 0, y: -10 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -10 }} className="luxury-card p-8 mb-6">
+                  <h3 className="text-xs tracking-[0.25em] uppercase mb-6" style={{ color: "rgba(212,175,55,0.6)" }}>
                     Nuevo Producto
                   </h3>
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
                     {[
-                      {
-                        key: "name",
-                        label: "Nombre *",
-                        placeholder: "Anillo de Diamante",
-                      },
-                      {
-                        key: "price",
-                        label: "Precio USD *",
-                        placeholder: "1299",
-                      },
-                      {
-                        key: "originalPrice",
-                        label: "Precio Original (opcional)",
-                        placeholder: "1599",
-                      },
-                      {
-                        key: "imageUrl",
-                        label: "URL de Imagen",
-                        placeholder: "https://...",
-                      },
-                      {
-                        key: "material",
-                        label: "Material",
-                        placeholder: "Oro 18k",
-                      },
-                      {
-                        key: "collection",
-                        label: "Colección",
-                        placeholder: "Classic",
-                      },
-                      {
-                        key: "stockQuantity",
-                        label: "Stock Disponible",
-                        placeholder: "10",
-                      },
+                      { key: "name", label: "Nombre *", placeholder: "Anillo de Diamante" },
+                      { key: "price", label: "Precio USD *", placeholder: "1299" },
+                      { key: "originalPrice", label: "Precio Original (opcional)", placeholder: "1599" },
+                      { key: "imageUrl", label: "URL de Imagen", placeholder: "https://..." },
+                      { key: "material", label: "Material", placeholder: "Oro 18k" },
+                      { key: "collection", label: "Colección", placeholder: "Classic" },
+                      { key: "stockQuantity", label: "Stock Disponible", placeholder: "10" },
                     ].map((field) => (
                       <div key={field.key}>
-                        <label
-                          className="block text-[10px] tracking-widest uppercase mb-2"
-                          style={{ color: "rgba(212,175,55,0.4)" }}
-                        >
+                        <label className="block text-[10px] tracking-widest uppercase mb-2" style={{ color: "rgba(212,175,55,0.4)" }}>
                           {field.label}
                         </label>
                         <input
                           type="text"
                           placeholder={field.placeholder}
-                          value={
-                            (newProduct as unknown as Record<string, string>)[
-                              field.key
-                            ]
-                          }
-                          onChange={(e) =>
-                            setNewProduct((prev) => ({
-                              ...prev,
-                              [field.key]: e.target.value,
-                            }))
-                          }
+                          value={(newProduct as unknown as Record<string, string>)[field.key]}
+                          onChange={(e) => setNewProduct((prev) => ({ ...prev, [field.key]: e.target.value }))}
                           data-testid={`input-product-${field.key}`}
                           className="w-full px-4 py-3 bg-transparent text-sm outline-none"
-                          style={{
-                            border: "1px solid rgba(212,175,55,0.2)",
-                            color: "rgba(255,255,255,0.8)",
-                          }}
-                          onFocus={(e) =>
-                            (e.currentTarget.style.borderColor =
-                              "rgba(212,175,55,0.5)")
-                          }
-                          onBlur={(e) =>
-                            (e.currentTarget.style.borderColor =
-                              "rgba(212,175,55,0.2)")
-                          }
+                          style={{ border: "1px solid rgba(212,175,55,0.2)", color: "rgba(255,255,255,0.8)" }}
                         />
                       </div>
                     ))}
 
                     <div>
-                      <label
-                        className="block text-[10px] tracking-widest uppercase mb-2"
-                        style={{ color: "rgba(212,175,55,0.4)" }}
-                      >
+                      <label className="block text-[10px] tracking-widest uppercase mb-2" style={{ color: "rgba(212,175,55,0.4)" }}>
                         Categoría *
                       </label>
                       <select
                         value={newProduct.category}
-                        onChange={(e) =>
-                          setNewProduct((prev) => ({
-                            ...prev,
-                            category: e.target.value,
-                            subcategory: "",
-                          }))
-                        }
+                        onChange={(e) => setNewProduct((prev) => ({ ...prev, category: e.target.value, subcategory: "" }))}
                         className="w-full px-4 py-3 bg-transparent text-sm outline-none"
-                        style={{
-                          border: "1px solid rgba(212,175,55,0.2)",
-                          color: "rgba(255,255,255,0.8)",
-                          background: "#0e0e0e",
-                        }}
-                        data-testid="select-product-category"
+                        style={{ border: "1px solid rgba(212,175,55,0.2)", color: "rgba(255,255,255,0.8)", background: "#0e0e0e" }}
                       >
-                        {["joyas", "relojes", "accesorios", "colecciones"].map(
-                          (c) => (
-                            <option
-                              key={c}
-                              value={c}
-                              style={{ background: "#111" }}
-                            >
-                              {c}
-                            </option>
-                          ),
-                        )}
+                        {["joyas", "relojes", "accesorios", "colecciones"].map((c) => (
+                          <option key={c} value={c} style={{ background: "#111" }}>{c}</option>
+                        ))}
                       </select>
                     </div>
 
                     {newProduct.category === "joyas" && (
                       <div>
-                        <label
-                          className="block text-[10px] tracking-widest uppercase mb-2"
-                          style={{ color: "rgba(212,175,55,0.4)" }}
-                        >
+                        <label className="block text-[10px] tracking-widest uppercase mb-2" style={{ color: "rgba(212,175,55,0.4)" }}>
                           Subcategoría
                         </label>
                         <select
                           value={newProduct.subcategory}
-                          onChange={(e) =>
-                            setNewProduct((prev) => ({
-                              ...prev,
-                              subcategory: e.target.value,
-                            }))
-                          }
+                          onChange={(e) => setNewProduct((prev) => ({ ...prev, subcategory: e.target.value }))}
                           className="w-full px-4 py-3 bg-transparent text-sm outline-none"
-                          style={{
-                            border: "1px solid rgba(212,175,55,0.2)",
-                            color: "rgba(255,255,255,0.8)",
-                            background: "#0e0e0e",
-                          }}
-                          data-testid="select-product-subcategory"
+                          style={{ border: "1px solid rgba(212,175,55,0.2)", color: "rgba(255,255,255,0.8)", background: "#0e0e0e" }}
                         >
-                          <option value="" style={{ background: "#111" }}>
-                            — Ninguna —
-                          </option>
+                          <option value="" style={{ background: "#111" }}>— Ninguna —</option>
                           {SUBCATEGORIES.map((c) => (
-                            <option
-                              key={c}
-                              value={c}
-                              style={{ background: "#111" }}
-                            >
-                              {c}
-                            </option>
+                            <option key={c} value={c} style={{ background: "#111" }}>{c}</option>
                           ))}
                         </select>
                       </div>
                     )}
 
                     <div className="md:col-span-2">
-                      <label
-                        className="block text-[10px] tracking-widest uppercase mb-2"
-                        style={{ color: "rgba(212,175,55,0.4)" }}
-                      >
+                      <label className="block text-[10px] tracking-widest uppercase mb-2" style={{ color: "rgba(212,175,55,0.4)" }}>
                         Descripción
                       </label>
                       <textarea
                         placeholder="Descripción del producto..."
                         value={newProduct.description}
-                        onChange={(e) =>
-                          setNewProduct((prev) => ({
-                            ...prev,
-                            description: e.target.value,
-                          }))
-                        }
+                        onChange={(e) => setNewProduct((prev) => ({ ...prev, description: e.target.value }))}
                         rows={2}
-                        data-testid="input-product-description"
                         className="w-full px-4 py-3 bg-transparent text-sm outline-none resize-none"
-                        style={{
-                          border: "1px solid rgba(212,175,55,0.2)",
-                          color: "rgba(255,255,255,0.8)",
-                        }}
+                        style={{ border: "1px solid rgba(212,175,55,0.2)", color: "rgba(255,255,255,0.8)" }}
                       />
                     </div>
 
                     <div className="flex gap-6">
-                      <label
-                        className="flex items-center gap-2 cursor-pointer text-sm"
-                        style={{ color: "rgba(255,255,255,0.5)" }}
-                      >
-                        <input
-                          type="checkbox"
-                          checked={newProduct.featured}
-                          onChange={(e) =>
-                            setNewProduct((p) => ({
-                              ...p,
-                              featured: e.target.checked,
-                            }))
-                          }
-                        />
+                      <label className="flex items-center gap-2 cursor-pointer text-sm" style={{ color: "rgba(255,255,255,0.5)" }}>
+                        <input type="checkbox" checked={newProduct.featured} onChange={(e) => setNewProduct((p) => ({ ...p, featured: e.target.checked }))} />
                         Destacado
                       </label>
-                      <label
-                        className="flex items-center gap-2 cursor-pointer text-sm"
-                        style={{ color: "rgba(255,255,255,0.5)" }}
-                      >
-                        <input
-                          type="checkbox"
-                          checked={newProduct.inStock}
-                          onChange={(e) =>
-                            setNewProduct((p) => ({
-                              ...p,
-                              inStock: e.target.checked,
-                            }))
-                          }
-                        />
+                      <label className="flex items-center gap-2 cursor-pointer text-sm" style={{ color: "rgba(255,255,255,0.5)" }}>
+                        <input type="checkbox" checked={newProduct.inStock} onChange={(e) => setNewProduct((p) => ({ ...p, inStock: e.target.checked }))} />
                         En Stock
                       </label>
                     </div>
                   </div>
 
-                  <button
-                    onClick={handleCreateProduct}
-                    disabled={createProduct.isPending}
-                    data-testid="button-save-product"
-                    className="mt-6 px-10 py-3 text-xs tracking-widest uppercase disabled:opacity-50"
-                    style={{
-                      background: "linear-gradient(135deg, #9a7808, #d4af37)",
-                      color: "#080808",
-                      fontWeight: 600,
-                    }}
-                  >
-                    {createProduct.isPending
-                      ? "Guardando..."
-                      : "Guardar Producto"}
+                  <button onClick={handleCreateProduct} disabled={createProduct.isPending} className="mt-6 px-10 py-3 text-xs tracking-widest uppercase disabled:opacity-50" style={{ background: "linear-gradient(135deg, #9a7808, #d4af37)", color: "#080808", fontWeight: 600 }}>
+                    {createProduct.isPending ? "Guardando..." : "Guardar Producto"}
                   </button>
                 </motion.div>
               )}
@@ -848,22 +539,9 @@ export default function Admin() {
               <div className="overflow-x-auto">
                 <table className="w-full">
                   <thead>
-                    <tr
-                      style={{ borderBottom: "1px solid rgba(212,175,55,0.1)" }}
-                    >
-                      {[
-                        "Producto",
-                        "Categoría",
-                        "Subcategoría",
-                        "Precio",
-                        "Stock",
-                        "Acciones",
-                      ].map((h) => (
-                        <th
-                          key={h}
-                          className="px-5 py-4 text-left text-[10px] tracking-widest uppercase whitespace-nowrap"
-                          style={{ color: "rgba(212,175,55,0.5)" }}
-                        >
+                    <tr style={{ borderBottom: "1px solid rgba(212,175,55,0.1)" }}>
+                      {["Producto", "Categoría", "Subcategoría", "Precio", "Stock", "Acciones"].map((h) => (
+                        <th key={h} className="px-5 py-4 text-left text-[10px] tracking-widest uppercase whitespace-nowrap" style={{ color: "rgba(212,175,55,0.5)" }}>
                           {h}
                         </th>
                       ))}
@@ -873,93 +551,106 @@ export default function Admin() {
                     {productsLoading ? (
                       <tr>
                         <td colSpan={6} className="text-center py-12">
-                          <div
-                            className="w-6 h-6 border-t animate-spin mx-auto"
-                            style={{
-                              borderColor: GOLD,
-                              borderTopColor: "transparent",
-                              borderRadius: "50%",
-                            }}
-                          />
+                          <div className="w-6 h-6 border-t animate-spin mx-auto" style={{ borderColor: GOLD, borderTopColor: "transparent", borderRadius: "50%" }} />
                         </td>
                       </tr>
                     ) : (
                       (products ?? []).map((p: any) => (
-                        <tr
-                          key={p.id}
-                          className="transition-colors hover:bg-amber-400/[0.02]"
-                          style={{
-                            borderBottom: "1px solid rgba(212,175,55,0.05)",
-                          }}
-                          data-testid={`row-product-${p.id}`}
-                        >
+                        <tr key={p.id} style={{ borderBottom: "1px solid rgba(255,255,255,0.03)" }} className="hover:bg-white/[0.01] transition-colors">
+                          <td className="px-5 py-4 text-sm font-light text-white/[0.85]">{p.name}</td>
+                          <td className="px-5 py-4 text-xs tracking-wide text-white/[0.45] uppercase">{p.category}</td>
+                          <td className="px-5 py-4 text-xs tracking-wide text-white/[0.45] uppercase">{p.subcategory || "—"}</td>
+                          <td className="px-5 py-4 text-sm font-mono text-amber-400 font-medium">${Number(p.price).toLocaleString()}</td>
+                          <td className="px-5 py-4 text-xs font-mono text-white/[0.6]">{p.stockQuantity} u</td>
                           <td className="px-5 py-4">
-                            <div className="flex items-center gap-3">
-                              {p.imageUrl && (
-                                <img
-                                  src={p.imageUrl}
-                                  alt=""
-                                  className="w-9 h-9 object-cover shrink-0"
-                                  style={{ borderRadius: 1 }}
-                                />
-                              )}
-
-                              <span
-                                className="text-sm"
-                                style={{ color: "rgba(255,255,255,0.75)" }}
-                              >
-                                {p.name}
-                              </span>
-                            </div>
-                          </td>
-
-                          <td
-                            className="px-5 py-4 text-xs capitalize"
-                            style={{ color: "rgba(212,175,55,0.55)" }}
-                          >
-                            {p.category}
-                          </td>
-
-                          <td
-                            className="px-5 py-4 text-xs capitalize"
-                            style={{ color: "rgba(212,175,55,0.35)" }}
-                          >
-                            {(p as { subcategory?: string }).subcategory ?? "—"}
-                          </td>
-
-                          <td
-                            className="px-5 py-4 text-sm whitespace-nowrap"
-                            style={{
-                              color: GOLD,
-                              fontFamily: "'Cormorant Garamond', serif",
-                            }}
-                          >
-                            ${(Number(p.price) || 0).toLocaleString()}
-                          </td>
-
-                          <td className="px-5 py-4">
-                            <span
-                              className="text-xs px-2 py-1"
-                              style={{
-                                color: p.inStock ? "#34d399" : "#f87171",
-                                border: `1px solid ${p.inStock ? "#34d399" : "#f87171"}33`,
-                              }}
-                            >
-                              {p.inStock ? "Disponible" : "Agotado"}
-                            </span>
-                          </td>
-
-                          <td className="px-5 py-4">
-                            <button
-                              onClick={() => handleDelete(p.id)}
-                              data-testid={`button-delete-${p.id}`}
-                              className="text-white/20 hover:text-red-400 transition-colors"
-                            >
+                            <button onClick={() => handleDelete(p.id)} className="text-white/[0.3] hover:text-red-400 transition-colors p-1" title="Eliminar Producto">
                               <Trash2 size={14} />
                             </button>
                           </td>
                         </tr>
                       ))
+                    )}
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </motion.div>
+        )}
+
+        {/* ── ORDERS (NUEVA SECCIÓN REPARADA Y COMPLETA) ── */}
+        {activeTab === "orders" && (
+          <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }}>
+            <div className="mb-6">
+              <p className="text-sm" style={{ color: "rgba(255,255,255,0.3)" }}>
+                {orders?.length ?? 0} pedidos en total
+              </p>
+            </div>
+
+            <div className="luxury-card overflow-hidden">
+              <div className="overflow-x-auto">
+                <table className="w-full">
+                  <thead>
+                    <tr style={{ borderBottom: "1px solid rgba(212,175,55,0.1)" }}>
+                      {["ID Orden", "Cliente", "WhatsApp / Celular", "Productos Comprados", "Total", "Estado", "Acciones"].map((h) => (
+                        <th key={h} className="px-5 py-4 text-left text-[10px] tracking-widest uppercase whitespace-nowrap" style={{ color: "rgba(212,175,55,0.5)" }}>
+                          {h}
+                        </th>
+                      ))}
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {ordersLoading ? (
+                      <tr>
+                        <td colSpan={7} className="text-center py-12">
+                          <div className="w-6 h-6 border-t animate-spin mx-auto" style={{ borderColor: GOLD, borderTopColor: "transparent", borderRadius: "50%" }} />
+                        </td>
+                      </tr>
+                    ) : (orders ?? []).length === 0 ? (
+                      <tr>
+                        <td colSpan={7} className="text-center py-12 text-sm text-white/[0.3] tracking-wider">
+                          No hay pedidos registrados en la tienda todavía.
+                        </td>
+                      </tr>
+                    ) : (
+                      (orders ?? []).map((order: any) => {
+                        // Procesar de manera segura los items comprados
+                        let itemsList: any[] = [];
+                        try {
+                          itemsList = typeof order.items === "string" ? JSON.parse(order.items) : order.items || [];
+                        } catch {
+                          itemsList = [];
+                        }
+
+                        return (
+                          <tr key={order.id} style={{ borderBottom: "1px solid rgba(255,255,255,0.03)" }} className="hover:bg-white/[0.01] transition-colors">
+                            <td className="px-5 py-4 text-xs font-mono text-white/[0.4]">#{order.id}</td>
+                            <td className="px-5 py-4 text-sm font-light text-white/[0.85]">
+                              {order.customerName || "Cliente Web"}
+                            </td>
+                            <td className="px-5 py-4 text-sm font-mono text-white/[0.6]">
+                              {order.customerPhone || "—"}
+                            </td>
+                            <td className="px-5 py-4 text-xs max-w-xs">
+                              <div className="space-y-1">
+                                {itemsList.map((item: any, idx: number) => (
+                                  <div key={idx} className="text-white/[0.65] truncate">
+                                    <span className="text-amber-400 font-medium font-mono">{item.quantity}x</span> {item.product?.name || item.name || "Producto"}
+                                  </div>
+                                ))}
+                              </div>
+                            </td>
+                            <td className="px-5 py-4 text-sm font-mono text-amber-400 font-semibold">
+                              ${Number(order.total).toLocaleString()}
+                            </td>
+                            <td className="px-5 py-4">
+                              <StatusDropdown orderId={order.id} current={order.status} />
+                            </td>
+                            <td className="px-5 py-4 text-xs text-white/[0.3]">
+                              {order.createdAt ? new Date(order.createdAt).toLocaleDateString() : "—"}
+                            </td>
+                          </tr>
+                        );
+                      })
                     )}
                   </tbody>
                 </table>
