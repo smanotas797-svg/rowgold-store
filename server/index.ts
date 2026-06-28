@@ -1164,6 +1164,25 @@ rating: 4.9,
 reviewCount: 36,
 
 },
+    {
+name: "Topos Unisex", 
+description: " ",
+price: 120000,
+originalPrice: null,
+category: "aretes",
+subcategory: "plata",
+imageUrl: "https://res.cloudinary.com/dmlpiqian/image/upload/v1782611490/IMG_5196_x6eloe.jpg",
+ images: ["https://res.cloudinary.com/dmlpiqian/image/upload/v1782611490/IMG_5197_jacpwh.jpg"],
+featured: true,
+instock: true,
+stockQuantity: 8,
+material: "Plata Italiana 9.25",
+weight: "",
+collection: "ROWGOLD",
+rating: 5.0,
+reviewCount: 38,
+
+},
   ]);
 
   logger.info("Base de datos sembrada: 12 productos y 6 categorías creados");
