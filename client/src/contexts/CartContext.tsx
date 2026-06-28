@@ -1,4 +1,4 @@
-import { createContext, useContext, useCallback } from "react";
+import { createContext, useContext, useCallback, useEffect, useState } from "react";
 import {
   useGetCart,
   useAddToCart,
@@ -38,7 +38,19 @@ const CartContext = createContext<CartContextValue | null>(null);
 
 export function CartProvider({ children }: { children: React.ReactNode }) {
   const queryClient = useQueryClient();
-  const { data: cart, isLoading } = useGetCart();
+  
+  // Estado para evitar problemas de hidratación en móviles
+  const [isMounted, setIsMounted] = useState(false);
+
+  useEffect(() => {
+    setIsMounted(true);
+  }, []);
+
+  // Pasamos 'enabled: isMounted' para que React Query NO intente buscar 
+  // un carrito en el servidor hasta que el teléfono haya cargado bien el localStorage
+  const { data: cart, isLoading } = useGetCart({
+    enabled: isMounted,
+  } as any); 
 
   const addMutation = useAddToCart();
   const updateMutation = useUpdateCartItem();
@@ -68,7 +80,7 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
   return (
     <CartContext.Provider value={{
       cart,
-      isLoading,
+      isLoading: !isMounted || isLoading,
       addToCart,
       updateQuantity,
       removeItem,
