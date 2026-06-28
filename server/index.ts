@@ -472,8 +472,8 @@ async function seedDatabase() {
       reviewCount: 63,
     },
     {
-      name: "Aretes Cruz",
-      description: "Candongas tipo huggie en plata 925, cierre seguro, brillantes y elegantes para uso diario",
+      name: "Topos Cruz Verde",
+      description: "Topos en cruz, en plata 925 con piedras verdes, fijos y delicados para uso diario",
       price: 50000,
       originalPrice: null,
       category: "aretes",
@@ -482,7 +482,8 @@ async function seedDatabase() {
       featured: true,
       inStock: true,
       stockQuantity: 8,
-      material: "Plata Italiana 9.25",
+      material: "Plata Italiana 9.25
+        Codigo:RG-ARE-001",
       weight: "",
       collection: "ROWGOLD",
       rating: 4.9,
