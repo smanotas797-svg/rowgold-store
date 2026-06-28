@@ -208,7 +208,7 @@ export function useRegister() {
 
 export function useGetFeaturedProducts() {
   return useQuery({
-    queryKey: ["featured-products"],
+    queryKey: getListProductsQueryKey(),
     queryFn: () => apiFetch<Product[]>("/catalog/featured"),
   });
 }
