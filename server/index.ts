@@ -482,7 +482,7 @@ async function seedDatabase() {
       featured: true,
       inStock: true,
       stockQuantity: 8,
-      material: "Plata Italiana 9.25
+      material: "Plata Italiana 9.25",
         Codigo:RG-ARE-001",
       weight: "",
       collection: "ROWGOLD",
