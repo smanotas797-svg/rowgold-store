@@ -54,11 +54,11 @@ export default function Cart() {
     clearCartMutation.mutate();
   };
 
-  // 🔥 REGISTRA LA VENTA EN EL ADMIN Y LUEGO ABRE WHATSAPP (BLINDADO)
+  // 🔥 REGISTRA LA VENTA EN EL ADMIN Y LUEGO ABRE WHATSAPP (BLINDADO PARA MÓVILES)
   const enviarPedidoWhatsApp = () => {
     if (items.length === 0) return;
 
-    // 1. Clonamos y respaldamos de inmediato los datos para evitar que se pierdan si React Query limpia el estado
+    // 1. Clonamos y respaldamos de inmediato los datos para evitar que se pierdan
     const productosRespaldados = [...items];
     const totalRespaldado = cart?.total ?? 0;
 
@@ -87,16 +87,16 @@ export default function Cart() {
 
           const mensajeEncriptado = encodeURIComponent(mensaje);
           
-          // Limpiamos el carrito local en la app
-          clearCartMutation.mutate();
+          // 4. 🔥 PRIMERO redirigimos para evitar bloqueos del navegador móvil por asincronía
+          window.location.href = `https://wa.me/${TELEFONO_DUEÑO}?text=${mensajeEncriptado}`;
           
-          // Abrimos la pestaña de WhatsApp
-          window.open(`https://wa.me/${TELEFONO_DUEÑO}?text=${mensajeEncriptado}`, "_blank");
+          // 5. DESPUÉS limpiamos el carrito local en la app
+          clearCartMutation.mutate();
         },
         onError: (error) => {
           console.error("Error al registrar el pedido en el admin:", error);
           
-          // 🚨 PLAN DE CONTINGENCIA: Si el servidor falla o falta validación, enviamos al cliente a WhatsApp de todos modos
+          // 🚨 PLAN DE CONTINGENCIA: Si el servidor falla, enviamos al cliente a WhatsApp de todos modos
           let mensajeDirecto = `✨ *¡Hola ROWGOLD! Quiero realizar un pedido:* \n\n`;
           productosRespaldados.forEach((item) => {
             mensajeDirecto += `▪️ *${item.product.name}* (x${item.quantity}) \n`;
@@ -105,7 +105,9 @@ export default function Cart() {
           mensajeDirecto += "Nota: No se pudo generar N° de orden automático, coordinemos los detalles por aquí.";
           
           const mensajeEncriptado = encodeURIComponent(mensajeDirecto);
-          window.open(`https://wa.me/${TELEFONO_DUEÑO}?text=${mensajeEncriptado}`, "_blank");
+          
+          // Redirección directa sin limpiar el carrito para que no pierda la selección si quiere reintentar
+          window.location.href = `https://wa.me/${TELEFONO_DUEÑO}?text=${mensajeEncriptado}`;
         }
       }
     );
