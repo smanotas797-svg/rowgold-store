@@ -54,44 +54,58 @@ export default function Cart() {
     clearCartMutation.mutate();
   };
 
-  // 🔥 REGISTRA LA VENTA EN EL ADMIN Y LUEGO ABRE WHATSAPP
+  // 🔥 REGISTRA LA VENTA EN EL ADMIN Y LUEGO ABRE WHATSAPP (BLINDADO)
   const enviarPedidoWhatsApp = () => {
     if (items.length === 0) return;
 
-    // 1. Guardamos la orden en la base de datos a través de la API
+    // 1. Clonamos y respaldamos de inmediato los datos para evitar que se pierdan si React Query limpia el estado
+    const productosRespaldados = [...items];
+    const totalRespaldado = cart?.total ?? 0;
+
+    // 2. Registramos el pedido en la base de datos
     createOrderMutation.mutate(
       {
         data: {
-          shippingAddress: "Pedido realizado por WhatsApp",
-          paymentMethod: "WhatsApp / Coordinar",
+          shippingAddress: "Pendiente - Coordinar por WhatsApp",
+          paymentMethod: "WhatsApp",
         },
       },
       {
         onSuccess: (orderCreated) => {
-          // 2. Una vez guardada con éxito en el Admin, armamos el mensaje usando el ID real generado
+          // 3. Flujo exitoso: Armamos el mensaje usando el ID real generado en el Admin
           let mensaje = `✨ *¡Hola ROWGOLD! Quiero realizar un pedido:* \n`;
-          mensaje += `🆔 *Orden N°:* #${orderCreated.id}\n\n`;
+          mensaje += `🆔 *Orden N°:* #${orderCreated?.id ?? "WhatsApp"}\n\n`;
 
-          items.forEach((item) => {
+          productosRespaldados.forEach((item) => {
             mensaje += `▪️ *${item.product.name}* \n`;
             mensaje += `   Cantidad: ${item.quantity} \n`;
             mensaje += `   Precio: $${(item.product.price * item.quantity).toLocaleString()} COP \n\n`;
           });
 
-          mensaje += `💰 *Total del Pedido:* $${(cart?.total ?? 0).toLocaleString()} COP\n\n`;
+          mensaje += `💰 *Total del Pedido:* $${totalRespaldado.toLocaleString()} COP\n\n`;
           mensaje += "¿Me confirman disponibilidad para coordinar el pago y el envío? ¡Muchas gracias!";
 
           const mensajeEncriptado = encodeURIComponent(mensaje);
           
-          // 3. Abrimos WhatsApp
-          window.open(`https://wa.me/${TELEFONO_DUEÑO}?text=${mensajeEncriptado}`, "_blank");
-
-          // 4. Limpiamos el carrito local ya que el pedido fue procesado
+          // Limpiamos el carrito local en la app
           clearCartMutation.mutate();
+          
+          // Abrimos la pestaña de WhatsApp
+          window.open(`https://wa.me/${TELEFONO_DUEÑO}?text=${mensajeEncriptado}`, "_blank");
         },
         onError: (error) => {
           console.error("Error al registrar el pedido en el admin:", error);
-          alert("Hubo un problema al procesar tu orden. Por favor, intenta nuevamente.");
+          
+          // 🚨 PLAN DE CONTINGENCIA: Si el servidor falla o falta validación, enviamos al cliente a WhatsApp de todos modos
+          let mensajeDirecto = `✨ *¡Hola ROWGOLD! Quiero realizar un pedido:* \n\n`;
+          productosRespaldados.forEach((item) => {
+            mensajeDirecto += `▪️ *${item.product.name}* (x${item.quantity}) \n`;
+          });
+          mensajeDirecto += `\n💰 *Total:* $${totalRespaldado.toLocaleString()} COP\n\n`;
+          mensajeDirecto += "Nota: No se pudo generar N° de orden automático, coordinemos los detalles por aquí.";
+          
+          const mensajeEncriptado = encodeURIComponent(mensajeDirecto);
+          window.open(`https://wa.me/${TELEFONO_DUEÑO}?text=${mensajeEncriptado}`, "_blank");
         }
       }
     );
