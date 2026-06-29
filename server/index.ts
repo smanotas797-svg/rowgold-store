@@ -474,7 +474,7 @@ async function seedDatabase() {
     {
       name: "Topos Cruz Verde",
       description: "Topos en cruz, en plata 925 con piedras verdes, fijos y delicados para uso diario",
-      price: 50000,
+      price: 40000,
       originalPrice: null,
       category: "aretes",
       subcategory: "Plata",
@@ -483,7 +483,7 @@ async function seedDatabase() {
       inStock: true,
       stockQuantity: 8,
       material: "Plata Italiana 9.25",
-        Codigo:"RG-ARE-001",
+      codigo:"RG-ARE-001",
       weight: "",
       collection: "ROWGOLD",
       rating: 4.9,
