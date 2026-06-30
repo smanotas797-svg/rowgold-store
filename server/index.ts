@@ -472,7 +472,7 @@ async function seedDatabase() {
       reviewCount: 63,
     },
     {
-      name: "Topos Cruz Verde",
+      name: "Topos De Cruz",
       description: "Topos de Cruz, en plata 925 con piedras fijas y delicados para uso diario",
       price: 46000,
       originalPrice: null,
