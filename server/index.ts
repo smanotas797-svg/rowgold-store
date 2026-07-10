@@ -86,7 +86,7 @@ async function seedDatabase() {
       inStock: true,
       stockQuantity: 50,
       material: "Plata Italiana 925",
-      weight: "",
+      weight: " ",
       collection: "Clásica",
       rating: 4.7,
       reviewCount: 22
@@ -121,7 +121,7 @@ async function seedDatabase() {
       stockQuantity: 70,
       material: "Oro 18K",
       weight: "",
-      collection: "ROWGOLD",
+      collection: "",
       rating: 5.0,
       reviewCount: 27,
     },
