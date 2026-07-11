@@ -87,7 +87,7 @@ async function seedDatabase() {
       stockQuantity: 50,
       material: "Plata Italiana 925",
       weight: " ",
-      collection: "Clásica",
+      collection: "ROWGLD",
       rating: 4.7,
       reviewCount: 22
     },
