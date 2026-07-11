@@ -74,23 +74,7 @@ async function seedDatabase() {
       rating: 5.0,
       reviewCount: 45,
     },
-    {
-      name: "Pulsera Mariposa",
-      description: "Pulsera para Dama con un hermoso dije central de mariposa, incluye cadena ajustable para adaptarse perfectamente a cualquier muñeca.",
-      price: 55000,
-      originalPrice: null,
-      category: "pulseras",
-      subcategory: "plata",
-      imageUrl: "https://res.cloudinary.com/dmlpiqian/image/upload/v1780093941/52A737CB-571C-4DC0-B211-45990B43A0E5_ppbyzx.jpg",
-      featured: false,
-      inStock: true,
-      stockQuantity: 50,
-      material: "Plata Italiana 925",
-      weight: " ",
-      collection: "ROWGOLD",
-      rating: 4.7,
-      reviewCount: 22
-    },
+    
     {
       name: "Collar de Tréboles Verdes",
       description: "Este diseño clásico intercala tréboles de cuatro hojas verdes",
@@ -1202,6 +1186,23 @@ rating: 5.0,
 reviewCount: 38,
 
 },
+    {
+      name: "Pulsera Mariposa",
+      description: "Pulsera para Dama con un hermoso dije central de mariposa, incluye cadena ajustable para adaptarse perfectamente a cualquier muñeca.",
+      price: 55000,
+      originalPrice: null,
+      category: "pulseras",
+      subcategory: "plata",
+      imageUrl: "https://res.cloudinary.com/dmlpiqian/image/upload/v1780093941/52A737CB-571C-4DC0-B211-45990B43A0E5_ppbyzx.jpg",
+      featured: false,
+      inStock: true,
+      stockQuantity: 50,
+      material: "Plata Italiana 925",
+      weight: " ",
+      collection: "ROWGOLD",
+      rating: 4.7,
+      reviewCount: 22
+    },
   ]);
 
   logger.info("Base de datos sembrada: 12 productos y 6 categorías creados");
