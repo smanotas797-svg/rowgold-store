@@ -1187,7 +1187,7 @@ reviewCount: 38,
      {
 name: "Serene Heart", 
 description: "Plata pura. Azul magnético. Corazones que inspiran. Descubre una joya diseñada para perdurar, donde el romance de sus formas se encuentra con el lujo de los detalles. Un tributo a la feminidad y al brillo auténtico. ",
-price: 43000,
+price: 570000,
 originalPrice: null,
 category: "pulsera",
 subcategory: "plata",
