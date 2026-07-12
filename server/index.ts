@@ -122,7 +122,7 @@ async function seedDatabase() {
       stockQuantity: 70,
       material: "Plata Italiana 9.25",
       weight: "",
-      collection: "ROWGOLD",
+      collection: "",
       rating: 4.7,
       reviewCount: 22,
     },
