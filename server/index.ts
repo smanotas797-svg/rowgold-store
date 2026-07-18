@@ -409,7 +409,7 @@ async function seedDatabase() {
     {
       name: "Aretes Colibri",
       description: "Aretes en Plata 925 con forma de colibri en vuelo. Cuerpo en circonis verde y alas pave  con brillo, y sutiles femeninos",
-      price: 48000,
+      price: 74000,
       originalPrice: null,
       category: "aretes",
       subcategory: "Plata",
