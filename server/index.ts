@@ -131,7 +131,7 @@ async function seedDatabase() {
       name: "Pulsera Rope Chain",
       description: "Pulsera clásica de cadena de cuerda Unisex en plata Italiana 925. Su diseño entrelazado captura la luz desde cualquier ángulo, aportando un brillo elegante",
       price: 120000,
-      originalPrice: ,
+      originalPrice: null,
       category: "pulseras",
       subcategory: "oro",
       imageUrl: "https://res.cloudinary.com/dmlpiqian/image/upload/v1780093898/099FD742-D45A-4665-86B3-D62B19C23860_xfqbzy.jpg",
