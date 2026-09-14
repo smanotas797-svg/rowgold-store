@@ -1259,7 +1259,7 @@ reviewCount: 38,
 
 }, 
      {
-name: "Petal Lux", 
+name: "Pulsera Tennis", 
 description: "Plata Italiana de Ley 925, esta pulsera estilo tennis Unisex engasta una deslumbrante sucesión de circonias en tono verde, seleccionadas por su brillo sublime y profundidad de color.",
 price:143000,
 originalPrice: null,
@@ -1274,6 +1274,24 @@ weight: "",
 collection: "",
 rating: 5.0,
 reviewCount: 38,
+
+}, 
+   {
+name: "Pulsera Tennis", 
+description: "Creada en Plata Italiana Ley 925, esta pulsera tennis integra una secuencia ininterrumpida de circonias cristalinas seleccionadas por su brillo extraordinario. Un diseño unisex de caída fluida y elegancia atemporal, terminado con un broche de alta seguridad para acompañar cada momento con distinción impecable. ",
+price:330000,
+originalPrice: null,
+category: "pulsera",
+subcategory: "plata",
+imageUrl: "https://res.cloudinary.com/dmlpiqian/image/upload/v1789357028/IMG_8076_niepml.jpg",
+featured: true,
+instock: true,
+stockQuantity: 98,
+material: "Plata Italiana 9.25",
+weight: "",
+collection: "",
+rating: 5.0,
+reviewCount: 78,
 
 }, 
   
