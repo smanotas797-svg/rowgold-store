@@ -1294,6 +1294,24 @@ rating: 5.0,
 reviewCount: 78,
 
 }, 
+     {
+name: "Pulsera Tennis", 
+description: "Plata Italiana de Ley 925, esta pulsera estilo tennis Unisex engasta una deslumbrante sucesión de circonias en tono verde, seleccionadas por su brillo sublime y profundidad de color.",
+price:330000,
+originalPrice: null,
+category: "pulsera",
+subcategory: "plata",
+imageUrl: " https://res.cloudinary.com/dmlpiqian/image/upload/v1789360191/IMG_8079_yhtysl.jpg",
+featured: true,
+instock: true,
+stockQuantity: 98,
+material: "Plata Italiana 9.25",
+weight: "",
+collection: "",
+rating: 5.0,
+reviewCount: 38,
+
+}, 
   
   ]);
 
