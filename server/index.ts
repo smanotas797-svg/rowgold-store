@@ -1258,6 +1258,24 @@ rating: 4.9,
 reviewCount: 38,
 
 }, 
+     {
+name: "Petal Lux", 
+description: "Plata Italiana de Ley 925, esta pulsera estilo tennis Unisex engasta una deslumbrante sucesión de circonias en tono verde, seleccionadas por su brillo sublime y profundidad de color.",
+price:143000,
+originalPrice: null,
+category: "pulsera",
+subcategory: "plata",
+imageUrl: " https://res.cloudinary.com/dmlpiqian/image/upload/v1789357028/IMG_8075_ccz2vr.jpg",
+featured: true,
+instock: true,
+stockQuantity: 98,
+material: "Plata Italiana 9.25",
+weight: "",
+collection: "",
+rating: 5.0,
+reviewCount: 38,
+
+}, 
   
   ]);
 
