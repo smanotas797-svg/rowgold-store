@@ -8,7 +8,7 @@ import { useAuth } from "@/contexts/AuthContext";
 import rowgoldLogo from "@assets/WhatsApp_Image_2026-05-14_at_9.43.54_PM_1778817269857.jpeg";
 
 const INSTAGRAM_URL = "https://www.instagram.com/rowgoldjoyeria?utm_source=qr";
-const WHATSAPP_URL = "https://wa.me/573213195879";
+const WHATSAPP_URL = "https://wa.me/573171339128";
 const GOLD = "#d4af37";
 
 type NavChild = { href: string; label: string };
