@@ -3,7 +3,7 @@ import { useState } from "react";
 import { SiInstagram, SiWhatsapp } from "react-icons/si";
 
 const INSTAGRAM_URL = "https://www.instagram.com/rowgold.accesorios?igsh=MTl4bDFuYzF1bmlvaQ==";
-const WHATSAPP_URL = "https://wa.me/573213195879";
+const WHATSAPP_URL = "https://wa.me/573171339128";
 const GOLD = "#d4af37";
 
 export default function SocialFloatingButtons() {
